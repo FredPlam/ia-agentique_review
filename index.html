@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infrastructure de l'IA agentique — Cartographie des définitions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0d0f;
+  --bg2: #13151a;
+  --bg3: #1a1d24;
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.14);
+  --text: #e8e6df;
+  --text2: #8a8880;
+  --text3: #5a5855;
+  --purple: #9b8ff5;
+  --purple-dim: rgba(155,143,245,0.12);
+  --teal: #4ecda4;
+  --teal-dim: rgba(78,205,164,0.12);
+  --amber: #e8a43a;
+  --amber-dim: rgba(232,164,58,0.12);
+  --coral: #e86b5f;
+  --coral-dim: rgba(232,107,95,0.12);
+  --blue: #5ba3e8;
+  --blue-dim: rgba(91,163,232,0.12);
+  --green: #6dbf67;
+  --green-dim: rgba(109,191,103,0.12);
+  --gray-dim: rgba(255,255,255,0.05);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── HEADER ── */
+header {
+  padding: 72px 48px 56px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: -120px; right: -80px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(155,143,245,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 18px;
+}
+
+h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(32px, 5vw, 58px);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--text);
+  max-width: 740px;
+  margin-bottom: 20px;
+}
+
+h1 em {
+  font-style: italic;
+  color: var(--purple);
+}
+
+.subtitle {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text2);
+  max-width: 600px;
+  line-height: 1.7;
+}
+
+/* ── NAV ── */
+nav {
+  display: flex;
+  gap: 0;
+  padding: 0 48px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: rgba(12,13,15,0.96);
+  backdrop-filter: blur(12px);
+  z-index: 100;
+}
+
+nav a {
+  font-family: 'DM Mono', monospace;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text3);
+  text-decoration: none;
+  padding: 16px 20px;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+}
+
+nav a:hover, nav a.active {
+  color: var(--text);
+  border-bottom-color: var(--purple);
+}
+
+/* ── MAIN ── */
+main { padding: 0 48px; }
+
+section {
+  padding: 64px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── TIMELINE ── */
+.timeline {
+  position: relative;
+}
+
+.period-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 24px;
+  margin-top: 48px;
+}
+
+.period-header:first-child { margin-top: 0; }
+
+.period-year {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px;
+  color: var(--text3);
+  white-space: nowrap;
+}
+
+.period-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text3);
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px 24px;
+  transition: border-color .2s, background .2s, transform .15s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  border-color: var(--border2);
+  background: var(--bg3);
+  transform: translateY(-2px);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  opacity: 0;
+  transition: opacity .2s;
+}
+
+.card:hover::before { opacity: 1; }
+
+.card.acad::before { background: var(--purple); }
+.card.ind::before  { background: var(--teal); }
+.card.grey::before { background: var(--amber); }
+.card.gouv::before { background: var(--coral); }
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.card-year {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text3);
+}
+
+.badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: .06em;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.badge.acad { background: rgba(155,143,245,.15); color: var(--purple); }
+.badge.ind  { background: rgba(78,205,164,.15);  color: var(--teal); }
+.badge.grey { background: rgba(232,164,58,.15);  color: var(--amber); }
+.badge.gouv { background: rgba(232,107,95,.15);  color: var(--coral); }
+
+.card-source {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.card-ref {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text2);
+  margin-bottom: 12px;
+  font-style: italic;
+}
+
+.card-def {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+
+.crit-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.crit {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  border: 1px solid var(--border2);
+  color: var(--text3);
+}
+
+.infra-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+}
+
+.infra-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.infra-dot.yes  { background: var(--green); }
+.infra-dot.part { background: var(--amber); }
+.infra-dot.no   { background: var(--text3); }
+
+/* ── INFRA SCHEMA ── */
+.infra-schema {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+}
+
+.layer {
+  border-radius: 10px;
+  padding: 18px 24px;
+  border: 1px solid var(--border);
+  transition: border-color .2s;
+  cursor: pointer;
+  position: relative;
+}
+
+.layer:hover { border-color: var(--border2); }
+
+.layer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.layer-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.layer-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+}
+
+.layer-desc {
+  font-family: 'DM Mono', monospace;
+  font-size: 11.5px;
+  color: var(--text2);
+  margin-bottom: 10px;
+}
+
+.layer-refs {
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  color: var(--text3);
+  line-height: 1.6;
+}
+
+.layer-refs span {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.layer.l0 { background: var(--gray-dim); border-color: rgba(255,255,255,0.1); }
+.layer.l1 { background: var(--purple-dim); border-color: rgba(155,143,245,.2); }
+.layer.l2 { background: var(--teal-dim); border-color: rgba(78,205,164,.2); }
+.layer.l3 { background: var(--blue-dim); border-color: rgba(91,163,232,.2); }
+.layer.l4 { background: var(--amber-dim); border-color: rgba(232,164,58,.2); }
+.layer.l5 { background: var(--coral-dim); border-color: rgba(232,107,95,.2); }
+.layer.l6 { background: var(--green-dim); border-color: rgba(109,191,103,.2); }
+
+.layer.l0 .layer-name { color: var(--text); }
+.layer.l1 .layer-name { color: var(--purple); }
+.layer.l2 .layer-name { color: var(--teal); }
+.layer.l3 .layer-name { color: var(--blue); }
+.layer.l4 .layer-name { color: var(--amber); }
+.layer.l5 .layer-name { color: var(--coral); }
+.layer.l6 .layer-name { color: var(--green); }
+
+.connector {
+  width: 1px;
+  height: 20px;
+  background: var(--border2);
+  margin: 0 auto;
+  position: relative;
+}
+
+.connector::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid var(--border2);
+}
+
+.sublayers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.sublayer {
+  background: rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 7px;
+  padding: 10px 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+}
+
+.sublayer-name {
+  font-weight: 500;
+  color: var(--blue);
+  margin-bottom: 3px;
+}
+
+.sublayer-desc {
+  color: var(--text3);
+  font-size: 10px;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.tool-chip {
+  background: rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 7px;
+  padding: 8px 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-align: center;
+}
+
+.tool-chip-name { font-weight: 500; color: var(--amber); margin-bottom: 2px; }
+.tool-chip-ex { color: var(--text3); }
+
+.hitl-arrow {
+  position: absolute;
+  left: -36px;
+  top: 0; bottom: 0;
+  width: 28px;
+  border: 1px dashed var(--border2);
+  border-right: none;
+  border-radius: 6px 0 0 6px;
+  pointer-events: none;
+}
+
+/* ── ACRONYMS ── */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: .06em;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--text3);
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.filter-btn:hover, .filter-btn.active {
+  background: var(--purple-dim);
+  border-color: var(--purple);
+  color: var(--purple);
+}
+
+.filter-btn.active.cat-arch  { background: var(--purple-dim); border-color: var(--purple); color: var(--purple); }
+.filter-btn.active.cat-mem   { background: var(--blue-dim);   border-color: var(--blue);   color: var(--blue); }
+.filter-btn.active.cat-bench { background: var(--amber-dim);  border-color: var(--amber);  color: var(--amber); }
+.filter-btn.active.cat-calc  { background: var(--coral-dim);  border-color: var(--coral);  color: var(--coral); }
+
+.acronym-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 12px;
+}
+
+.acro-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+  transition: all .2s;
+}
+
+.acro-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-1px);
+}
+
+.acro-card[data-cat="arch"]  { border-left: 3px solid rgba(155,143,245,.4); }
+.acro-card[data-cat="mem"]   { border-left: 3px solid rgba(91,163,232,.4); }
+.acro-card[data-cat="bench"] { border-left: 3px solid rgba(232,164,58,.4); }
+.acro-card[data-cat="calc"]  { border-left: 3px solid rgba(232,107,95,.4); }
+
+.acro-card.hidden { display: none; }
+
+.acro-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.acro-abbr {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px;
+  color: var(--text);
+  line-height: 1;
+}
+
+.acro-cat-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.acro-cat-badge.arch  { background: var(--purple-dim); color: var(--purple); }
+.acro-cat-badge.mem   { background: var(--blue-dim);   color: var(--blue); }
+.acro-cat-badge.bench { background: var(--amber-dim);  color: var(--amber); }
+.acro-cat-badge.calc  { background: var(--coral-dim);  color: var(--coral); }
+
+.acro-full {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text3);
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.acro-def {
+  font-size: 12.5px;
+  color: var(--text2);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.acro-refs {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  line-height: 1.7;
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+  margin-top: 4px;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 40px 48px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text3);
+  line-height: 1.6;
+  max-width: 560px;
+}
+
+.footer-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .12em;
+  color: var(--text3);
+  text-transform: uppercase;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in { animation: fadeUp .5s ease both; }
+.fade-in:nth-child(1)  { animation-delay: .05s; }
+.fade-in:nth-child(2)  { animation-delay: .10s; }
+.fade-in:nth-child(3)  { animation-delay: .15s; }
+.fade-in:nth-child(4)  { animation-delay: .20s; }
+.fade-in:nth-child(5)  { animation-delay: .25s; }
+.fade-in:nth-child(6)  { animation-delay: .30s; }
+.fade-in:nth-child(7)  { animation-delay: .35s; }
+.fade-in:nth-child(8)  { animation-delay: .40s; }
+.fade-in:nth-child(9)  { animation-delay: .45s; }
+.fade-in:nth-child(10) { animation-delay: .50s; }
+
+/* responsive */
+@media (max-width: 768px) {
+  header, main, footer { padding-left: 24px; padding-right: 24px; }
+  nav { padding: 0 24px; overflow-x: auto; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .sublayers { grid-template-columns: repeat(2, 1fr); }
+  .tools-grid { grid-template-columns: repeat(2, 1fr); }
+  .acronym-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Revue de portée — IA agentique · Benchmarks comme pratique sociale</div>
+  <h1>Infrastructure de l'<em>IA agentique</em> — Cartographie des définitions</h1>
+  <p class="subtitle">Synthèse de l'évolution conceptuelle (1995–2026) · Sources académiques, industrielles, institutionnelles et grises</p>
+</header>
+
+<nav>
+  <a href="#timeline" class="active">Chronologie</a>
+  <a href="#infrastructure">Infrastructure</a>
+  <a href="#acronymes">Acronymes</a>
+</nav>
+
+<main>
+
+<!-- ══════════════ TIMELINE ══════════════ -->
+<section id="timeline">
+  <div class="section-label">01 — Évolution des définitions</div>
+
+  <div class="timeline">
+
+    <!-- Période 1 -->
+    <div class="period-header">
+      <span class="period-year">1990–2010</span>
+      <span class="period-title">IA symbolique et agents BDI</span>
+    </div>
+    <div class="cards-grid">
+
+      <div class="card acad fade-in">
+        <div class="card-meta">
+          <span class="card-year">1995</span>
+          <span class="badge acad">Acad.</span>
+        </div>
+        <div class="card-source">Russell &amp; Norvig</div>
+        <div class="card-ref">Artificial Intelligence: A Modern Approach</div>
+        <div class="card-def">Un agent perçoit son environnement via des capteurs et agit sur lui via des actionneurs. La rationalité est définie par la maximisation d'une mesure de performance (cadre PEAS).</div>
+        <div class="crit-list">
+          <span class="crit">Perception</span>
+          <span class="crit">Action</span>
+          <span class="crit">Rationalité</span>
+          <span class="crit">Boucle PEAS</span>
+        </div>
+        <div class="infra-tag">
+          <span class="infra-dot part"></span>
+          Partielle — capteurs/actionneurs abstraits, pas d'infra computationnelle
+        </div>
+      </div>
+
+      <div class="card acad fade-in">
+        <div class="card-meta">
+          <span class="card-year">1995</span>
+          <span class="badge acad">Acad.</span>
+        </div>
+        <div class="card-source">Wooldridge &amp; Jennings</div>
+        <div class="card-ref">Intelligent Agents (ECAI)</div>
+        <div class="card-def">Distinction weak sense (autonomie, réactivité, proactivité, socialité) vs strong sense (intentionnalité BDI). Formalisation des protocoles de communication inter-agents (KQML, FIPA).</div>
+        <div class="crit-list">
+          <span class="crit">Autonomie</span>
+          <span class="crit">Réactivité</span>
+          <span class="crit">Proactivité</span>
+          <span class="crit">Socialité</span>
+        </div>
+        <div class="infra-tag">
+          <span class="infra-dot yes"></span>
+          Oui — protocoles inter-agents (KQML, FIPA) comme infrastructure
+        </div>
+      </div>
+
+      <div class="card acad fade-in">
+        <div class="card-meta">
+          <span class="card-year">1997</span>
+          <span class="badge acad">Acad.</span>
+        </div>
+        <div class="card-source">Franklin &amp; Graesser</div>
+        <div class="card-ref">Is it an agent, or just a program? (ATAL)</div>
+        <div class="card-def">Taxonomie hiérarchique : programme → agent → agent autonome → agent intentionnel. Critère discriminant : capacité d'initiative sans stimulus externe.</div>
+        <div class="crit-list">
+          <span class="crit">Initiative</span>
+          <span class="crit">Continuité temporelle</span>
+          <span class="crit">Intentionnalité</span>
+        </div>
+        <div class="infra-tag">
+          <span class="infra-dot no"></span>
+          Non — cadre conceptuel pur
+        </div>
+      </div>
+
+      <div class="card acad fade-in">
+        <div class="card-meta">
+          <span class="card-year">2003</span>
+          <span class="badge acad">Acad.</span>
+        </div>
+        <div class="card-source">Bratman / BDI</div>
+        <div class="card-ref">Intentions, Plans, and Practical Reason</div>
+        <div class="card-def">L'agentivité comme planification délibérative : formation d'intentions, maintien dans le temps, révision face aux obstacles. Base philosophique du modèle BDI.</div>
+        <div class="crit-list">
+          <span class="crit">Croyances</span>
+          <span class="crit">Désirs</span>
+          <span class="crit">Intentions</span>
+          <span class="crit">Planification</span>
+        </div>
+        <div class="infra-tag">
+          <span class="infra-dot no"></span>
+          Non — philosophie de l'action, aucune référence computationnelle
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Période 2 -->
+    <div class="period-header">
+      <span class="period-year">2010–2022</span>
+      <span class="period-title">Apprentissage, RL et émergence des LLM</span>
+    </div>
+    <div class="cards-grid">
+
+      <div class="card acad fade-in">
+        <div class="card-meta">
+          <span class="card-year">2015</span>
+          <span class="badge acad">Acad.</span>
+        </div>
+        <div class="card-source">Silver et al.</div>
+        <div class="card-ref">Human-level control through DRL (Nature)</div>
+        <div class="card-def">Agent DQN apprenant une politique optimale par interaction. Déplacement du critère de l'intentionnalité vers la performance de tâche ; environnement simulé (Atari).</div>
+        <div class="crit-list">
+          <span class="crit">RL</span>
+          <span class="crit">Performance</span>
+          <span class="crit">Sans supervision</span>
+        </div>
+        <div class="infra-tag">
+          <span class="infra-dot yes"></span>
+          Oui — GPU, replay buffer, environnement simulé
+        </div>
+      </div>
+
+      <div class="card acad fade-in">
+        <div class="card-meta">
+          <span class="card-year">2018</span>
+          <span class="badge acad">Acad.</span>
+        </div>
+        <div class="card-source">Leike et al. / DeepMind</div>
+        <div class="card-ref">AI Safety Gridworlds (arXiv)</div>
+        <div class="card-def">Introduction de la sécurité comme dimension de l'agentivité : interruption sûre, effets secondaires, non-récompense falsifiée. L'agent «aligné» comme nouvelle catégorie normative.</div>
+        <div class="crit-list">
+          <span class="crit">Interruptibilité</span>
+          <span class="crit">Alignement</span>
+          <span class="crit">Robustesse</span>
+        </div>
+        <div class="infra-tag">
+          <span class="infra-dot part"></span>
+          Partielle — grilles d'évaluation minimalistes
+        </div>
+      </div>
+
+      <div class="card acad fade-in">
+        <div class="card-meta">
+          <span class="card-year">2021</span>
+          <span class="badge acad">Acad.</span>
+        </div>
+        <div class="card-source">Bommasani et al.</div>
+        <div class="card-ref">On the Opportunities and Risks of Foundation Models (Stanford)</div>
+        <div class="card-def">Les foundation models comme couche d'adaptation. L'agentivité n'est plus architecturale mais émergente selon le déploiement. Risques systémiques de centralisation cloud discutés.</div>
+        <div class="crit-list">
+          <span class="crit">Adaptation</span>
+          <span class="crit">Généralité</span>
+          <span class="crit">Émergence contextuelle</span>
+        </div>
+        <div class="infra-tag">
+          <span class="infra-dot yes"></span>
+          Oui — cloud, API, centralisation GPU, chaînes d'approvisionnement
+        </div>
+      </div>
+
+      <div class="card acad fade-in">
+        <div class="card-meta">
+          <span class="card-year">2022</span>
+          <span class="badge acad">Acad.</span>
+        </div>
+        <div class="card-source">Yao et al.</div>
+        <div class="card-ref">ReAct: Synergizing Reasoning and Acting (arXiv → ICLR 2023)</div>
+        <div class="card-def">Paradigme ReAct : alternance raisonnement en langage naturel / action sur outils externes. L'agentivité devient une boucle Reason → Act → Observe itérable, sans BDI.</div>
+        <div class="crit-list">
+          <span class="crit">Raisonnement</span>
+          <span class="crit">Appel d'outils</span>
+          <span class="crit">Observation</span>
+          <span class="crit">Itération</span>
+        </div>
+        <div class="infra-tag">
+          <span class="infra-dot yes"></span>
+          Oui — APIs web, appels HTTP comme infrastructure d'action
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Période 3a : académiques/industrielles -->
+    <div class="period-header">
+      <span class="period-year">2023–2026</span>
+      <span class="period-title">Ère LLM agentique — sources académiques &amp; industrielles</span>
+    </div>
+    <div class="cards-grid">
+
+      <div class="card acad fade-in">
+        <div class="card-meta">
+          <span class="card-year">2023</span>
+          <span class="badge acad">Acad.</span>
+        </div>
+        <div class="card-source">Wang et al.</div>
+        <div class="card-ref">Survey on LLM-based Autonomous Agents (arXiv)</div>
+        <div class="card-def">Cadre en quatre composantes : profil (rôle), mémoire, planification, action. Taxonomie de la mémoire à quatre niveaux (in-context, externe/RAG, paramétrique, inter-sessionnelle).</div>
+        <div class="crit-list">
+          <span class="crit">Profil/rôle</span>
+          <span class="crit">Mémoire ×4</span>
+          <span class="crit">Planification</span>
+          <span class="crit">Décomposition</span>
+        </div>
+        <div class="infra-tag">
+          <span class="infra-dot yes"></span>
+          Oui — taxonomie mémoire, outils, environnements de simulation
+        </div>
+      </div>
+
+      <div class="card ind fade-in">
+        <div class="card-meta">
+          <span class="card-year">2023</span>
+          <span class="badge ind">Ind.</span>
+        </div>
+        <div class="card-source">OpenAI</div>
+        <div class="card-ref">GPT-4 Technical Report + Function Calling doc.</div>
+        <div class="card-def">Agentivité opérationnalisée via function calling : le modèle décide quand et comment appeler des fonctions. Définition purement fonctionnelle-instrumentale, sans intentionnalité.</div>
+        <div class="crit-list">
+          <span class="crit">Appel de fonctions</span>
+          <span class="crit">Décision d'outil</span>
+          <span class="crit">Définition instrumentale</span>
+        </div>
+        <div class="infra-tag">
+          <span class="infra-dot yes"></span>
+          Oui — JSON schema, API REST, Plugins Marketplace
+        </div>
+      </div>
+
+      <div class="card ind fade-in">
+        <div class="card-meta">
+          <span class="card-year">2024</span>
+          <span class="badge ind">Ind.</span>
+        </div>
+        <div class="card-source">Anthropic</div>
+        <div class="card-ref">Model Spec + Building Effective Agents (blog)</div>
+        <div class="card-def">Agent = LLM orchestrant sous-agents et outils sur plusieurs étapes. Supervision humaine résiduelle (HITL) intégrée à la définition comme critère de sécurité inséparable.</div>
+        <div class="crit-list">
+          <span class="crit">Orchestration</span>
+          <span class="crit">Multi-étapes</span>
+          <span class="crit">Supervision HITL</span>
+          <span class="crit">Sécurité intégrée</span>
+        </div>
+        <div class="infra-tag">
+          <span class="infra-dot yes"></span>
+          Oui — orchestrateur/sous-agents, Computer Use API, mémoire externe
+        </div>
+      </div>
+
+      <div class="card acad fade-in">
+        <div class="card-meta">
+          <span class="card-year">2024</span>
+          <span class="badge acad">Acad.</span>
+        </div>
+        <div class="card-source">Kapoor et al.</div>
+        <div class="card-ref">AI Agents That Matter (arXiv)</div>
+        <div class="card-def">Critique des benchmarks agentiques : optimisation du taux de succès sans contrôle des coûts. Propose un critère performance/coût dans environnements ouverts.</div>
+        <div class="crit-list">
+          <span class="crit">Ratio perf/coût</span>
+          <span class="crit">Environnement ouvert</span>
+          <span class="crit">Critique benchmarks</span>
+        </div>
+        <div class="infra-tag">
+          <span class="infra-dot yes"></span>
+          Oui — coût de tokens, latence, SWE-bench, WebArena
+        </div>
+      </div>
+
+      <div class="card grey fade-in">
+        <div class="card-meta">
+          <span class="card-year">2025</span>
+          <span class="badge grey">Prépub.</span>
+        </div>
+        <div class="card-source">Chollet et al.</div>
+        <div class="card-ref">ARC-AGI-2 (arXiv + ARC Prize blog)</div>
+        <div class="card-def">Agentivité mesurée par généralisation à de nouvelles tâches. Distinction skill (mémorisé) / intelligence (adaptatif). La nouveauté comme marqueur agentique central.</div>
+        <div class="crit-list">
+          <span class="crit">Généralisation</span>
+          <span class="crit">Nouveauté</span>
+          <span class="crit">Efficience d'apprentissage</span>
+        </div>
+        <div class="infra-tag">
+          <span class="infra-dot part"></span>
+          Partielle — benchmark d'évaluation standardisé, pas d'infra déploiement
+        </div>
+      </div>
+
+      <div class="card grey fade-in">
+        <div class="card-meta">
+          <span class="card-year">2025–26</span>
+          <span class="badge grey">Blog</span>
+        </div>
+        <div class="card-source">Blogosphère ML</div>
+        <div class="card-ref">Karpathy, Weng (Lil'Log), Willison, Ng</div>
+        <div class="card-def">LLM en boucle + outils + mémoire persistante. L'agentivité comme gradient («agentic spectrum»), pas propriété binaire. Frameworks nommés explicitement.</div>
+        <div class="crit-list">
+          <span class="crit">LLM en boucle</span>
+          <span class="crit">Mémoire persistante</span>
+          <span class="crit">Gradient d'agentivité</span>
+        </div>
+        <div class="infra-tag">
+          <span class="infra-dot yes"></span>
+          Oui — Pinecone, Chroma, LangChain, AutoGPT, sandboxes
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Période 3b : institutionnelles -->
+    <div class="period-header">
+      <span class="period-year">2023–2026</span>
+      <span class="period-title">Sources institutionnelles et gouvernementales</span>
+    </div>
+    <div class="cards-grid">
+
+      <div class="card gouv fade-in">
+        <div class="card-meta">
+          <span class="card-year">2023</span>
+          <span class="badge gouv">Gouv.</span>
+        </div>
+        <div class="card-source">OCDE</div>
+        <div class="card-ref">Mise à jour définition IA (Recommandation révisée)</div>
+        <div class="card-def">Système d'IA : machine qui, pour des objectifs donnés, produit prédictions, recommandations ou décisions influençant des environnements réels ou virtuels. Agentivité implicite via l'influence environnementale.</div>
+        <div class="crit-list">
+          <span class="crit">Influence environnement</span>
+          <span class="crit">Objectifs donnés</span>
+          <span class="crit">Décisions/recommandations</span>
+        </div>
+        <div class="infra-tag">
+          <span class="infra-dot part"></span>
+          Partielle — environnements réels/virtuels, pas de détail technique
+        </div>
+      </div>
+
+      <div class="card gouv fade-in">
+        <div class="card-meta">
+          <span class="card-year">2024</span>
+          <span class="badge gouv">Gouv.</span>
+        </div>
+        <div class="card-source">Commission européenne</div>
+        <div class="card-ref">AI Act — Art. 3, Recital 12, lignes dir. GPAI</div>
+        <div class="card-def">Agentique = autonomie d'inférence + effets monde réel sans intervention continue. Les GPAI dépassant 10²⁵ FLOP font l'objet d'obligations renforcées.</div>
+        <div class="crit-list">
+          <span class="crit">Autonomie d'inférence</span>
+          <span class="crit">Effets monde réel</span>
+          <span class="crit">Absence contrôle continu</span>
+          <span class="crit">10²⁵ FLOP</span>
+        </div>
+        <div class="infra-tag">
+          <span class="infra-dot part"></span>
+          Partielle — chaînes de valeur, infrastructure critique comme contexte à haut risque
+        </div>
+      </div>
+
+      <div class="card gouv fade-in">
+        <div class="card-meta">
+          <span class="card-year">2024</span>
+          <span class="badge gouv">Gouv.</span>
+        </div>
+        <div class="card-source">UNESCO</div>
+        <div class="card-ref">Recommendation on the Ethics of AI + RAM (2024)</div>
+        <div class="card-def">Agentivité opérationnalisée via le cadre RAM (5 dimensions). Systèmes «autonomes» = agissant sans décision humaine à chaque étape. L'infra numérique comme pré-condition éthique.</div>
+        <div class="crit-list">
+          <span class="crit">Autonomie décisionnelle</span>
+          <span class="crit">Gouvernance</span>
+          <span class="crit">Éthique intégrée</span>
+          <span class="crit">Évaluation nationale</span>
+        </div>
+        <div class="infra-tag">
+          <span class="infra-dot yes"></span>
+          Oui — infrastructure numérique comme dimension RAM explicite
+        </div>
+      </div>
+
+      <div class="card gouv fade-in">
+        <div class="card-meta">
+          <span class="card-year">2024</span>
+          <span class="badge gouv">Gouv.</span>
+        </div>
+        <div class="card-source">NIST (É.-U.)</div>
+        <div class="card-ref">AI RMF Playbook + Agentic AI Profile (draft)</div>
+        <div class="card-def">Agent IA = séquences d'actions complexes avec supervision minimale. Risques spécifiques : persistance des actions, opacité de la chaîne d'action, difficultés d'audit.</div>
+        <div class="crit-list">
+          <span class="crit">Séquences d'actions</span>
+          <span class="crit">Supervision minimale</span>
+          <span class="crit">Persistance</span>
+          <span class="crit">Auditabilité</span>
+        </div>
+        <div class="infra-tag">
+          <span class="infra-dot yes"></span>
+          Oui — chaînes d'outils, logs d'audit, sandboxes, interfaces H-M
+        </div>
+      </div>
+
+      <div class="card gouv fade-in">
+        <div class="card-meta">
+          <span class="card-year">2024</span>
+          <span class="badge gouv">Gouv.</span>
+        </div>
+        <div class="card-source">Gouvernement du Canada</div>
+        <div class="card-ref">Directive sur la prise de décisions automatisée + Livre blanc IA générative (SCT)</div>
+        <div class="card-def">Niveaux I–IV d'automatisation. Niveau IV = décision entièrement automatisée sans révision humaine. Les agents constituent une catégorie émergente requérant des garde-fous procéduraux.</div>
+        <div class="crit-list">
+          <span class="crit">Niveau d'automatisation</span>
+          <span class="crit">Décision finale</span>
+          <span class="crit">Révision humaine</span>
+          <span class="crit">Imputabilité</span>
+        </div>
+        <div class="infra-tag">
+          <span class="infra-dot yes"></span>
+          Oui — systèmes de gestion de cas, BDs gouvernementales, journalisation
+        </div>
+      </div>
+
+      <div class="card gouv fade-in">
+        <div class="card-meta">
+          <span class="card-year">2024</span>
+          <span class="badge gouv">Gouv.</span>
+        </div>
+        <div class="card-source">Gouvernement du Québec</div>
+        <div class="card-ref">Cadre de référence IA responsable (CEFRIO / SCT)</div>
+        <div class="card-def">Pas de définition formelle de l'agentivité. Les systèmes autonomes abordés via gouvernance des données et imputabilité ministérielle — pas comme architecture distincte.</div>
+        <div class="crit-list">
+          <span class="crit">Équité</span>
+          <span class="crit">Transparence</span>
+          <span class="crit">Imputabilité ministérielle</span>
+          <span class="crit">Gouvernance des données</span>
+        </div>
+        <div class="infra-tag">
+          <span class="infra-dot part"></span>
+          Partielle — données gouvernementales, pas de référence aux couches LLM
+        </div>
+      </div>
+
+      <div class="card gouv fade-in">
+        <div class="card-meta">
+          <span class="card-year">2025</span>
+          <span class="badge gouv">Gouv.</span>
+        </div>
+        <div class="card-source">G7 / Hiroshima AI Process</div>
+        <div class="card-ref">Code of conduct for advanced AI systems (finalisé 2025)</div>
+        <div class="card-def">Systèmes avancés capables d'actions en environnements numériques ou physiques. Agentivité = facteur amplificateur de risque systémique, pas catégorie architecturale.</div>
+        <div class="crit-list">
+          <span class="crit">Actions en environnement réel</span>
+          <span class="crit">Risque systémique</span>
+          <span class="crit">Transparence fournisseurs</span>
+        </div>
+        <div class="infra-tag">
+          <span class="infra-dot part"></span>
+          Partielle — chaînes d'approvisionnement, interdépendances cloud
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ INFRASTRUCTURE ══════════════ -->
+<section id="infrastructure">
+  <div class="section-label">02 — Schéma d'infrastructure</div>
+
+  <div style="position:relative; padding-left: 44px;">
+    <div class="hitl-arrow" style="top:140px; bottom:68px;"></div>
+    <div style="position:absolute;left:0;top:50%;transform:translateY(-50%) rotate(-90deg);font-family:'DM Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:.1em;white-space:nowrap;">Rétroaction HITL</div>
+
+    <div class="infra-schema">
+
+      <div class="layer l0">
+        <div class="layer-top">
+          <span class="layer-name">Objectif / intention humaine</span>
+          <span class="layer-num">C0</span>
+        </div>
+        <div class="layer-desc">Prompt système · instructions en langage naturel · fichiers de configuration markdown</div>
+        <div class="layer-refs">
+          <span>Anthropic Model Spec (2024)</span>
+          <span>Wooldridge &amp; Jennings (1995) — intention comme composante architecturale</span>
+        </div>
+      </div>
+
+      <div class="connector"></div>
+
+      <div class="layer l1">
+        <div class="layer-top">
+          <span class="layer-name">Orchestrateur — LLM central</span>
+          <span class="layer-num">C1</span>
+        </div>
+        <div class="layer-desc">Routeur d'intentions · décomposition de tâches · raisonnement (CoT / ReAct) · boucle : Reason → Act → Observe → Reason…</div>
+        <div class="layer-refs">
+          <span>Yao et al. — ReAct (2022)</span>
+          <span>Wang et al. — Survey (2023)</span>
+          <span>Anthropic — Building Effective Agents (2024)</span>
+          <span>Russell &amp; Norvig — PEAS (1995)</span>
+        </div>
+      </div>
+
+      <div class="connector"></div>
+
+      <div class="layer l2">
+        <div class="layer-top">
+          <span class="layer-name">Sous-agents spécialisés</span>
+          <span class="layer-num">C2</span>
+        </div>
+        <div class="layer-desc">Générateur · vérificateur · réviseur · agent de recherche · agent d'exécution</div>
+        <div class="layer-refs">
+          <span>Wang et al. (2023) — profil/rôle</span>
+          <span>Anthropic (2024) — orchestrateur/sous-agents</span>
+          <span>Wooldridge &amp; Jennings (1995) — socialité inter-agents</span>
+        </div>
+      </div>
+
+      <div class="connector"></div>
+
+      <div class="layer l3">
+        <div class="layer-top">
+          <span class="layer-name">Mémoire</span>
+          <span class="layer-num">C3</span>
+        </div>
+        <div class="layer-desc">Quatre types distincts selon la taxonomie de Wang et al. (2023)</div>
+        <div class="sublayers">
+          <div class="sublayer">
+            <div class="sublayer-name">In-context</div>
+            <div class="sublayer-desc">Fenêtre de contexte temporaire</div>
+          </div>
+          <div class="sublayer">
+            <div class="sublayer-name">Externe / RAG</div>
+            <div class="sublayer-desc">Base vectorielle — Pinecone, Chroma</div>
+          </div>
+          <div class="sublayer">
+            <div class="sublayer-name">Paramétrique</div>
+            <div class="sublayer-desc">Poids du modèle pré-entraîné</div>
+          </div>
+          <div class="sublayer">
+            <div class="sublayer-name">Inter-sessionnelle</div>
+            <div class="sublayer-desc">Persistance cross-conversation</div>
+          </div>
+        </div>
+        <div class="layer-refs" style="margin-top:12px">
+          <span>Wang et al. (2023) — taxonomie à 4 niveaux</span>
+          <span>Lewis et al. — RAG (2020)</span>
+          <span>Bommasani et al. — mémoire paramétrique (2021)</span>
+        </div>
+      </div>
+
+      <div class="connector"></div>
+
+      <div class="layer l4">
+        <div class="layer-top">
+          <span class="layer-name">Outils et interfaces d'action</span>
+          <span class="layer-num">C4</span>
+        </div>
+        <div class="layer-desc">Actionneurs du système agentique — équivalent des actionneurs PEAS à l'ère LLM</div>
+        <div class="tools-grid">
+          <div class="tool-chip">
+            <div class="tool-chip-name">APIs web</div>
+            <div class="tool-chip-ex">REST · GraphQL</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">Exécution code</div>
+            <div class="tool-chip-ex">Sandbox Python</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">Navigation web</div>
+            <div class="tool-chip-ex">Browser · scraping</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">Function calling</div>
+            <div class="tool-chip-ex">JSON schema</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">Fichiers / BDs</div>
+            <div class="tool-chip-ex">Lecture/écriture</div>
+          </div>
+        </div>
+        <div class="layer-refs" style="margin-top:12px">
+          <span>Yao et al. — outils comme actionneurs (2022)</span>
+          <span>OpenAI — function calling (2023)</span>
+          <span>Kapoor et al. — coût d'appels (2024)</span>
+          <span>Karpathy / Willison (2025)</span>
+        </div>
+      </div>
+
+      <div class="connector"></div>
+
+      <div class="layer l5">
+        <div class="layer-top">
+          <span class="layer-name">Infrastructure de calcul</span>
+          <span class="layer-num">C5</span>
+        </div>
+        <div class="layer-desc">GPU / TPU · cloud compute (AWS, GCP, Azure) · API d'inférence · replay buffer · logs d'audit</div>
+        <div class="layer-refs">
+          <span>Silver et al. — GPU + replay buffer (2015)</span>
+          <span>Bommasani et al. — centralisation cloud (2021)</span>
+          <span>NIST RMF — logs d'audit (2024)</span>
+          <span>Canada — journalisation (2024)</span>
+        </div>
+      </div>
+
+      <div class="connector"></div>
+
+      <div class="layer l6">
+        <div class="layer-top">
+          <span class="layer-name">Gouvernance et supervision humaine</span>
+          <span class="layer-num">C6</span>
+        </div>
+        <div class="layer-desc">HITL · imputabilité · audit · évaluation des risques · garde-fous procéduraux</div>
+        <div class="layer-refs">
+          <span>Leike et al. — interruptibilité (2018)</span>
+          <span>AI Act UE — Art. 3 (2024)</span>
+          <span>NIST RMF Agentic Profile (2024)</span>
+          <span>Canada — Dir. décisions automatisées niv. IV (2024)</span>
+          <span>UNESCO RAM (2024)</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ ACRONYMES ══════════════ -->
+<section id="acronymes">
+  <div class="section-label">03 — Lexique des acronymes</div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterAcro('all', this)">Tous</button>
+    <button class="filter-btn cat-arch" onclick="filterAcro('arch', this)">Architecture &amp; systèmes</button>
+    <button class="filter-btn cat-mem" onclick="filterAcro('mem', this)">Mémoire</button>
+    <button class="filter-btn cat-bench" onclick="filterAcro('bench', this)">Évaluation &amp; benchmarks</button>
+    <button class="filter-btn cat-calc" onclick="filterAcro('calc', this)">Apprentissage &amp; compute</button>
+  </div>
+
+  <div class="acronym-grid">
+
+    <!-- ARCH -->
+    <div class="acro-card" data-cat="arch">
+      <div class="acro-top">
+        <div class="acro-abbr">LLM</div>
+        <span class="acro-cat-badge arch">Architecture</span>
+      </div>
+      <div class="acro-full">Large Language Model</div>
+      <div class="acro-def">Modèle de langage entraîné sur de larges corpus textuels par apprentissage auto-supervisé. Dans un système agentique, joue le rôle d'orchestrateur (routeur d'intentions).</div>
+      <div class="acro-refs">Bommasani et al. (2021) · Anthropic Model Spec (2024)</div>
+    </div>
+
+    <div class="acro-card" data-cat="arch">
+      <div class="acro-top">
+        <div class="acro-abbr">BDI</div>
+        <span class="acro-cat-badge arch">Architecture</span>
+      </div>
+      <div class="acro-full">Beliefs – Desires – Intentions</div>
+      <div class="acro-def">Architecture d'agent rationnel issue de la philosophie de l'action. Les croyances représentent l'état du monde perçu, les désirs les objectifs, les intentions les plans engagés. Modèle fondateur de l'IA agentique symbolique.</div>
+      <div class="acro-refs">Bratman (1987/2003) · Wooldridge &amp; Jennings (1995)</div>
+    </div>
+
+    <div class="acro-card" data-cat="arch">
+      <div class="acro-top">
+        <div class="acro-abbr">ReAct</div>
+        <span class="acro-cat-badge arch">Architecture</span>
+      </div>
+      <div class="acro-full">Reasoning + Acting</div>
+      <div class="acro-def">Paradigme de prompt structurant la boucle agentique en alternance entre raisonnement en langage naturel (Thought) et action sur outils externes (Act), suivie d'une observation (Obs). Remplace l'architecture BDI pour les LLM.</div>
+      <div class="acro-refs">Yao et al. (2022 / ICLR 2023)</div>
+    </div>
+
+    <div class="acro-card" data-cat="arch">
+      <div class="acro-top">
+        <div class="acro-abbr">CoT</div>
+        <span class="acro-cat-badge arch">Architecture</span>
+      </div>
+      <div class="acro-full">Chain of Thought</div>
+      <div class="acro-def">Technique de prompting incitant le modèle à expliciter son raisonnement étape par étape avant de produire une réponse. Composante du raisonnement dans la boucle ReAct.</div>
+      <div class="acro-refs">Wei et al. (2022) · Yao et al. (2022)</div>
+    </div>
+
+    <div class="acro-card" data-cat="arch">
+      <div class="acro-top">
+        <div class="acro-abbr">PEAS</div>
+        <span class="acro-cat-badge arch">Architecture</span>
+      </div>
+      <div class="acro-full">Performance – Environment – Actuators – Sensors</div>
+      <div class="acro-def">Cadre de description d'un agent rationnel : mesure de performance, nature de l'environnement, actionneurs disponibles, capteurs. Sert à délimiter la spécification d'un agent avant sa conception.</div>
+      <div class="acro-refs">Russell &amp; Norvig (1995, 4e éd. 2020)</div>
+    </div>
+
+    <div class="acro-card" data-cat="arch">
+      <div class="acro-top">
+        <div class="acro-abbr">HITL</div>
+        <span class="acro-cat-badge arch">Architecture</span>
+      </div>
+      <div class="acro-full">Human-in-the-Loop</div>
+      <div class="acro-def">Mode de supervision où un humain intervient à des points de décision critiques dans la boucle d'exécution. Critère de sécurité architectural chez Anthropic ; exigence procédurale pour les décisions de niveau IV au Canada.</div>
+      <div class="acro-refs">Leike et al. (2018) · Anthropic (2024) · Canada — Dir. décisions automatisées (2024)</div>
+    </div>
+
+    <div class="acro-card" data-cat="arch">
+      <div class="acro-top">
+        <div class="acro-abbr">MCP</div>
+        <span class="acro-cat-badge arch">Architecture</span>
+      </div>
+      <div class="acro-full">Model Context Protocol</div>
+      <div class="acro-def">Protocole ouvert standardisant la connexion entre LLM et outils ou sources de données externes. Équivalent d'une interface USB pour agents : permet à un orchestrateur d'appeler des serveurs MCP sans intégration ad hoc.</div>
+      <div class="acro-refs">Anthropic (2024) — source uniquement industrielle, aucune référence académique à ce jour</div>
+    </div>
+
+    <!-- MEM -->
+    <div class="acro-card" data-cat="mem">
+      <div class="acro-top">
+        <div class="acro-abbr">RAG</div>
+        <span class="acro-cat-badge mem">Mémoire</span>
+      </div>
+      <div class="acro-full">Retrieval-Augmented Generation</div>
+      <div class="acro-def">Architecture combinant un LLM (mémoire paramétrique) avec une base de données vectorielle externe (mémoire non-paramétrique). Les passages les plus similaires sémantiquement sont récupérés et injectés dans le contexte à chaque requête.</div>
+      <div class="acro-refs">Lewis et al. (2020) · Wang et al. (2023)</div>
+    </div>
+
+    <div class="acro-card" data-cat="mem">
+      <div class="acro-top">
+        <div class="acro-abbr">Mém. param.</div>
+        <span class="acro-cat-badge mem">Mémoire</span>
+      </div>
+      <div class="acro-full">Mémoire paramétrique</div>
+      <div class="acro-def">Connaissances encodées dans les poids du modèle lors de l'entraînement. Non modifiable à l'inférence sans fine-tuning. Distinguée de la mémoire externe (RAG) par Lewis et al. (2020).</div>
+      <div class="acro-refs">Lewis et al. (2020) · Bommasani et al. (2021)</div>
+    </div>
+
+    <div class="acro-card" data-cat="mem">
+      <div class="acro-top">
+        <div class="acro-abbr">Mém. inter-sess.</div>
+        <span class="acro-cat-badge mem">Mémoire</span>
+      </div>
+      <div class="acro-full">Mémoire inter-sessionnelle (persistante)</div>
+      <div class="acro-def">Capacité d'un agent à maintenir des informations entre des sessions distinctes. Quatrième type identifié comme catégorie émergente ; absent des taxonomies classiques BDI et RL.</div>
+      <div class="acro-refs">Wang et al. (2023) — implicite · Weng / Karpathy (2024–25)</div>
+    </div>
+
+    <!-- BENCH -->
+    <div class="acro-card" data-cat="bench">
+      <div class="acro-top">
+        <div class="acro-abbr">ARC-AGI</div>
+        <span class="acro-cat-badge bench">Évaluation</span>
+      </div>
+      <div class="acro-full">Abstraction and Reasoning Corpus – AGI</div>
+      <div class="acro-def">Benchmark de Chollet mesurant la capacité de généralisation à des tâches visuelles inédites, conçu pour distinguer compétence mémorisée et intelligence adaptative. ARC-AGI-2 (2025) renforce le critère de nouveauté.</div>
+      <div class="acro-refs">Chollet (2019) · Chollet et al. — ARC-AGI-2 (2025)</div>
+    </div>
+
+    <div class="acro-card" data-cat="bench">
+      <div class="acro-top">
+        <div class="acro-abbr">MMLU</div>
+        <span class="acro-cat-badge bench">Évaluation</span>
+      </div>
+      <div class="acro-full">Massive Multitask Language Understanding</div>
+      <div class="acro-def">Benchmark évaluant les connaissances factuelles sur 57 domaines académiques. Exemple typique de benchmark saturé-C (contamination) et saturé-P (plafonnement) dans la taxonomie de la revue de portée.</div>
+      <div class="acro-refs">Hendrycks et al. (2020) · Kapoor et al. (2024)</div>
+    </div>
+
+    <div class="acro-card" data-cat="bench">
+      <div class="acro-top">
+        <div class="acro-abbr">SWE-bench</div>
+        <span class="acro-cat-badge bench">Évaluation</span>
+      </div>
+      <div class="acro-full">Software Engineering Benchmark</div>
+      <div class="acro-def">Benchmark agentique évaluant la capacité des LLM à résoudre des issues GitHub réelles. Cas d'étude du problème de l'optimisation coût/performance dans les benchmarks agentiques chez Kapoor et al.</div>
+      <div class="acro-refs">Jimenez et al. (2023) · Kapoor et al. (2024)</div>
+    </div>
+
+    <div class="acro-card" data-cat="bench">
+      <div class="acro-top">
+        <div class="acro-abbr">RMF</div>
+        <span class="acro-cat-badge bench">Évaluation</span>
+      </div>
+      <div class="acro-full">Risk Management Framework</div>
+      <div class="acro-def">Cadre du NIST structurant la gestion des risques IA selon les fonctions : Gouverner, Cartographier, Mesurer, Gérer. Le profil agentique (draft 2024) étend le RMF aux systèmes à supervision minimale.</div>
+      <div class="acro-refs">NIST (2023–2024)</div>
+    </div>
+
+    <div class="acro-card" data-cat="bench">
+      <div class="acro-top">
+        <div class="acro-abbr">RAM</div>
+        <span class="acro-cat-badge bench">Évaluation</span>
+      </div>
+      <div class="acro-full">Readiness Assessment Methodology</div>
+      <div class="acro-def">Méthodologie d'évaluation de la maturité des États en matière de gouvernance de l'IA (UNESCO). Cinq dimensions : réglementation, éthique, infrastructure, éducation, R&amp;D. L'agentivité traitée via la dimension infrastructure.</div>
+      <div class="acro-refs">UNESCO (2023–2024)</div>
+    </div>
+
+    <div class="acro-card" data-cat="bench">
+      <div class="acro-top">
+        <div class="acro-abbr">GPAI</div>
+        <span class="acro-cat-badge bench">Évaluation</span>
+      </div>
+      <div class="acro-full">General Purpose AI</div>
+      <div class="acro-def">Catégorie réglementaire de l'AI Act européen désignant les modèles fondamentaux déployables dans des contextes multiples. Les GPAI dépassant 10²⁵ FLOP d'entraînement font l'objet d'obligations renforcées.</div>
+      <div class="acro-refs">Commission européenne — AI Act (2024)</div>
+    </div>
+
+    <!-- CALC -->
+    <div class="acro-card" data-cat="calc">
+      <div class="acro-top">
+        <div class="acro-abbr">RL</div>
+        <span class="acro-cat-badge calc">Compute</span>
+      </div>
+      <div class="acro-full">Reinforcement Learning</div>
+      <div class="acro-def">Apprentissage par renforcement : un agent apprend une politique optimale en recevant des récompenses ou pénalités. Paradigme dominant pour les agents pré-LLM ; réintroduit via RLHF pour aligner les LLM.</div>
+      <div class="acro-refs">Silver et al. (2015) · Leike et al. (2018)</div>
+    </div>
+
+    <div class="acro-card" data-cat="calc">
+      <div class="acro-top">
+        <div class="acro-abbr">RLHF</div>
+        <span class="acro-cat-badge calc">Compute</span>
+      </div>
+      <div class="acro-full">Reinforcement Learning from Human Feedback</div>
+      <div class="acro-def">Variante du RL où les récompenses proviennent de préférences humaines. Méthode centrale d'alignement des LLM (ChatGPT, Claude). Relie le paradigme RL classique à la gouvernance HITL.</div>
+      <div class="acro-refs">Christiano et al. (2017) · Anthropic (2022–2024)</div>
+    </div>
+
+    <div class="acro-card" data-cat="calc">
+      <div class="acro-top">
+        <div class="acro-abbr">DQN</div>
+        <span class="acro-cat-badge calc">Compute</span>
+      </div>
+      <div class="acro-full">Deep Q-Network</div>
+      <div class="acro-def">Architecture neuronale combinant Q-learning et réseaux profonds. Premier agent DRL à atteindre des performances humaines sur des tâches variées (Atari). Marque le déplacement du critère agentique vers la performance empirique.</div>
+      <div class="acro-refs">Silver et al. (2015)</div>
+    </div>
+
+    <div class="acro-card" data-cat="calc">
+      <div class="acro-top">
+        <div class="acro-abbr">GPU / TPU</div>
+        <span class="acro-cat-badge calc">Compute</span>
+      </div>
+      <div class="acro-full">Graphics / Tensor Processing Unit</div>
+      <div class="acro-def">Unités de calcul massivement parallèles constituant l'infrastructure physique de l'entraînement et de l'inférence des LLM. La concentration de l'accès GPU est identifiée comme risque systémique par Bommasani et al.</div>
+      <div class="acro-refs">Silver et al. (2015) — implicite · Bommasani et al. (2021)</div>
+    </div>
+
+    <div class="acro-card" data-cat="calc">
+      <div class="acro-top">
+        <div class="acro-abbr">FLOP</div>
+        <span class="acro-cat-badge calc">Compute</span>
+      </div>
+      <div class="acro-full">Floating Point Operations</div>
+      <div class="acro-def">Unité de mesure de la puissance de calcul utilisée pour quantifier le coût d'entraînement. Seuil de 10²⁵ FLOP retenu par l'AI Act comme critère de désignation des GPAI à impact systémique.</div>
+      <div class="acro-refs">Commission européenne — AI Act (2024)</div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-note">
+    Synthèse produite dans le cadre d'une revue de portée sur le benchmarking comme pratique sociale (ESG-UQAM, 2025–2026). Sources : 18 entrées couvrant la littérature académique, industrielle, grise et institutionnelle (1995–2026).
+  </div>
+  <div class="footer-tag">IA agentique · Gouvernance · Benchmarks</div>
+</footer>
+
+<script>
+function filterAcro(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.acro-card').forEach(card => {
+    if (cat === 'all' || card.dataset.cat === cat) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+}
+
+// Active nav link on scroll
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('nav a');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 80) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+
+</body>
+</html>
