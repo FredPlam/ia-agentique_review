@@ -624,6 +624,236 @@ footer {
   .tools-grid { grid-template-columns: repeat(2, 1fr); }
   .acronym-grid { grid-template-columns: 1fr; }
 }
+
+/* ── LIGNE DE TEMPS ── */
+.ldt-wrap {
+  position: relative;
+  padding-bottom: 24px;
+  overflow-x: auto;
+}
+
+.ldt-scroll {
+  min-width: 900px;
+  position: relative;
+  padding: 0 0 48px;
+}
+
+/* axe horizontal */
+.ldt-axis {
+  position: absolute;
+  left: 0; right: 0;
+  top: 180px;
+  height: 2px;
+  background: var(--border2);
+}
+
+.ldt-axis-arrow {
+  position: absolute;
+  right: -8px; top: -5px;
+  border-left: 10px solid var(--border2);
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+}
+
+/* jalons années sur l'axe */
+.ldt-ticks {
+  position: absolute;
+  left: 0; right: 0;
+  top: 180px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.ldt-tick {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.ldt-tick-mark {
+  width: 1px;
+  height: 10px;
+  background: var(--border2);
+  margin-top: -5px;
+}
+
+.ldt-tick-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  margin-top: 8px;
+}
+
+/* noeuds */
+.ldt-nodes {
+  position: relative;
+  height: 380px;
+}
+
+.ldt-node {
+  position: absolute;
+  width: 200px;
+  cursor: pointer;
+  transition: transform .2s;
+}
+
+.ldt-node:hover { transform: translateY(-3px); }
+
+/* noeuds au-dessus de l'axe : text-bottom, dot juste au-dessus */
+/* noeuds en-dessous : dot juste en-dessous, text-top */
+
+.ldt-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--bg);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: transform .2s, box-shadow .2s;
+}
+
+.ldt-node:hover .ldt-dot {
+  transform: translateX(-50%) scale(1.4);
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.06);
+}
+
+.ldt-connector {
+  position: absolute;
+  left: 50%;
+  width: 1px;
+  background: var(--border2);
+  transform: translateX(-50%);
+}
+
+.ldt-box {
+  position: absolute;
+  left: 0; right: 0;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  transition: border-color .2s, background .2s;
+}
+
+.ldt-node:hover .ldt-box {
+  border-color: var(--border2);
+  background: var(--bg3);
+}
+
+.ldt-box-year {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  margin-bottom: 4px;
+}
+
+.ldt-box-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 5px;
+}
+
+.ldt-box-desc {
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  color: var(--text2);
+  line-height: 1.5;
+}
+
+.ldt-transition {
+  position: absolute;
+  top: 167px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--text3);
+  text-align: center;
+  width: 80px;
+  transform: translateX(-50%);
+  background: var(--bg);
+  padding: 0 4px;
+  z-index: 2;
+}
+
+.ldt-shift-arrow {
+  position: absolute;
+  top: 173px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--text3), transparent);
+  opacity: 0.5;
+  z-index: 1;
+}
+
+/* couleurs par paradigme */
+.para-bdi   { background: var(--purple); }
+.para-rl    { background: var(--coral); }
+.para-fm    { background: var(--amber); }
+.para-react { background: var(--teal); }
+.para-gov   { background: var(--green); }
+.para-blog  { background: var(--blue); }
+
+.ldt-box.para-bdi   { border-top: 2px solid var(--purple); }
+.ldt-box.para-rl    { border-top: 2px solid var(--coral); }
+.ldt-box.para-fm    { border-top: 2px solid var(--amber); }
+.ldt-box.para-react { border-top: 2px solid var(--teal); }
+.ldt-box.para-gov   { border-top: 2px solid var(--green); }
+.ldt-box.para-blog  { border-top: 2px solid var(--blue); }
+
+.ldt-box-title.para-bdi   { color: var(--purple); }
+.ldt-box-title.para-rl    { color: var(--coral); }
+.ldt-box-title.para-fm    { color: var(--amber); }
+.ldt-box-title.para-react { color: var(--teal); }
+.ldt-box-title.para-gov   { color: var(--green); }
+.ldt-box-title.para-blog  { color: var(--blue); }
+
+/* légende paradigmes */
+.ldt-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.ldt-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  color: var(--text3);
+}
+
+.ldt-legend-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* tooltip */
+.ldt-tooltip {
+  position: absolute;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text2);
+  max-width: 220px;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .15s;
+  line-height: 1.6;
+}
+
+.ldt-tooltip.visible { opacity: 1; }
 </style>
 </head>
 <body>
@@ -636,6 +866,7 @@ footer {
 
 <nav>
   <a href="#timeline" class="active">Chronologie</a>
+  <a href="#ligne-de-temps">Ligne de temps</a>
   <a href="#infrastructure">Infrastructure</a>
   <a href="#acronymes">Acronymes</a>
 </nav>
@@ -1096,9 +1327,224 @@ footer {
   </div>
 </section>
 
+<!-- ══════════════ LIGNE DE TEMPS ══════════════ -->
+<section id="ligne-de-temps">
+  <div class="section-label">02 — Ligne de temps des transformations paradigmatiques</div>
+
+  <div class="ldt-wrap">
+    <div class="ldt-scroll" id="ldt-scroll">
+
+      <!-- Axe -->
+      <div class="ldt-axis"><div class="ldt-axis-arrow"></div></div>
+
+      <!-- Jalons -->
+      <div class="ldt-ticks">
+        <div class="ldt-tick"><div class="ldt-tick-mark"></div><div class="ldt-tick-label">1987</div></div>
+        <div class="ldt-tick"><div class="ldt-tick-mark"></div><div class="ldt-tick-label">1995</div></div>
+        <div class="ldt-tick"><div class="ldt-tick-mark"></div><div class="ldt-tick-label">2003</div></div>
+        <div class="ldt-tick"><div class="ldt-tick-mark"></div><div class="ldt-tick-label">2015</div></div>
+        <div class="ldt-tick"><div class="ldt-tick-mark"></div><div class="ldt-tick-label">2018</div></div>
+        <div class="ldt-tick"><div class="ldt-tick-mark"></div><div class="ldt-tick-label">2020</div></div>
+        <div class="ldt-tick"><div class="ldt-tick-mark"></div><div class="ldt-tick-label">2021</div></div>
+        <div class="ldt-tick"><div class="ldt-tick-mark"></div><div class="ldt-tick-label">2022</div></div>
+        <div class="ldt-tick"><div class="ldt-tick-mark"></div><div class="ldt-tick-label">2023</div></div>
+        <div class="ldt-tick"><div class="ldt-tick-mark"></div><div class="ldt-tick-label">2024</div></div>
+        <div class="ldt-tick"><div class="ldt-tick-mark"></div><div class="ldt-tick-label">2025–26</div></div>
+      </div>
+
+      <!-- NOEUDS -->
+      <div class="ldt-nodes">
+
+        <!-- ── AU-DESSUS DE L'AXE ── -->
+
+        <!-- Bratman 1987 — au-dessus -->
+        <div class="ldt-node" style="left:0px; top:0px;"
+             data-tip="Base philosophique du modèle BDI. L'agent forme des intentions, les maintient, les révise face aux obstacles.">
+          <div class="ldt-box para-bdi" style="top:0; bottom:auto;">
+            <div class="ldt-box-year">1987</div>
+            <div class="ldt-box-title para-bdi">Bratman</div>
+            <div class="ldt-box-desc">Intentions, plans, practical reason — fondation philosophique BDI</div>
+          </div>
+          <div class="ldt-connector" style="top:118px; height:50px;"></div>
+          <div class="ldt-dot para-bdi" style="top:168px;"></div>
+        </div>
+
+        <!-- Wooldridge & Jennings 1995 — au-dessus -->
+        <div class="ldt-node" style="left:120px; top:0px;"
+             data-tip="Formalisation BDI : weak sense (autonomie, réactivité, proactivité, socialité) vs strong sense (intentionnalité). Protocoles KQML/FIPA.">
+          <div class="ldt-box para-bdi" style="top:0; bottom:auto;">
+            <div class="ldt-box-year">1995</div>
+            <div class="ldt-box-title para-bdi">Wooldridge &amp; Jennings</div>
+            <div class="ldt-box-desc">BDI formalisé — protocoles inter-agents KQML/FIPA</div>
+          </div>
+          <div class="ldt-connector" style="top:118px; height:50px;"></div>
+          <div class="ldt-dot para-bdi" style="top:168px;"></div>
+        </div>
+
+        <!-- Russell & Norvig 1995 — en-dessous -->
+        <div class="ldt-node" style="left:240px; top:192px;"
+             data-tip="Cadre PEAS : Performance, Environment, Actuators, Sensors. Définit l'agent rationnel comme maximiseur de performance.">
+          <div class="ldt-dot para-bdi" style="top:-12px;"></div>
+          <div class="ldt-connector" style="top:0px; height:40px;"></div>
+          <div class="ldt-box para-bdi" style="top:40px;">
+            <div class="ldt-box-year">1995</div>
+            <div class="ldt-box-title para-bdi">Russell &amp; Norvig</div>
+            <div class="ldt-box-desc">Cadre PEAS — agent rationnel, boucle perception/action</div>
+          </div>
+        </div>
+
+        <!-- Silver et al. 2015 — au-dessus -->
+        <div class="ldt-node" style="left:380px; top:20px;"
+             data-tip="DQN : premier agent deep RL à niveau humain sur Atari. Déplacement du critère de l'intentionnalité vers la performance empirique.">
+          <div class="ldt-box para-rl" style="top:0; bottom:auto;">
+            <div class="ldt-box-year">2015</div>
+            <div class="ldt-box-title para-rl">Silver et al. / DeepMind</div>
+            <div class="ldt-box-desc">DQN — RL profond, performance comme critère agentique</div>
+          </div>
+          <div class="ldt-connector" style="top:108px; height:60px;"></div>
+          <div class="ldt-dot para-rl" style="top:168px;"></div>
+        </div>
+
+        <!-- Leike 2018 — en-dessous -->
+        <div class="ldt-node" style="left:470px; top:192px;"
+             data-tip="AI Safety Gridworlds : introduction de la sécurité comme dimension de l'agentivité — interruptibilité, effets secondaires, alignement.">
+          <div class="ldt-dot para-rl" style="top:-12px;"></div>
+          <div class="ldt-connector" style="top:0px; height:40px;"></div>
+          <div class="ldt-box para-rl" style="top:40px;">
+            <div class="ldt-box-year">2018</div>
+            <div class="ldt-box-title para-rl">Leike et al.</div>
+            <div class="ldt-box-desc">Sécurité comme critère — interruptibilité, alignement</div>
+          </div>
+        </div>
+
+        <!-- Lewis RAG 2020 — au-dessus -->
+        <div class="ldt-node" style="left:540px; top:0px;"
+             data-tip="RAG : Retrieval-Augmented Generation. Combine mémoire paramétrique (poids du modèle) et mémoire non-paramétrique (base vectorielle externe).">
+          <div class="ldt-box para-fm" style="top:0; bottom:auto;">
+            <div class="ldt-box-year">2020</div>
+            <div class="ldt-box-title para-fm">Lewis et al.</div>
+            <div class="ldt-box-desc">RAG — mémoire paramétrique vs non-paramétrique</div>
+          </div>
+          <div class="ldt-connector" style="top:108px; height:60px;"></div>
+          <div class="ldt-dot para-fm" style="top:168px;"></div>
+        </div>
+
+        <!-- Bommasani 2021 — en-dessous -->
+        <div class="ldt-node" style="left:620px; top:192px;"
+             data-tip="Foundation Models : l'agentivité comme propriété émergente du déploiement, non plus architecturale. Risques systémiques de centralisation cloud identifiés.">
+          <div class="ldt-dot para-fm" style="top:-12px;"></div>
+          <div class="ldt-connector" style="top:0px; height:40px;"></div>
+          <div class="ldt-box para-fm" style="top:40px;">
+            <div class="ldt-box-year">2021</div>
+            <div class="ldt-box-title para-fm">Bommasani et al.</div>
+            <div class="ldt-box-desc">Foundation Models — agentivité émergente, risques cloud</div>
+          </div>
+        </div>
+
+        <!-- Yao ReAct 2022 — au-dessus -->
+        <div class="ldt-node" style="left:700px; top:10px;"
+             data-tip="ReAct : Reasoning + Acting. La boucle agentique sans BDI — alternance Thought / Action / Observation en langage naturel avec appels d'outils.">
+          <div class="ldt-box para-react" style="top:0; bottom:auto;">
+            <div class="ldt-box-year">2022</div>
+            <div class="ldt-box-title para-react">Yao et al.</div>
+            <div class="ldt-box-desc">ReAct — Reason → Act → Observe, remplace BDI pour les LLM</div>
+          </div>
+          <div class="ldt-connector" style="top:118px; height:50px;"></div>
+          <div class="ldt-dot para-react" style="top:168px;"></div>
+        </div>
+
+        <!-- Wang Survey 2023 — en-dessous -->
+        <div class="ldt-node" style="left:760px; top:192px;"
+             data-tip="Taxonomie des agents LLM : profil, mémoire (×4 types), planification, action. Premier cadre systématique post-ReAct.">
+          <div class="ldt-dot para-react" style="top:-12px;"></div>
+          <div class="ldt-connector" style="top:0px; height:40px;"></div>
+          <div class="ldt-box para-react" style="top:40px;">
+            <div class="ldt-box-year">2023</div>
+            <div class="ldt-box-title para-react">Wang et al.</div>
+            <div class="ldt-box-desc">Taxonomie LLM-agent : profil, mémoire ×4, planification</div>
+          </div>
+        </div>
+
+        <!-- Anthropic 2024 — au-dessus -->
+        <div class="ldt-node" style="left:850px; top:0px;"
+             data-tip="Model Spec + Building Effective Agents : orchestrateur/sous-agents, HITL comme critère de sécurité intégré à la définition. MCP standardise les connexions aux outils.">
+          <div class="ldt-box para-react" style="top:0; bottom:auto;">
+            <div class="ldt-box-year">2024</div>
+            <div class="ldt-box-title para-react">Anthropic</div>
+            <div class="ldt-box-desc">Orchestrateur/sous-agents, HITL, MCP — sécurité architecturale</div>
+          </div>
+          <div class="ldt-connector" style="top:108px; height:60px;"></div>
+          <div class="ldt-dot para-react" style="top:168px;"></div>
+        </div>
+
+        <!-- Kapoor 2024 — en-dessous -->
+        <div class="ldt-node" style="left:940px; top:192px;"
+             data-tip="Critique des benchmarks agentiques : le taux de succès sans contrôle du coût est une mesure trompeuse. Propose le ratio performance/coût comme critère principal.">
+          <div class="ldt-dot para-fm" style="top:-12px;"></div>
+          <div class="ldt-connector" style="top:0px; height:40px;"></div>
+          <div class="ldt-box para-fm" style="top:40px;">
+            <div class="ldt-box-year">2024</div>
+            <div class="ldt-box-title para-fm">Kapoor et al.</div>
+            <div class="ldt-box-desc">Critique benchmarks agentiques — ratio perf/coût</div>
+          </div>
+        </div>
+
+        <!-- NIST/AI Act 2024 — au-dessus -->
+        <div class="ldt-node" style="left:1030px; top:20px;"
+             data-tip="AI Act UE + NIST RMF Agentic Profile : première définition réglementaire formelle. Agentique = autonomie d'inférence + effets monde réel sans contrôle continu.">
+          <div class="ldt-box para-gov" style="top:0; bottom:auto;">
+            <div class="ldt-box-year">2024</div>
+            <div class="ldt-box-title para-gov">AI Act + NIST</div>
+            <div class="ldt-box-desc">Définition réglementaire — autonomie d'inférence, 10²⁵ FLOP, audit</div>
+          </div>
+          <div class="ldt-connector" style="top:108px; height:60px;"></div>
+          <div class="ldt-dot para-gov" style="top:168px;"></div>
+        </div>
+
+        <!-- Blogosphère 2025-26 — en-dessous -->
+        <div class="ldt-node" style="left:1130px; top:192px;"
+             data-tip="Karpathy, Weng, Willison : convergence vers 'LLM en boucle + outils + mémoire persistante'. L'agentivité comme spectre continu, pas propriété binaire.">
+          <div class="ldt-dot para-blog" style="top:-12px;"></div>
+          <div class="ldt-connector" style="top:0px; height:40px;"></div>
+          <div class="ldt-box para-blog" style="top:40px;">
+            <div class="ldt-box-year">2025–26</div>
+            <div class="ldt-box-title para-blog">Blogosphère ML</div>
+            <div class="ldt-box-desc">«Agentic spectrum» — LangChain, AutoGPT, mémoire vectorielle</div>
+          </div>
+        </div>
+
+      </div><!-- /ldt-nodes -->
+
+      <!-- Flèches de transition paradigmatique -->
+      <!-- BDI → RL -->
+      <div class="ldt-transition" style="left:380px;">rupture<br>empirique</div>
+      <!-- RL → Foundation Models -->
+      <div class="ldt-transition" style="left:560px;">fondation<br>models</div>
+      <!-- FM → ReAct -->
+      <div class="ldt-transition" style="left:700px;">boucle<br>outil</div>
+      <!-- ReAct → Gouvernance -->
+      <div class="ldt-transition" style="left:1030px;">régulation</div>
+
+    </div><!-- /ldt-scroll -->
+
+    <div id="ldt-tooltip" class="ldt-tooltip"></div>
+  </div>
+
+  <!-- Légende -->
+  <div class="ldt-legend">
+    <div class="ldt-legend-item"><span class="ldt-legend-dot" style="background:var(--purple)"></span>Paradigme BDI (intentionnalité symbolique)</div>
+    <div class="ldt-legend-item"><span class="ldt-legend-dot" style="background:var(--coral)"></span>Paradigme RL (performance empirique)</div>
+    <div class="ldt-legend-item"><span class="ldt-legend-dot" style="background:var(--amber)"></span>Foundation Models (émergence)</div>
+    <div class="ldt-legend-item"><span class="ldt-legend-dot" style="background:var(--teal)"></span>Paradigme LLM agentique / ReAct</div>
+    <div class="ldt-legend-item"><span class="ldt-legend-dot" style="background:var(--green)"></span>Gouvernance institutionnelle</div>
+    <div class="ldt-legend-item"><span class="ldt-legend-dot" style="background:var(--blue)"></span>Littérature grise / Pratique</div>
+    <div class="ldt-legend-item" style="margin-left:auto;font-style:italic;">Survoler un nœud pour le détail</div>
+  </div>
+</section>
+
 <!-- ══════════════ INFRASTRUCTURE ══════════════ -->
 <section id="infrastructure">
-  <div class="section-label">02 — Schéma d'infrastructure</div>
+  <div class="section-label">03 — Schéma d'infrastructure</div>
 
   <div style="position:relative; padding-left: 44px;">
     <div class="hitl-arrow" style="top:140px; bottom:68px;"></div>
@@ -1259,7 +1705,7 @@ footer {
 
 <!-- ══════════════ ACRONYMES ══════════════ -->
 <section id="acronymes">
-  <div class="section-label">03 — Lexique des acronymes</div>
+  <div class="section-label">04 — Lexique des acronymes</div>
 
   <div class="filter-bar">
     <button class="filter-btn active" onclick="filterAcro('all', this)">Tous</button>
@@ -1521,6 +1967,32 @@ window.addEventListener('scroll', () => {
   });
   navLinks.forEach(a => {
     a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+
+// Tooltip for timeline nodes
+const tooltip = document.getElementById('ldt-tooltip');
+const ldtScroll = document.getElementById('ldt-scroll');
+
+document.querySelectorAll('.ldt-node').forEach(node => {
+  node.addEventListener('mouseenter', (e) => {
+    const tip = node.dataset.tip;
+    if (!tip) return;
+    tooltip.textContent = tip;
+    tooltip.classList.add('visible');
+  });
+
+  node.addEventListener('mousemove', (e) => {
+    const rect = ldtScroll.parentElement.getBoundingClientRect();
+    let x = e.clientX - rect.left + 12;
+    let y = e.clientY - rect.top + 12;
+    if (x + 230 > rect.width) x = e.clientX - rect.left - 234;
+    tooltip.style.left = x + 'px';
+    tooltip.style.top = y + 'px';
+  });
+
+  node.addEventListener('mouseleave', () => {
+    tooltip.classList.remove('visible');
   });
 });
 </script>
