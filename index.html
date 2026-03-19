@@ -854,6 +854,223 @@ footer {
 }
 
 .ldt-tooltip.visible { opacity: 1; }
+
+/* ── RÉFÉRENCES APA ── */
+.ref-note {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--amber);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 28px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11.5px;
+  color: var(--text2);
+  line-height: 1.7;
+}
+
+.ref-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.ref-filter-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: .05em;
+  padding: 5px 13px;
+  border-radius: 6px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--text3);
+  cursor: pointer;
+  transition: all .15s;
+}
+.ref-filter-btn:hover { color: var(--text2); border-color: rgba(255,255,255,0.2); }
+.ref-filter-btn.active { background: var(--purple-dim); border-color: var(--purple); color: var(--purple); }
+.ref-filter-btn.fi  { }
+.ref-filter-btn.fi.active  { background: var(--teal-dim);  border-color: var(--teal);  color: var(--teal); }
+.ref-filter-btn.fg.active  { background: var(--amber-dim); border-color: var(--amber); color: var(--amber); }
+.ref-filter-btn.fgo.active { background: var(--coral-dim); border-color: var(--coral); color: var(--coral); }
+
+.ref-count { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text3); margin-left: auto; }
+
+.ref-group { margin-bottom: 40px; }
+.ref-group-header {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 16px;
+}
+.ref-group-title {
+  font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--text3); white-space: nowrap;
+}
+.ref-group-line { flex: 1; height: 1px; background: var(--border); }
+.ref-group-count { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text3); }
+
+.ref-item {
+  display: flex; gap: 16px; padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.ref-item:last-child { border-bottom: none; }
+.ref-item.ref-hidden { display: none; }
+
+.ref-n {
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  color: var(--text3); min-width: 26px; padding-top: 2px;
+  text-align: right; flex-shrink: 0;
+}
+.ref-body { flex: 1; }
+.ref-apa {
+  font-family: 'DM Mono', monospace; font-size: 12px;
+  color: var(--text2); line-height: 1.8; margin-bottom: 8px;
+}
+.ref-apa .au { color: var(--text); }
+.ref-apa .yr { color: var(--text); font-weight: 500; }
+.ref-apa .ti { color: var(--text); font-style: italic; }
+
+.ref-meta { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+
+.ref-badge {
+  font-family: 'DM Mono', monospace; font-size: 9.5px; font-weight: 500;
+  padding: 2px 7px; border-radius: 4px; letter-spacing: .04em;
+}
+.rb-acad { background: rgba(155,143,245,.15); color: var(--purple); }
+.rb-ind  { background: rgba(78,205,164,.15);  color: var(--teal); }
+.rb-grey { background: rgba(232,164,58,.15);  color: var(--amber); }
+.rb-gouv { background: rgba(232,107,95,.15);  color: var(--coral); }
+
+.ref-tag {
+  font-family: 'DM Mono', monospace; font-size: 9.5px;
+  padding: 2px 7px; border-radius: 10px;
+  border: 1px solid var(--border2); color: var(--text3);
+}
+
+.ref-link {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  color: var(--blue); text-decoration: none;
+  padding: 2px 9px; border: 1px solid rgba(91,163,232,.25);
+  border-radius: 5px; transition: all .15s; margin-left: auto;
+}
+.ref-link:hover { background: var(--blue-dim); border-color: var(--blue); }
+.ref-link svg { width: 10px; height: 10px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+.ref-nolink { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text3); font-style: italic; }
+
+/* ── FORMULAIRE ZOTERO / AJOUT MANUEL ── */
+.zotero-panel {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px 28px 24px;
+  margin-bottom: 40px;
+}
+.zotero-tabs {
+  display: flex; gap: 0; margin-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.ztab {
+  font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+  letter-spacing: .07em; text-transform: uppercase;
+  padding: 10px 18px; cursor: pointer; color: var(--text3);
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+  background: none; border-top: none; border-left: none; border-right: none;
+  transition: all .15s;
+}
+.ztab:hover { color: var(--text2); }
+.ztab.active { color: var(--purple); border-bottom-color: var(--purple); }
+
+.ztab-panel { display: none; }
+.ztab-panel.active { display: block; }
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-full { grid-column: 1 / -1; }
+
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+.form-label {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--text3);
+}
+.form-input, .form-select, .form-textarea {
+  background: var(--bg3); border: 1px solid var(--border2);
+  border-radius: 6px; padding: 8px 12px;
+  font-family: 'DM Mono', monospace; font-size: 12px;
+  color: var(--text); outline: none; transition: border-color .15s;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--purple);
+}
+.form-select { appearance: none; cursor: pointer; }
+.form-textarea { resize: vertical; min-height: 70px; line-height: 1.6; }
+
+.form-hint {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  color: var(--text3); line-height: 1.6; margin-bottom: 14px;
+}
+.form-hint a { color: var(--blue); }
+.form-hint code {
+  background: var(--bg3); padding: 1px 5px; border-radius: 3px;
+  font-family: 'DM Mono', monospace; font-size: 10px; color: var(--amber);
+}
+
+.form-actions { display: flex; gap: 10px; margin-top: 18px; align-items: center; flex-wrap: wrap; }
+
+.btn-primary {
+  font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+  letter-spacing: .06em; padding: 9px 20px; border-radius: 6px;
+  background: var(--purple-dim); border: 1px solid var(--purple);
+  color: var(--purple); cursor: pointer; transition: all .15s;
+}
+.btn-primary:hover { background: rgba(155,143,245,.25); }
+
+.btn-secondary {
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  padding: 9px 16px; border-radius: 6px;
+  background: transparent; border: 1px solid var(--border2);
+  color: var(--text3); cursor: pointer; transition: all .15s;
+}
+.btn-secondary:hover { color: var(--text2); border-color: rgba(255,255,255,0.2); }
+
+.form-msg {
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  padding: 8px 14px; border-radius: 6px; display: none;
+}
+.form-msg.ok  { background: var(--green-dim); color: var(--green); border: 1px solid rgba(109,191,103,.25); }
+.form-msg.err { background: var(--coral-dim); color: var(--coral); border: 1px solid rgba(232,107,95,.25); }
+.form-msg.show { display: block; }
+
+.ris-textarea {
+  width: 100%; background: var(--bg3); border: 1px solid var(--border2);
+  border-radius: 6px; padding: 12px; font-family: 'DM Mono', monospace;
+  font-size: 11px; color: var(--text2); outline: none; resize: vertical;
+  min-height: 160px; line-height: 1.6; transition: border-color .15s;
+}
+.ris-textarea:focus { border-color: var(--purple); }
+.ris-preview {
+  margin-top: 14px; padding: 12px 14px;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 6px; display: none;
+}
+.ris-preview.show { display: block; }
+.ris-preview-title {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  text-transform: uppercase; letter-spacing: .1em;
+  color: var(--text3); margin-bottom: 8px;
+}
+.ris-entry {
+  font-family: 'DM Mono', monospace; font-size: 11.5px;
+  color: var(--text2); line-height: 1.7; padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+.ris-entry:last-child { border-bottom: none; }
+.ris-entry .ti { font-style: italic; color: var(--text); }
+
+@media (max-width: 600px) {
+  .form-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -869,6 +1086,7 @@ footer {
   <a href="#ligne-de-temps">Ligne de temps</a>
   <a href="#infrastructure">Infrastructure</a>
   <a href="#acronymes">Acronymes</a>
+  <a href="#references">Références APA</a>
 </nav>
 
 <main>
@@ -1934,6 +2152,385 @@ footer {
   </div>
 </section>
 
+<!-- ══════════════ RÉFÉRENCES APA ══════════════ -->
+<section id="references">
+  <div class="section-label">05 — Références APA &amp; gestion bibliographique</div>
+
+  <!-- Panneau Zotero / ajout -->
+  <div class="zotero-panel">
+    <div class="zotero-tabs">
+      <button class="ztab active" onclick="showZTab('import',this)">Importer depuis Zotero (RIS)</button>
+      <button class="ztab" onclick="showZTab('manual',this)">Ajout manuel</button>
+    </div>
+
+    <!-- TAB 1 : Import RIS -->
+    <div id="ztab-import" class="ztab-panel active">
+      <div class="form-hint">
+        <strong style="color:var(--text)">Comment exporter depuis Zotero :</strong><br>
+        1. Dans Zotero, sélectionnez une ou plusieurs références (Ctrl+clic pour plusieurs)<br>
+        2. Clic droit → <strong>Exporter les éléments…</strong> → choisir le format <code>RIS</code><br>
+        3. Copiez le contenu du fichier <code>.ris</code> exporté et collez-le ci-dessous<br>
+        4. Cliquez <strong>Analyser et prévisualiser</strong>, puis <strong>Ajouter à la liste</strong>
+      </div>
+      <textarea class="ris-textarea" id="ris-input" placeholder="Collez ici le contenu RIS exporté depuis Zotero…&#10;&#10;Exemple :&#10;TY  - JOUR&#10;AU  - Nom, Prénom&#10;TI  - Titre de l'article&#10;JO  - Nom de la revue&#10;PY  - 2024&#10;DO  - 10.xxxx/xxxxx&#10;ER  -"></textarea>
+      <div class="form-actions">
+        <button class="btn-primary" onclick="parseRIS()">Analyser et prévisualiser</button>
+        <button class="btn-secondary" onclick="clearRIS()">Effacer</button>
+        <div class="form-msg" id="ris-msg"></div>
+      </div>
+      <div class="ris-preview" id="ris-preview">
+        <div class="ris-preview-title">Prévisualisation — références détectées</div>
+        <div id="ris-entries"></div>
+        <div class="form-actions" style="margin-top:14px">
+          <button class="btn-primary" onclick="addRISRefs()">Ajouter à la liste</button>
+          <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text3)" id="ris-count-label"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2 : Manuel -->
+    <div id="ztab-manual" class="ztab-panel">
+      <div class="form-hint">
+        Remplissez les champs ci-dessous. Seuls les champs marqués * sont obligatoires. La référence sera ajoutée en bas de la liste et conservée pendant votre session.
+      </div>
+      <div class="form-grid">
+        <div class="form-group form-full">
+          <label class="form-label">Auteur(s) *  <span style="font-weight:300">(ex : Dupont, M., &amp; Martin, J.)</span></label>
+          <input class="form-input" id="f-authors" placeholder="Nom, Prénom. &amp; Nom, Prénom.">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Année *</label>
+          <input class="form-input" id="f-year" placeholder="2024" maxlength="4">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Type de source</label>
+          <select class="form-select" id="f-type">
+            <option value="acad">Académique</option>
+            <option value="ind">Industrielle</option>
+            <option value="grey">Littérature grise / Blog</option>
+            <option value="gouv">Gouvernementale / Institutionnelle</option>
+          </select>
+        </div>
+        <div class="form-group form-full">
+          <label class="form-label">Titre *</label>
+          <input class="form-input" id="f-title" placeholder="Titre de l'article ou de l'ouvrage">
+        </div>
+        <div class="form-group form-full">
+          <label class="form-label">Revue / éditeur / source</label>
+          <input class="form-input" id="f-journal" placeholder="Nom de la revue, volume(numéro), pages — ou nom de l'éditeur">
+        </div>
+        <div class="form-group form-full">
+          <label class="form-label">DOI ou URL</label>
+          <input class="form-input" id="f-doi" placeholder="https://doi.org/10.xxxx/... ou https://arxiv.org/abs/...">
+        </div>
+        <div class="form-group form-full">
+          <label class="form-label">Mots-clés (séparés par des virgules)</label>
+          <input class="form-input" id="f-tags" placeholder="RAG, mémoire, benchmark…">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-primary" onclick="addManualRef()">Ajouter à la liste</button>
+        <button class="btn-secondary" onclick="clearForm()">Réinitialiser</button>
+        <div class="form-msg" id="manual-msg"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toolbar filtre -->
+  <div class="ref-toolbar">
+    <button class="ref-filter-btn active" onclick="filterRefs('all',this)">Toutes</button>
+    <button class="ref-filter-btn fi"  onclick="filterRefs('acad',this)">Académiques</button>
+    <button class="ref-filter-btn fi"  onclick="filterRefs('ind',this)">Industrielles</button>
+    <button class="ref-filter-btn fg"  onclick="filterRefs('grey',this)">Grises</button>
+    <button class="ref-filter-btn fgo" onclick="filterRefs('gouv',this)">Gouvernementales</button>
+    <span class="ref-count" id="ref-count">28 références</span>
+  </div>
+
+  <!-- GROUPE 1 : Fondements -->
+  <div class="ref-group">
+    <div class="ref-group-header">
+      <span class="ref-group-title">Fondements philosophiques et IA symbolique</span>
+      <span class="ref-group-line"></span><span class="ref-group-count">4</span>
+    </div>
+
+    <div class="ref-item" data-rtype="acad">
+      <div class="ref-n">1</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Bratman, M. E.</span> <span class="yr">(1987).</span> <span class="ti">Intention, plans, and practical reason.</span> Harvard University Press.</div>
+        <div class="ref-meta"><span class="ref-badge rb-acad">Acad.</span><span class="ref-tag">BDI</span><span class="ref-tag">Philosophie</span><span class="ref-nolink">Ouvrage imprimé — pas de lien libre</span></div>
+      </div>
+    </div>
+
+    <div class="ref-item" data-rtype="acad">
+      <div class="ref-n">2</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Franklin, S., &amp; Graesser, A.</span> <span class="yr">(1997).</span> <span class="ti">Is it an agent, or just a program? A taxonomy for autonomous agents.</span> Dans J. P. Müller et al. (dir.), <em>Intelligent Agents III</em> (LNCS 1193, p. 21–35). Springer. https://doi.org/10.1007/BFb0013570</div>
+        <div class="ref-meta"><span class="ref-badge rb-acad">Acad.</span><span class="ref-tag">Taxonomie</span><span class="ref-tag">BDI</span><a class="ref-link" href="https://doi.org/10.1007/BFb0013570" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>DOI</a></div>
+      </div>
+    </div>
+
+    <div class="ref-item" data-rtype="acad">
+      <div class="ref-n">3</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Russell, S., &amp; Norvig, P.</span> <span class="yr">(2020).</span> <span class="ti">Artificial intelligence: A modern approach</span> (4e éd.). Pearson. (1re éd. 1995.)</div>
+        <div class="ref-meta"><span class="ref-badge rb-acad">Acad.</span><span class="ref-tag">PEAS</span><span class="ref-tag">Agent rationnel</span><a class="ref-link" href="https://aima.cs.berkeley.edu/" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Site officiel</a></div>
+      </div>
+    </div>
+
+    <div class="ref-item" data-rtype="acad">
+      <div class="ref-n">4</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Wooldridge, M., &amp; Jennings, N. R.</span> <span class="yr">(1995).</span> <span class="ti">Intelligent agents: Theory and practice.</span> <em>The Knowledge Engineering Review, 10</em>(2), 115–152. https://doi.org/10.1017/S0269888900008122</div>
+        <div class="ref-meta"><span class="ref-badge rb-acad">Acad.</span><span class="ref-tag">BDI</span><span class="ref-tag">KQML/FIPA</span><a class="ref-link" href="https://doi.org/10.1017/S0269888900008122" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>DOI</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GROUPE 2 : RL -->
+  <div class="ref-group">
+    <div class="ref-group-header">
+      <span class="ref-group-title">Apprentissage par renforcement et alignement</span>
+      <span class="ref-group-line"></span><span class="ref-group-count">3</span>
+    </div>
+
+    <div class="ref-item" data-rtype="acad">
+      <div class="ref-n">5</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Christiano, P., Leike, J., Brown, T. B., Martic, M., Legg, S., &amp; Amodei, D.</span> <span class="yr">(2017).</span> <span class="ti">Deep reinforcement learning from human preferences.</span> <em>NeurIPS 2017, 30,</em> 4299–4307. https://arxiv.org/abs/1706.03741</div>
+        <div class="ref-meta"><span class="ref-badge rb-acad">Acad.</span><span class="ref-tag">RLHF</span><span class="ref-tag">Alignement</span><a class="ref-link" href="https://arxiv.org/abs/1706.03741" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>arXiv</a></div>
+      </div>
+    </div>
+
+    <div class="ref-item" data-rtype="acad">
+      <div class="ref-n">6</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Leike, J., Martic, M., Krakovna, V., Ortega, P. A., Everitt, T., Lefrancq, A., Uesato, J., &amp; Legg, S.</span> <span class="yr">(2018).</span> <span class="ti">AI safety gridworlds.</span> arXiv:1711.09883. https://arxiv.org/abs/1711.09883</div>
+        <div class="ref-meta"><span class="ref-badge rb-acad">Acad.</span><span class="ref-tag">Sécurité IA</span><span class="ref-tag">HITL</span><a class="ref-link" href="https://arxiv.org/abs/1711.09883" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>arXiv</a></div>
+      </div>
+    </div>
+
+    <div class="ref-item" data-rtype="acad">
+      <div class="ref-n">7</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Silver, D., Huang, A., Maddison, C. J., Guez, A., et al.</span> <span class="yr">(2016).</span> <span class="ti">Mastering the game of Go with deep neural networks and tree search.</span> <em>Nature, 529</em>(7587), 484–489. https://doi.org/10.1038/nature16961</div>
+        <div class="ref-meta"><span class="ref-badge rb-acad">Acad.</span><span class="ref-tag">DQN</span><span class="ref-tag">Performance empirique</span><a class="ref-link" href="https://doi.org/10.1038/nature16961" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>DOI</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GROUPE 3 : Foundation Models -->
+  <div class="ref-group">
+    <div class="ref-group-header">
+      <span class="ref-group-title">Foundation models, mémoire et benchmarks</span>
+      <span class="ref-group-line"></span><span class="ref-group-count">5</span>
+    </div>
+
+    <div class="ref-item" data-rtype="acad">
+      <div class="ref-n">8</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Bommasani, R., Hudson, D. A., Adeli, E., et al.</span> <span class="yr">(2021).</span> <span class="ti">On the opportunities and risks of foundation models.</span> arXiv:2108.07258. https://arxiv.org/abs/2108.07258</div>
+        <div class="ref-meta"><span class="ref-badge rb-acad">Acad.</span><span class="ref-tag">Foundation Models</span><span class="ref-tag">Centralisation</span><a class="ref-link" href="https://arxiv.org/abs/2108.07258" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>arXiv</a></div>
+      </div>
+    </div>
+
+    <div class="ref-item" data-rtype="acad">
+      <div class="ref-n">9</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Chollet, F.</span> <span class="yr">(2019).</span> <span class="ti">On the measure of intelligence.</span> arXiv:1911.01547. https://arxiv.org/abs/1911.01547</div>
+        <div class="ref-meta"><span class="ref-badge rb-acad">Acad.</span><span class="ref-tag">ARC-AGI</span><span class="ref-tag">Généralisation</span><a class="ref-link" href="https://arxiv.org/abs/1911.01547" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>arXiv</a></div>
+      </div>
+    </div>
+
+    <div class="ref-item" data-rtype="acad">
+      <div class="ref-n">10</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Chollet, F., Knoop, M., Kamradt, G., &amp; Landers, B.</span> <span class="yr">(2025).</span> <span class="ti">ARC-AGI-2: A new challenge for frontier AI.</span> arXiv:2505.07091. https://arxiv.org/abs/2505.07091</div>
+        <div class="ref-meta"><span class="ref-badge rb-grey">Prépub.</span><span class="ref-tag">ARC-AGI-2</span><span class="ref-tag">Nouveauté</span><a class="ref-link" href="https://arxiv.org/abs/2505.07091" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>arXiv</a></div>
+      </div>
+    </div>
+
+    <div class="ref-item" data-rtype="acad">
+      <div class="ref-n">11</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Hendrycks, D., Burns, C., Basart, S., Zou, A., Mazeika, M., Song, D., &amp; Steinhardt, J.</span> <span class="yr">(2021).</span> <span class="ti">Measuring massive multitask language understanding.</span> <em>ICLR 2021.</em> https://arxiv.org/abs/2009.03300</div>
+        <div class="ref-meta"><span class="ref-badge rb-acad">Acad.</span><span class="ref-tag">MMLU</span><span class="ref-tag">Saturation</span><a class="ref-link" href="https://arxiv.org/abs/2009.03300" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>arXiv</a></div>
+      </div>
+    </div>
+
+    <div class="ref-item" data-rtype="acad">
+      <div class="ref-n">12</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Lewis, P., Perez, E., Piktus, A., et al.</span> <span class="yr">(2020).</span> <span class="ti">Retrieval-augmented generation for knowledge-intensive NLP tasks.</span> <em>NeurIPS 2020, 33,</em> 9459–9474. https://arxiv.org/abs/2005.11401</div>
+        <div class="ref-meta"><span class="ref-badge rb-acad">Acad.</span><span class="ref-tag">RAG</span><span class="ref-tag">Mémoire</span><a class="ref-link" href="https://arxiv.org/abs/2005.11401" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>arXiv</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GROUPE 4 : LLM agentique -->
+  <div class="ref-group">
+    <div class="ref-group-header">
+      <span class="ref-group-title">Paradigme LLM agentique — ReAct, CoT, Survey</span>
+      <span class="ref-group-line"></span><span class="ref-group-count">6</span>
+    </div>
+
+    <div class="ref-item" data-rtype="acad">
+      <div class="ref-n">13</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Jimenez, C. E., Yang, J., Wettig, A., Yao, S., Pei, K., Press, O., &amp; Narasimhan, K.</span> <span class="yr">(2024).</span> <span class="ti">SWE-bench: Can language models resolve real-world GitHub issues?</span> <em>ICLR 2024.</em> https://arxiv.org/abs/2310.06770</div>
+        <div class="ref-meta"><span class="ref-badge rb-acad">Acad.</span><span class="ref-tag">SWE-bench</span><span class="ref-tag">Benchmark agentique</span><a class="ref-link" href="https://arxiv.org/abs/2310.06770" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>arXiv</a></div>
+      </div>
+    </div>
+
+    <div class="ref-item" data-rtype="acad">
+      <div class="ref-n">14</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Kapoor, S., Stroebl, B., Siegel, Z. S., Nadgir, N., &amp; Narayanan, A.</span> <span class="yr">(2024).</span> <span class="ti">AI agents that matter.</span> arXiv:2407.01502. https://arxiv.org/abs/2407.01502</div>
+        <div class="ref-meta"><span class="ref-badge rb-acad">Acad.</span><span class="ref-tag">Critique benchmarks</span><span class="ref-tag">Ratio perf/coût</span><a class="ref-link" href="https://arxiv.org/abs/2407.01502" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>arXiv</a></div>
+      </div>
+    </div>
+
+    <div class="ref-item" data-rtype="acad">
+      <div class="ref-n">15</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Wang, L., Ma, C., Feng, X., Zhang, Z., et al.</span> <span class="yr">(2024).</span> <span class="ti">A survey on large language model based autonomous agents.</span> <em>Frontiers of Computer Science, 18</em>(6), 186345. https://arxiv.org/abs/2308.11432</div>
+        <div class="ref-meta"><span class="ref-badge rb-acad">Acad.</span><span class="ref-tag">Taxonomie agents</span><span class="ref-tag">Mémoire ×4</span><a class="ref-link" href="https://arxiv.org/abs/2308.11432" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>arXiv</a></div>
+      </div>
+    </div>
+
+    <div class="ref-item" data-rtype="acad">
+      <div class="ref-n">16</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Wei, J., Wang, X., Schuurmans, D., Bosma, M., et al.</span> <span class="yr">(2022).</span> <span class="ti">Chain-of-thought prompting elicits reasoning in large language models.</span> <em>NeurIPS 2022, 35,</em> 24824–24837. https://arxiv.org/abs/2201.11903</div>
+        <div class="ref-meta"><span class="ref-badge rb-acad">Acad.</span><span class="ref-tag">CoT</span><span class="ref-tag">Raisonnement</span><a class="ref-link" href="https://arxiv.org/abs/2201.11903" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>arXiv</a></div>
+      </div>
+    </div>
+
+    <div class="ref-item" data-rtype="acad">
+      <div class="ref-n">17</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Yao, S., Zhao, J., Yu, D., Du, N., Shafran, I., Narasimhan, K., &amp; Cao, Y.</span> <span class="yr">(2023).</span> <span class="ti">ReAct: Synergizing reasoning and acting in language models.</span> <em>ICLR 2023.</em> https://arxiv.org/abs/2210.03629</div>
+        <div class="ref-meta"><span class="ref-badge rb-acad">Acad.</span><span class="ref-tag">ReAct</span><span class="ref-tag">Boucle agentique</span><a class="ref-link" href="https://arxiv.org/abs/2210.03629" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>arXiv</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GROUPE 5 : Industrielles -->
+  <div class="ref-group">
+    <div class="ref-group-header">
+      <span class="ref-group-title">Sources industrielles</span>
+      <span class="ref-group-line"></span><span class="ref-group-count">4</span>
+    </div>
+
+    <div class="ref-item" data-rtype="ind">
+      <div class="ref-n">18</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Anthropic.</span> <span class="yr">(2024a).</span> <span class="ti">Claude's model specification.</span> https://www.anthropic.com/claude/model-spec</div>
+        <div class="ref-meta"><span class="ref-badge rb-ind">Ind.</span><span class="ref-tag">Model Spec</span><span class="ref-tag">HITL</span><a class="ref-link" href="https://www.anthropic.com/claude/model-spec" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Lien</a></div>
+      </div>
+    </div>
+
+    <div class="ref-item" data-rtype="ind">
+      <div class="ref-n">19</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Anthropic.</span> <span class="yr">(2024b).</span> <span class="ti">Building effective agents.</span> Anthropic Engineering Blog. https://www.anthropic.com/research/building-effective-agents</div>
+        <div class="ref-meta"><span class="ref-badge rb-ind">Ind.</span><span class="ref-tag">Orchestrateur</span><span class="ref-tag">MCP</span><a class="ref-link" href="https://www.anthropic.com/research/building-effective-agents" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Lien</a></div>
+      </div>
+    </div>
+
+    <div class="ref-item" data-rtype="ind">
+      <div class="ref-n">20</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">OpenAI.</span> <span class="yr">(2023a).</span> <span class="ti">GPT-4 technical report.</span> arXiv:2303.08774. https://arxiv.org/abs/2303.08774</div>
+        <div class="ref-meta"><span class="ref-badge rb-ind">Ind.</span><span class="ref-tag">GPT-4</span><span class="ref-tag">Foundation Model</span><a class="ref-link" href="https://arxiv.org/abs/2303.08774" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>arXiv</a></div>
+      </div>
+    </div>
+
+    <div class="ref-item" data-rtype="ind">
+      <div class="ref-n">21</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">OpenAI.</span> <span class="yr">(2023b).</span> <span class="ti">Function calling and other API updates.</span> OpenAI Blog. https://openai.com/index/function-calling-and-other-api-updates/</div>
+        <div class="ref-meta"><span class="ref-badge rb-ind">Ind.</span><span class="ref-tag">Function calling</span><a class="ref-link" href="https://openai.com/index/function-calling-and-other-api-updates/" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Lien</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GROUPE 6 : Grises -->
+  <div class="ref-group">
+    <div class="ref-group-header">
+      <span class="ref-group-title">Littérature grise — blogs et prépublications</span>
+      <span class="ref-group-line"></span><span class="ref-group-count">2</span>
+    </div>
+
+    <div class="ref-item" data-rtype="grey">
+      <div class="ref-n">22</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Weng, L.</span> <span class="yr">(2023, 23 juin).</span> <span class="ti">LLM powered autonomous agents.</span> Lil'Log. https://lilianweng.github.io/posts/2023-06-23-agent/</div>
+        <div class="ref-meta"><span class="ref-badge rb-grey">Blog</span><span class="ref-tag">Mémoire persistante</span><span class="ref-tag">Agentic spectrum</span><a class="ref-link" href="https://lilianweng.github.io/posts/2023-06-23-agent/" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Lien</a></div>
+      </div>
+    </div>
+
+    <div class="ref-item" data-rtype="grey">
+      <div class="ref-n">23</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Willison, S.</span> <span class="yr">(2025, 18 septembre).</span> <span class="ti">I think "agent" may finally have a widely enough agreed upon definition to be useful jargon now.</span> Simon Willison's Weblog. https://simonwillison.net/2025/Sep/18/agents/</div>
+        <div class="ref-meta"><span class="ref-badge rb-grey">Blog</span><span class="ref-tag">Définition pragmatique</span><span class="ref-tag">Gradient d'agentivité</span><a class="ref-link" href="https://simonwillison.net/2025/Sep/18/agents/" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Lien</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GROUPE 7 : Gouvernementales -->
+  <div class="ref-group">
+    <div class="ref-group-header">
+      <span class="ref-group-title">Sources gouvernementales et institutionnelles</span>
+      <span class="ref-group-line"></span><span class="ref-group-count">5</span>
+    </div>
+
+    <div class="ref-item" data-rtype="gouv">
+      <div class="ref-n">24</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Commission européenne.</span> <span class="yr">(2024).</span> <span class="ti">Regulation (EU) 2024/1689 of the European Parliament and of the Council laying down harmonised rules on artificial intelligence (Artificial Intelligence Act).</span> <em>Official Journal of the European Union, L,</em> 2024/1689. https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32024R1689</div>
+        <div class="ref-meta"><span class="ref-badge rb-gouv">Gouv.</span><span class="ref-tag">AI Act</span><span class="ref-tag">GPAI</span><span class="ref-tag">10²⁵ FLOP</span><a class="ref-link" href="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32024R1689" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>EUR-Lex (FR)</a></div>
+      </div>
+    </div>
+
+    <div class="ref-item" data-rtype="gouv">
+      <div class="ref-n">25</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">National Institute of Standards and Technology (NIST).</span> <span class="yr">(2023).</span> <span class="ti">Artificial intelligence risk management framework (AI RMF 1.0)</span> (NIST AI 100-1). U.S. Department of Commerce. https://doi.org/10.6028/NIST.AI.100-1</div>
+        <div class="ref-meta"><span class="ref-badge rb-gouv">Gouv.</span><span class="ref-tag">RMF</span><span class="ref-tag">Audit</span><a class="ref-link" href="https://doi.org/10.6028/NIST.AI.100-1" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>DOI NIST</a></div>
+      </div>
+    </div>
+
+    <div class="ref-item" data-rtype="gouv">
+      <div class="ref-n">26</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Organisation de coopération et de développement économiques (OCDE).</span> <span class="yr">(2023).</span> <span class="ti">Recommandation du Conseil sur l'intelligence artificielle</span> (OECD/LEGAL/0449, révisée). OCDE. https://legalinstruments.oecd.org/fr/instruments/OECD-LEGAL-0449</div>
+        <div class="ref-meta"><span class="ref-badge rb-gouv">Gouv.</span><span class="ref-tag">OCDE</span><span class="ref-tag">Définition IA</span><a class="ref-link" href="https://legalinstruments.oecd.org/fr/instruments/OECD-LEGAL-0449" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Lien OCDE</a></div>
+      </div>
+    </div>
+
+    <div class="ref-item" data-rtype="gouv">
+      <div class="ref-n">27</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">Secrétariat du Conseil du Trésor du Canada.</span> <span class="yr">(2022).</span> <span class="ti">Directive sur la prise de décisions automatisée.</span> Gouvernement du Canada. https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32592</div>
+        <div class="ref-meta"><span class="ref-badge rb-gouv">Gouv.</span><span class="ref-tag">Canada</span><span class="ref-tag">Niveaux I–IV</span><a class="ref-link" href="https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32592" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Lien</a></div>
+      </div>
+    </div>
+
+    <div class="ref-item" data-rtype="gouv">
+      <div class="ref-n">28</div>
+      <div class="ref-body">
+        <div class="ref-apa"><span class="au">UNESCO.</span> <span class="yr">(2021).</span> <span class="ti">Recommandation sur l'éthique de l'intelligence artificielle.</span> UNESCO. https://unesdoc.unesco.org/ark:/48223/pf0000381137_fre</div>
+        <div class="ref-meta"><span class="ref-badge rb-gouv">Gouv.</span><span class="ref-tag">UNESCO</span><span class="ref-tag">RAM</span><span class="ref-tag">Éthique IA</span><a class="ref-link" href="https://unesdoc.unesco.org/ark:/48223/pf0000381137_fre" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>UNESCO (FR)</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Zone d'ajout dynamique -->
+  <div id="dynamic-refs"></div>
+
+</section>
+
 </main>
 
 <footer>
@@ -1944,10 +2541,145 @@ footer {
 </footer>
 
 <script>
-function filterAcro(cat, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+function showMsg(el, text, type) {
+  el.textContent = text;
+  el.className = 'form-msg show ' + type;
+  setTimeout(() => el.classList.remove('show'), 4000);
+}
+
+// ── RÉFÉRENCES : filtre ──
+function filterRefs(type, btn) {
+  document.querySelectorAll('.ref-filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('.acro-card').forEach(card => {
+  const items = document.querySelectorAll('.ref-item');
+  let n = 0;
+  items.forEach(it => {
+    const show = type === 'all' || it.dataset.rtype === type;
+    it.classList.toggle('ref-hidden', !show);
+    if (show) n++;
+  });
+  document.getElementById('ref-count').textContent = n + ' référence' + (n > 1 ? 's' : '');
+}
+
+// ── ONGLETS ZOTERO ──
+function showZTab(id, btn) {
+  document.querySelectorAll('.ztab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.ztab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('ztab-' + id).classList.add('active');
+}
+
+// ── PARSEUR RIS ──
+let parsedRefs = [];
+
+function parseRIS() {
+  const raw = document.getElementById('ris-input').value.trim();
+  const msg = document.getElementById('ris-msg');
+  const preview = document.getElementById('ris-preview');
+  if (!raw) { showMsg(msg, "Collez d'abord un contenu RIS.", 'err'); return; }
+  const entries = raw.split(/\nER\s*-/).filter(e => e.trim());
+  parsedRefs = [];
+  entries.forEach(entry => {
+    const get = (tag) => {
+      const lines = entry.match(new RegExp('^' + tag + '\\s+-\\s+(.+)', 'mg'));
+      return lines ? lines.map(l => l.replace(new RegExp('^' + tag + '\\s+-\\s+'), '').trim()) : [];
+    };
+    const authors = get('AU').join(', ');
+    const year    = (get('PY')[0] || get('Y1')[0] || '').slice(0,4);
+    const title   = get('TI')[0] || get('T1')[0] || '';
+    const journal = get('JO')[0] || get('T2')[0] || get('BT')[0] || '';
+    const doi     = get('DO')[0] || get('UR')[0] || '';
+    if (!title) return;
+    parsedRefs.push({ authors, year, title, journal, doi, type: 'acad' });
+  });
+  if (!parsedRefs.length) { showMsg(msg, 'Aucune référence valide détectée. Vérifiez le format RIS.', 'err'); return; }
+  const container = document.getElementById('ris-entries');
+  container.innerHTML = '';
+  parsedRefs.forEach(r => {
+    const d = document.createElement('div');
+    d.className = 'ris-entry';
+    d.innerHTML = '<strong>' + r.authors + '</strong> (' + r.year + '). <span class="ti">' + r.title + '</span>' + (r.journal ? '. ' + r.journal : '') + (r.doi ? '. ' + r.doi : '') + '.';
+    container.appendChild(d);
+  });
+  document.getElementById('ris-count-label').textContent = parsedRefs.length + ' référence' + (parsedRefs.length > 1 ? 's' : '') + ' détectée' + (parsedRefs.length > 1 ? 's' : '');
+  preview.classList.add('show');
+  showMsg(msg, parsedRefs.length + ' référence(s) prête(s) à ajouter.', 'ok');
+}
+
+function addRISRefs() {
+  if (!parsedRefs.length) return;
+  parsedRefs.forEach(r => appendRef(r.authors, r.year, r.title, r.journal, r.doi, 'acad', []));
+  showMsg(document.getElementById('ris-msg'), parsedRefs.length + ' référence(s) ajoutée(s).', 'ok');
+  parsedRefs = [];
+  document.getElementById('ris-preview').classList.remove('show');
+  document.getElementById('ris-input').value = '';
+  updateRefCount();
+}
+
+function clearRIS() {
+  document.getElementById('ris-input').value = '';
+  document.getElementById('ris-preview').classList.remove('show');
+  document.getElementById('ris-msg').classList.remove('show');
+  parsedRefs = [];
+}
+
+// ── AJOUT MANUEL ──
+function addManualRef() {
+  const authors = document.getElementById('f-authors').value.trim();
+  const year    = document.getElementById('f-year').value.trim();
+  const title   = document.getElementById('f-title').value.trim();
+  const journal = document.getElementById('f-journal').value.trim();
+  const doi     = document.getElementById('f-doi').value.trim();
+  const type    = document.getElementById('f-type').value;
+  const tagStr  = document.getElementById('f-tags').value.trim();
+  const tags    = tagStr ? tagStr.split(',').map(t => t.trim()).filter(Boolean) : [];
+  const msg     = document.getElementById('manual-msg');
+  if (!authors || !year || !title) { showMsg(msg, 'Auteur, Année et Titre sont obligatoires.', 'err'); return; }
+  appendRef(authors, year, title, journal, doi, type, tags);
+  showMsg(msg, 'Référence ajoutée à la liste.', 'ok');
+  clearForm();
+  updateRefCount();
+}
+
+function appendRef(authors, year, title, journal, doi, type, tags) {
+  const all = document.querySelectorAll('.ref-item');
+  const n = all.length + 1;
+  const badgeClass = { acad:'rb-acad', ind:'rb-ind', grey:'rb-grey', gouv:'rb-gouv' }[type] || 'rb-acad';
+  const badgeLabel = { acad:'Acad.', ind:'Ind.', grey:'Gris', gouv:'Gouv.' }[type] || 'Acad.';
+  const tagHTML = tags.map(t => '<span class="ref-tag">' + t + '</span>').join('');
+  const linkHTML = doi ? '<a class="ref-link" href="' + (doi.startsWith('http') ? doi : 'https://doi.org/' + doi) + '" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Lien</a>' : '<span class="ref-nolink">Pas de lien</span>';
+  const apaJournal = journal ? '. <em>' + journal + '</em>' : '';
+  const apaDoi     = doi ? '. ' + doi : '';
+  const div = document.createElement('div');
+  div.className = 'ref-item';
+  div.dataset.rtype = type;
+  div.innerHTML = '<div class="ref-n">' + n + '</div><div class="ref-body"><div class="ref-apa"><span class="au">' + authors + '</span> <span class="yr">(' + year + ').</span> <span class="ti">' + title + '</span>' + apaJournal + apaDoi + '</div><div class="ref-meta"><span class="ref-badge ' + badgeClass + '">' + badgeLabel + '</span>' + tagHTML + linkHTML + '</div></div>';
+  let dynGroup = document.getElementById('dynamic-ref-group');
+  if (!dynGroup) {
+    dynGroup = document.createElement('div');
+    dynGroup.id = 'dynamic-ref-group';
+    dynGroup.className = 'ref-group';
+    dynGroup.innerHTML = '<div class="ref-group-header"><span class="ref-group-title">Références ajoutées — session en cours</span><span class="ref-group-line"></span></div>';
+    document.getElementById('dynamic-refs').appendChild(dynGroup);
+  }
+  dynGroup.appendChild(div);
+}
+
+function clearForm() {
+  var fields = ['f-authors','f-year','f-title','f-journal','f-doi','f-tags'];
+  fields.forEach(function(id) { document.getElementById(id).value = ''; });
+  document.getElementById('f-type').value = 'acad';
+}
+
+function updateRefCount() {
+  var visible = document.querySelectorAll('.ref-item:not(.ref-hidden)').length;
+  document.getElementById('ref-count').textContent = visible + ' référence' + (visible > 1 ? 's' : '');
+}
+
+function filterAcro(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.querySelectorAll('.acro-card').forEach(function(card) {
     if (cat === 'all' || card.dataset.cat === cat) {
       card.classList.remove('hidden');
     } else {
@@ -1956,44 +2688,49 @@ function filterAcro(cat, btn) {
   });
 }
 
-// Active nav link on scroll
-const sections = document.querySelectorAll('section');
-const navLinks = document.querySelectorAll('nav a');
+document.addEventListener('DOMContentLoaded', function() {
 
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(s => {
-    if (window.scrollY >= s.offsetTop - 80) current = s.id;
-  });
-  navLinks.forEach(a => {
-    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-  });
-});
+  // Active nav link on scroll
+  var sections = document.querySelectorAll('section');
+  var navLinks = document.querySelectorAll('nav a');
 
-// Tooltip for timeline nodes
-const tooltip = document.getElementById('ldt-tooltip');
-const ldtScroll = document.getElementById('ldt-scroll');
-
-document.querySelectorAll('.ldt-node').forEach(node => {
-  node.addEventListener('mouseenter', (e) => {
-    const tip = node.dataset.tip;
-    if (!tip) return;
-    tooltip.textContent = tip;
-    tooltip.classList.add('visible');
+  window.addEventListener('scroll', function() {
+    var current = '';
+    sections.forEach(function(s) {
+      if (window.scrollY >= s.offsetTop - 80) current = s.id;
+    });
+    navLinks.forEach(function(a) {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
   });
 
-  node.addEventListener('mousemove', (e) => {
-    const rect = ldtScroll.parentElement.getBoundingClientRect();
-    let x = e.clientX - rect.left + 12;
-    let y = e.clientY - rect.top + 12;
-    if (x + 230 > rect.width) x = e.clientX - rect.left - 234;
-    tooltip.style.left = x + 'px';
-    tooltip.style.top = y + 'px';
+  // Tooltip for timeline nodes
+  var tooltip = document.getElementById('ldt-tooltip');
+  var ldtScroll = document.getElementById('ldt-scroll');
+  if (!tooltip || !ldtScroll) return;
+
+  document.querySelectorAll('.ldt-node').forEach(function(node) {
+    node.addEventListener('mouseenter', function() {
+      var tip = node.dataset.tip;
+      if (!tip) return;
+      tooltip.textContent = tip;
+      tooltip.classList.add('visible');
+    });
+
+    node.addEventListener('mousemove', function(e) {
+      var rect = ldtScroll.parentElement.getBoundingClientRect();
+      var x = e.clientX - rect.left + 12;
+      var y = e.clientY - rect.top + 12;
+      if (x + 230 > rect.width) x = e.clientX - rect.left - 234;
+      tooltip.style.left = x + 'px';
+      tooltip.style.top = y + 'px';
+    });
+
+    node.addEventListener('mouseleave', function() {
+      tooltip.classList.remove('visible');
+    });
   });
 
-  node.addEventListener('mouseleave', () => {
-    tooltip.classList.remove('visible');
-  });
 });
 </script>
 
