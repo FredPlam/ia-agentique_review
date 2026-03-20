@@ -6,9 +6,10 @@ var APP_CONFIG = {
   
   // ── JSONBin — base de données partagée ──  
   // Créer un compte gratuit sur https://jsonbin.io  
-  jsonbinId:  '69bc98bdb7ec241ddc84d19d',   // Votre Bin ID  
-  jsonbinKey: '$2a$10$QS1QRq3I/.3/F9fTHmkhEundPbXbUJ.jV.1aaxEvaqtql0.UtwLZS  
-',        // Votre Secret Key ($2b$10$...)  
+  jsonbinId:  '69bc98bdb7ec241ddc84d19d',  
+  // Votre Bin ID  
+  jsonbinKey: '$2a$10$QS1QRq3I/.3/F9fTHmkhEundPbXbUJ.jV.1aaxEvaqtql0.UtwLZS',   
+  // Votre Secret Key ($2b$10$...)  
   
   // ── Mot de passe de gestion ──  
   // Requis pour : ajouter, supprimer ou modifier des références  
