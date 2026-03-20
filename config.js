@@ -14,6 +14,6 @@ var APP_CONFIG = {
   // ── Mot de passe de gestion ──  
   // Requis pour : ajouter, supprimer ou modifier des références  
   // Changer cette valeur par un mot de passe de votre choix  
-  adminPassword: ‘Z4r4th0ustr4#' ,
+  adminPassword: ‘Z4r4th0ustr4#'
   
 };  
