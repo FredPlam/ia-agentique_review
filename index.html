@@ -2582,61 +2582,89 @@ function loadRISFile(input) {
 }
 
 // ── EXPORT RIS vers Zotero ──
+// Lit toutes les .ref-item présentes dans le DOM au moment du clic,
+// y compris les références ajoutées dynamiquement.
 function exportRIS() {
   var ris = '';
+  var items = document.querySelectorAll('.ref-item');
 
-  var refs = [
-    { ty:'BOOK', au:['Bratman, M. E.'], py:'1987', ti:'Intention, plans, and practical reason', pb:'Harvard University Press', kw:['BDI','Philosophie de l\'action'] },
-    { ty:'CHAP', au:['Franklin, S.','Graesser, A.'], py:'1997', ti:'Is it an agent, or just a program? A taxonomy for autonomous agents', t2:'Intelligent Agents III (LNCS 1193)', sp:'21', ep:'35', pb:'Springer', do:'10.1007/BFb0013570', kw:['Taxonomie agents','BDI'] },
-    { ty:'BOOK', au:['Russell, S.','Norvig, P.'], py:'2020', ti:'Artificial intelligence: A modern approach', pb:'Pearson', et:'4', ur:'https://aima.cs.berkeley.edu/', kw:['PEAS','Agent rationnel'] },
-    { ty:'JOUR', au:['Wooldridge, M.','Jennings, N. R.'], py:'1995', ti:'Intelligent agents: Theory and practice', jo:'The Knowledge Engineering Review', vl:'10', is:'2', sp:'115', ep:'152', do:'10.1017/S0269888900008122', kw:['BDI','KQML','FIPA'] },
-    { ty:'JOUR', au:['Christiano, P.','Leike, J.','Brown, T. B.','Martic, M.','Legg, S.','Amodei, D.'], py:'2017', ti:'Deep reinforcement learning from human preferences', jo:'Advances in Neural Information Processing Systems', vl:'30', sp:'4299', ep:'4307', ur:'https://arxiv.org/abs/1706.03741', kw:['RLHF','Alignement'] },
-    { ty:'JOUR', au:['Leike, J.','Martic, M.','Krakovna, V.','Ortega, P. A.','Everitt, T.','Lefrancq, A.','Uesato, J.','Legg, S.'], py:'2018', ti:'AI safety gridworlds', jo:'arXiv', ur:'https://arxiv.org/abs/1711.09883', kw:['Sécurité IA','Interruptibilité','Alignement'] },
-    { ty:'JOUR', au:['Silver, D.','Huang, A.','Maddison, C. J.','Guez, A.'], py:'2016', ti:'Mastering the game of Go with deep neural networks and tree search', jo:'Nature', vl:'529', is:'7587', sp:'484', ep:'489', do:'10.1038/nature16961', kw:['DQN','RL','Performance empirique'] },
-    { ty:'RPRT', au:['Bommasani, R.','Hudson, D. A.','Adeli, E.'], py:'2021', ti:'On the opportunities and risks of foundation models', t2:'Stanford CRFM', ur:'https://arxiv.org/abs/2108.07258', kw:['Foundation Models','Centralisation','Risques systémiques'] },
-    { ty:'JOUR', au:['Chollet, F.'], py:'2019', ti:'On the measure of intelligence', jo:'arXiv', ur:'https://arxiv.org/abs/1911.01547', kw:['ARC-AGI','Généralisation','Intelligence'] },
-    { ty:'RPRT', au:['Chollet, F.','Knoop, M.','Kamradt, G.','Landers, B.'], py:'2025', ti:'ARC-AGI-2: A new challenge for frontier AI', t2:'arXiv', ur:'https://arxiv.org/abs/2505.07091', kw:['ARC-AGI-2','Nouveauté','Benchmark'] },
-    { ty:'JOUR', au:['Hendrycks, D.','Burns, C.','Basart, S.','Zou, A.','Mazeika, M.','Song, D.','Steinhardt, J.'], py:'2021', ti:'Measuring massive multitask language understanding', jo:'ICLR 2021', ur:'https://arxiv.org/abs/2009.03300', kw:['MMLU','Benchmark','Saturation'] },
-    { ty:'JOUR', au:['Lewis, P.','Perez, E.','Piktus, A.'], py:'2020', ti:'Retrieval-augmented generation for knowledge-intensive NLP tasks', jo:'Advances in Neural Information Processing Systems', vl:'33', sp:'9459', ep:'9474', ur:'https://arxiv.org/abs/2005.11401', kw:['RAG','Mémoire','Retrieval'] },
-    { ty:'JOUR', au:['Jimenez, C. E.','Yang, J.','Wettig, A.','Yao, S.','Pei, K.','Press, O.','Narasimhan, K.'], py:'2024', ti:'SWE-bench: Can language models resolve real-world GitHub issues?', jo:'ICLR 2024', ur:'https://arxiv.org/abs/2310.06770', kw:['SWE-bench','Benchmark agentique'] },
-    { ty:'JOUR', au:['Kapoor, S.','Stroebl, B.','Siegel, Z. S.','Nadgir, N.','Narayanan, A.'], py:'2024', ti:'AI agents that matter', jo:'arXiv', ur:'https://arxiv.org/abs/2407.01502', kw:['Critique benchmarks','Ratio perf/coût'] },
-    { ty:'JOUR', au:['Wang, L.','Ma, C.','Feng, X.','Zhang, Z.'], py:'2024', ti:'A survey on large language model based autonomous agents', jo:'Frontiers of Computer Science', vl:'18', is:'6', sp:'186345', do:'10.1007/s11704-024-40231-1', ur:'https://arxiv.org/abs/2308.11432', kw:['Taxonomie agents LLM','Mémoire'] },
-    { ty:'JOUR', au:['Wei, J.','Wang, X.','Schuurmans, D.','Bosma, M.'], py:'2022', ti:'Chain-of-thought prompting elicits reasoning in large language models', jo:'NeurIPS 2022', vl:'35', sp:'24824', ep:'24837', ur:'https://arxiv.org/abs/2201.11903', kw:['CoT','Raisonnement','Prompting'] },
-    { ty:'JOUR', au:['Yao, S.','Zhao, J.','Yu, D.','Du, N.','Shafran, I.','Narasimhan, K.','Cao, Y.'], py:'2023', ti:'ReAct: Synergizing reasoning and acting in language models', jo:'ICLR 2023', ur:'https://arxiv.org/abs/2210.03629', kw:['ReAct','Boucle agentique','Outils'] },
-    { ty:'ELEC', au:['Anthropic'], py:'2024', ti:"Claude's model specification", ur:'https://www.anthropic.com/claude/model-spec', kw:['Model Spec','HITL','Sécurité'] },
-    { ty:'ELEC', au:['Anthropic'], py:'2024', ti:'Building effective agents', t2:'Anthropic Engineering Blog', ur:'https://www.anthropic.com/research/building-effective-agents', kw:['Orchestrateur','MCP','Pipelines'] },
-    { ty:'RPRT', au:['OpenAI'], py:'2023', ti:'GPT-4 technical report', t2:'arXiv', ur:'https://arxiv.org/abs/2303.08774', kw:['GPT-4','Foundation Model'] },
-    { ty:'ELEC', au:['OpenAI'], py:'2023', ti:'Function calling and other API updates', t2:'OpenAI Blog', ur:'https://openai.com/index/function-calling-and-other-api-updates/', kw:['Function calling','Agentivité instrumentale'] },
-    { ty:'ELEC', au:['Weng, L.'], py:'2023', ti:'LLM powered autonomous agents', t2:"Lil'Log", da:'2023/06/23', ur:'https://lilianweng.github.io/posts/2023-06-23-agent/', kw:['Mémoire persistante','Agentic spectrum'] },
-    { ty:'ELEC', au:['Willison, S.'], py:'2025', ti:'I think "agent" may finally have a widely enough agreed upon definition to be useful jargon now', t2:"Simon Willison's Weblog", da:'2025/09/18', ur:'https://simonwillison.net/2025/Sep/18/agents/', kw:['Définition pragmatique','Gradient agentivité'] },
-    { ty:'BILL', au:['Commission européenne'], py:'2024', ti:'Regulation (EU) 2024/1689 — Artificial Intelligence Act', t2:'Official Journal of the European Union', ur:'https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32024R1689', kw:['AI Act','GPAI','Régulation'] },
-    { ty:'RPRT', au:['National Institute of Standards and Technology (NIST)'], py:'2023', ti:'Artificial intelligence risk management framework (AI RMF 1.0)', t2:'NIST AI 100-1', pb:'U.S. Department of Commerce', do:'10.6028/NIST.AI.100-1', kw:['RMF','Gestion des risques','Audit'] },
-    { ty:'RPRT', au:['Organisation de coopération et de développement économiques (OCDE)'], py:'2023', ti:"Recommandation du Conseil sur l'intelligence artificielle (OECD/LEGAL/0449)", pb:'OCDE', ur:'https://legalinstruments.oecd.org/fr/instruments/OECD-LEGAL-0449', kw:['OCDE','Définition IA','Politique publique'] },
-    { ty:'RPRT', au:['Secrétariat du Conseil du Trésor du Canada'], py:'2022', ti:'Directive sur la prise de décisions automatisée', pb:'Gouvernement du Canada', ur:'https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32592', kw:['Canada','Niveaux I-IV','Imputabilité'] },
-    { ty:'RPRT', au:['UNESCO'], py:'2021', ti:"Recommandation sur l'éthique de l'intelligence artificielle", pb:'UNESCO', ur:'https://unesdoc.unesco.org/ark:/48223/pf0000381137_fre', kw:['UNESCO','RAM','Éthique IA'] }
-  ];
+  items.forEach(function(item) {
+    // Lire le type depuis data-rtype
+    var rtype = item.dataset.rtype || 'acad';
+    var tyMap = { acad: 'JOUR', ind: 'ELEC', grey: 'ELEC', gouv: 'RPRT' };
+    var ty = tyMap[rtype] || 'JOUR';
 
-  refs.forEach(function(r) {
-    ris += 'TY  - ' + r.ty + '\r\n';
-    r.au.forEach(function(a) { ris += 'AU  - ' + a + '\r\n'; });
-    ris += 'PY  - ' + r.py + '\r\n';
-    ris += 'TI  - ' + r.ti + '\r\n';
-    if (r.jo)  ris += 'JO  - ' + r.jo + '\r\n';
-    if (r.t2)  ris += 'T2  - ' + r.t2 + '\r\n';
-    if (r.pb)  ris += 'PB  - ' + r.pb + '\r\n';
-    if (r.vl)  ris += 'VL  - ' + r.vl + '\r\n';
-    if (r.is)  ris += 'IS  - ' + r.is + '\r\n';
-    if (r.sp)  ris += 'SP  - ' + r.sp + '\r\n';
-    if (r.ep)  ris += 'EP  - ' + r.ep + '\r\n';
-    if (r.et)  ris += 'ET  - ' + r.et + '\r\n';
-    if (r.da)  ris += 'DA  - ' + r.da + '\r\n';
-    if (r.do)  ris += 'DO  - ' + r.do + '\r\n';
-    if (r.ur)  ris += 'UR  - ' + r.ur + '\r\n';
-    if (r.kw)  r.kw.forEach(function(k) { ris += 'KW  - ' + k + '\r\n'; });
+    // Lire le texte APA brut dans .ref-apa
+    var apaEl = item.querySelector('.ref-apa');
+    var apaText = apaEl ? apaEl.textContent.trim() : '';
+
+    // Extraire auteur(s) — contenu de .au
+    var auEls = item.querySelectorAll('.au');
+    var authors = auEls.length ? auEls[0].textContent.trim() : '';
+
+    // Extraire année — contenu de .yr (retire parenthèses et point)
+    var yrEl = item.querySelector('.yr');
+    var year = yrEl ? yrEl.textContent.replace(/[().]/g, '').trim() : '';
+
+    // Extraire titre — contenu de .ti
+    var tiEl = item.querySelector('.ti');
+    var title = tiEl ? tiEl.textContent.trim() : '';
+
+    // Extraire lien DOI/URL depuis .ref-link href
+    var linkEl = item.querySelector('.ref-link');
+    var url = linkEl ? linkEl.getAttribute('href') : '';
+
+    // Extraire mots-clés depuis .ref-tag
+    var tagEls = item.querySelectorAll('.ref-tag');
+    var keywords = [];
+    tagEls.forEach(function(t) { keywords.push(t.textContent.trim()); });
+
+    // Écrire l'entrée RIS
+    ris += 'TY  - ' + ty + '\r\n';
+
+    // Auteurs : tenter de séparer sur & ou ,
+    if (authors) {
+      var auList = authors.split(/\s*&\s*/);
+      auList.forEach(function(a) {
+        var cleaned = a.replace(/\.$/, '').trim();
+        if (cleaned) ris += 'AU  - ' + cleaned + '\r\n';
+      });
+    }
+
+    if (year)  ris += 'PY  - ' + year + '\r\n';
+    if (title) ris += 'TI  - ' + title + '\r\n';
+
+    // Tenter d'extraire journal/éditeur depuis le texte APA restant
+    // Format typique : "Auteur (année). Titre. Journal, vol(n), pp. DOI"
+    var afterTitle = '';
+    if (apaText && title) {
+      var idx = apaText.indexOf(title);
+      if (idx >= 0) afterTitle = apaText.slice(idx + title.length).replace(/^\.\s*/, '');
+    }
+    if (afterTitle) {
+      // Premier segment avant une virgule ou un point = journal/éditeur
+      var segments = afterTitle.split(/[.,]/);
+      var journal = segments[0] ? segments[0].trim() : '';
+      if (journal && journal.length > 2 && !/^https?/.test(journal)) {
+        ris += 'JO  - ' + journal + '\r\n';
+      }
+    }
+
+    // DOI ou URL
+    if (url) {
+      if (url.indexOf('doi.org') >= 0) {
+        var doi = url.replace('https://doi.org/', '');
+        ris += 'DO  - ' + doi + '\r\n';
+      }
+      ris += 'UR  - ' + url + '\r\n';
+    }
+
+    keywords.forEach(function(k) { ris += 'KW  - ' + k + '\r\n'; });
     ris += 'LA  - fr\r\n';
     ris += 'ER  - \r\n\r\n';
   });
 
+  var total = items.length;
   var blob = new Blob([ris], { type: 'application/x-research-info-systems' });
   var url = URL.createObjectURL(blob);
   var a = document.createElement('a');
@@ -2646,6 +2674,10 @@ function exportRIS() {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
+
+  // Mettre à jour le compteur
+  var btn = document.getElementById('btn-export-ris');
+  if (btn) btn.textContent = 'Télécharger le fichier .ris (' + total + ' références)';
 }
 
 function showMsg(el, text, type) {
