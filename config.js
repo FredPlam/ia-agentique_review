@@ -1,7 +1,6 @@
-// ════════════════════════════════════════════════════════  
+
 //  config.js — Configuration du site IA agentique  
 //  Téléverser UNE SEULE FOIS sur GitHub, ne jamais remplacer  
-// ════════════════════════════════════════════════════════  
   
 var APP_CONFIG = {  
   
