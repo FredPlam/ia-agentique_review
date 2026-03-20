@@ -2216,10 +2216,6 @@ footer {
       <span id="sync-status" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);white-space:nowrap;padding-left:16px">—</span>
     </div>
     <div style="height:1px;background:var(--border);margin-bottom:20px"></div>
-      <button class="ztab active" onclick="showZTab('export',this)">Exporter vers Zotero (.ris)</button>
-      <button class="ztab" onclick="showZTab('import',this)">Ajouter depuis Zotero (coller RIS)</button>
-      <button class="ztab" onclick="showZTab('manual',this)">Ajout manuel</button>
-    </div>
 
     <!-- TAB 0 : Export RIS -->
     <div id="ztab-export" class="ztab-panel active">
@@ -2858,8 +2854,8 @@ function addManualRef() {
 
 // ── CONFIGURATION JSONBIN ──
 // Remplir après création du compte sur jsonbin.io
-var JSONBIN_ID  = '69bc98bdb7ec241ddc84d19d';       // ex: 6642f3c0acd3cb34a843f705
-var JSONBIN_KEY = '$2a$10$QS1QRq3I/.3/F9fTHmkhEundPbXbUJ.jV.1aaxEvaqtql0.UtwLZS';   // ex: $2b$10$abcdef...
+var JSONBIN_ID  = 'VOTRE_BIN_ID_ICI';       // ex: 6642f3c0acd3cb34a843f705
+var JSONBIN_KEY = 'VOTRE_SECRET_KEY_ICI';   // ex: $2b$10$abcdef...
 var JSONBIN_URL = 'https://api.jsonbin.io/v3/b/' + JSONBIN_ID;
 
 var STORAGE_KEY = 'ia_agentique_refs_v1';   // cache local
