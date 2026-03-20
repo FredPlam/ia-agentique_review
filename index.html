@@ -913,9 +913,58 @@ footer {
 .ref-item {
   display: flex; gap: 16px; padding: 14px 0;
   border-bottom: 1px solid var(--border);
+  position: relative;
 }
 .ref-item:last-child { border-bottom: none; }
 .ref-item.ref-hidden { display: none; }
+.ref-item.is-dup { background: rgba(232,107,95,.05); }
+
+.ref-dup-badge {
+  font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500;
+  letter-spacing: .07em; text-transform: uppercase;
+  background: var(--coral-dim); color: var(--coral);
+  border: 1px solid rgba(232,107,95,.3);
+  border-radius: 4px; padding: 2px 7px;
+  display: none; align-items: center; gap: 5px; flex-shrink: 0;
+  white-space: nowrap;
+}
+.ref-item.is-dup .ref-dup-badge { display: inline-flex; }
+
+.ref-del-dup {
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  background: transparent; border: 1px solid rgba(232,107,95,.4);
+  border-radius: 4px; padding: 2px 8px; color: var(--coral);
+  cursor: pointer; margin-left: 4px; transition: background .15s;
+}
+.ref-del-dup:hover { background: var(--coral-dim); }
+
+/* Modal mot de passe */
+.pwd-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.6); z-index: 200;
+  align-items: center; justify-content: center;
+}
+.pwd-overlay.show { display: flex; }
+.pwd-box {
+  background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: 14px; padding: 32px 28px; width: 340px;
+  font-family: 'DM Mono', monospace;
+}
+.pwd-title {
+  font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 600;
+  color: var(--text); margin-bottom: 8px;
+}
+.pwd-hint { font-size: 11px; color: var(--text3); margin-bottom: 18px; line-height: 1.6; }
+.pwd-input {
+  width: 100%; background: var(--bg3); border: 1px solid var(--border2);
+  border-radius: 6px; padding: 9px 12px; font-family: 'DM Mono', monospace;
+  font-size: 13px; color: var(--text); outline: none; margin-bottom: 12px;
+  transition: border-color .15s;
+}
+.pwd-input:focus { border-color: var(--purple); }
+.pwd-actions { display: flex; gap: 10px; }
+.pwd-err { font-size: 11px; color: var(--coral); margin-top: 8px; display: none; }
+.pwd-err.show { display: block; }
 
 .ref-n {
   font-family: 'DM Mono', monospace; font-size: 11px;
@@ -2158,7 +2207,15 @@ footer {
 
   <!-- Panneau Zotero / ajout -->
   <div class="zotero-panel">
-    <div class="zotero-tabs">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+      <div class="zotero-tabs" style="margin-bottom:0;border-bottom:none">
+        <button class="ztab active" onclick="showZTab('export',this)">Exporter vers Zotero (.ris)</button>
+        <button class="ztab" onclick="showZTab('import',this)">Ajouter depuis Zotero (coller RIS)</button>
+        <button class="ztab" onclick="showZTab('manual',this)">Ajout manuel</button>
+      </div>
+      <span id="sync-status" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);white-space:nowrap;padding-left:16px">—</span>
+    </div>
+    <div style="height:1px;background:var(--border);margin-bottom:20px"></div>
       <button class="ztab active" onclick="showZTab('export',this)">Exporter vers Zotero (.ris)</button>
       <button class="ztab" onclick="showZTab('import',this)">Ajouter depuis Zotero (coller RIS)</button>
       <button class="ztab" onclick="showZTab('manual',this)">Ajout manuel</button>
@@ -2268,6 +2325,21 @@ footer {
     <button class="ref-filter-btn fg"  onclick="filterRefs('grey',this)">Grises</button>
     <button class="ref-filter-btn fgo" onclick="filterRefs('gouv',this)">Gouvernementales</button>
     <span class="ref-count" id="ref-count">28 références</span>
+    <button class="btn-secondary" style="margin-left:8px;font-size:10.5px;padding:5px 13px" onclick="runDedup()">Détecter les doublons</button>
+  </div>
+
+  <!-- Modal mot de passe -->
+  <div class="pwd-overlay" id="pwd-overlay">
+    <div class="pwd-box">
+      <div class="pwd-title">Supprimer une référence</div>
+      <div class="pwd-hint">La suppression est protégée. Entrez le mot de passe pour confirmer l'action.</div>
+      <input class="pwd-input" type="password" id="pwd-input" placeholder="Mot de passe…" onkeydown="if(event.key==='Enter')confirmDelete()">
+      <div class="pwd-err" id="pwd-err">Mot de passe incorrect.</div>
+      <div class="pwd-actions">
+        <button class="btn-primary" onclick="confirmDelete()">Confirmer</button>
+        <button class="btn-secondary" onclick="closePwd()">Annuler</button>
+      </div>
+    </div>
   </div>
 
   <!-- GROUPE 1 : Fondements -->
@@ -2784,28 +2856,176 @@ function addManualRef() {
   updateRefCount();
 }
 
-function appendRef(authors, year, title, journal, doi, type, tags) {
-  const all = document.querySelectorAll('.ref-item');
-  const n = all.length + 1;
-  const badgeClass = { acad:'rb-acad', ind:'rb-ind', grey:'rb-grey', gouv:'rb-gouv' }[type] || 'rb-acad';
-  const badgeLabel = { acad:'Acad.', ind:'Ind.', grey:'Gris', gouv:'Gouv.' }[type] || 'Acad.';
-  const tagHTML = tags.map(t => '<span class="ref-tag">' + t + '</span>').join('');
-  const linkHTML = doi ? '<a class="ref-link" href="' + (doi.startsWith('http') ? doi : 'https://doi.org/' + doi) + '" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Lien</a>' : '<span class="ref-nolink">Pas de lien</span>';
-  const apaJournal = journal ? '. <em>' + journal + '</em>' : '';
-  const apaDoi     = doi ? '. ' + doi : '';
-  const div = document.createElement('div');
+// ── CONFIGURATION JSONBIN ──
+// Remplir après création du compte sur jsonbin.io
+var JSONBIN_ID  = '69bc98bdb7ec241ddc84d19d';       // ex: 6642f3c0acd3cb34a843f705
+var JSONBIN_KEY = '$2a$10$QS1QRq3I/.3/F9fTHmkhEundPbXbUJ.jV.1aaxEvaqtql0.UtwLZS';   // ex: $2b$10$abcdef...
+var JSONBIN_URL = 'https://api.jsonbin.io/v3/b/' + JSONBIN_ID;
+
+var STORAGE_KEY = 'ia_agentique_refs_v1';   // cache local
+var isSyncing   = false;
+
+// ── UTILITAIRE : extraire les données d'une ref-item ──
+function extractRefData(item) {
+  var au    = item.querySelector('.au')   ? item.querySelector('.au').textContent.trim()                    : '';
+  var yr    = item.querySelector('.yr')   ? item.querySelector('.yr').textContent.replace(/[().]/g,'').trim(): '';
+  var ti    = item.querySelector('.ti')   ? item.querySelector('.ti').textContent.trim()                    : '';
+  var lnk   = item.querySelector('.ref-link');
+  var doi   = lnk ? lnk.getAttribute('href') : '';
+  var rtype = item.dataset.rtype || 'acad';
+  var tags  = [];
+  item.querySelectorAll('.ref-tag').forEach(function(t) { tags.push(t.textContent.trim()); });
+  var apaFull = item.querySelector('.ref-apa') ? item.querySelector('.ref-apa').textContent.trim() : '';
+  var journal = '';
+  if (apaFull && ti) {
+    var idx = apaFull.indexOf(ti);
+    if (idx >= 0) {
+      var after = apaFull.slice(idx + ti.length).replace(/^\.\s*/, '');
+      var seg = after.split(/[.,]/)[0];
+      if (seg && !/^https?/.test(seg.trim())) journal = seg.trim();
+    }
+  }
+  return { au: au, yr: yr, ti: ti, journal: journal, doi: doi, rtype: rtype, tags: tags };
+}
+
+function collectDynamicRefs() {
+  var stored = [];
+  document.querySelectorAll('#dynamic-ref-group .ref-item').forEach(function(item) {
+    stored.push(extractRefData(item));
+  });
+  return stored;
+}
+
+// ── STATUT SYNC ──
+function setSyncStatus(state, msg) {
+  var el = document.getElementById('sync-status');
+  if (!el) return;
+  var colors = { idle:'var(--text3)', saving:'var(--amber)', ok:'var(--teal)', err:'var(--coral)' };
+  el.style.color = colors[state] || 'var(--text3)';
+  el.textContent = msg;
+}
+
+// ── SAUVEGARDE JSONBin + cache local ──
+function saveRefsToStorage() {
+  var data = collectDynamicRefs();
+  // Toujours sauvegarder localement
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
+
+  // Si JSONBin non configuré, s'arrêter là
+  if (JSONBIN_ID === 'VOTRE_BIN_ID_ICI' || JSONBIN_KEY === 'VOTRE_SECRET_KEY_ICI') {
+    setSyncStatus('idle', 'Sauvegarde locale uniquement (JSONBin non configuré)');
+    return;
+  }
+
+  if (isSyncing) return;
+  isSyncing = true;
+  setSyncStatus('saving', 'Synchronisation…');
+
+  fetch(JSONBIN_URL, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Master-Key': JSONBIN_KEY,
+      'X-Bin-Versioning': 'false'
+    },
+    body: JSON.stringify({ refs: data })
+  })
+  .then(function(r) {
+    isSyncing = false;
+    if (r.ok) {
+      setSyncStatus('ok', 'Synchronisé ✓ — ' + data.length + ' référence' + (data.length > 1 ? 's' : '') + ' partagée' + (data.length > 1 ? 's' : ''));
+    } else {
+      setSyncStatus('err', 'Erreur de synchronisation (code ' + r.status + ')');
+    }
+  })
+  .catch(function() {
+    isSyncing = false;
+    setSyncStatus('err', 'Hors ligne — sauvegarde locale uniquement');
+  });
+}
+
+// ── CHARGEMENT : JSONBin en priorité, localStorage en fallback ──
+function loadRefsFromStorage() {
+  // Si JSONBin configuré, charger depuis le cloud
+  if (JSONBIN_ID !== 'VOTRE_BIN_ID_ICI' && JSONBIN_KEY !== 'VOTRE_SECRET_KEY_ICI') {
+    setSyncStatus('saving', 'Chargement des références partagées…');
+    fetch(JSONBIN_URL + '/latest', {
+      headers: { 'X-Master-Key': JSONBIN_KEY }
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var refs = (data.record && data.record.refs) ? data.record.refs : [];
+      if (refs.length) {
+        refs.forEach(function(r) {
+          appendRef(r.au, r.yr, r.ti, r.journal || '', r.doi || '', r.rtype || 'acad', r.tags || [], true);
+        });
+        updateRefCount();
+        updateExportBtn();
+        // Mettre à jour le cache local
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(refs)); } catch(e) {}
+        setSyncStatus('ok', refs.length + ' référence' + (refs.length > 1 ? 's' : '') + ' chargée' + (refs.length > 1 ? 's' : '') + ' depuis JSONBin');
+      } else {
+        setSyncStatus('idle', 'JSONBin connecté — aucune référence ajoutée pour l\'instant');
+      }
+    })
+    .catch(function() {
+      // Fallback localStorage si hors ligne
+      setSyncStatus('err', 'JSONBin inaccessible — chargement depuis le cache local');
+      loadFromLocalStorage();
+    });
+  } else {
+    // JSONBin non configuré : localStorage uniquement
+    loadFromLocalStorage();
+  }
+}
+
+function loadFromLocalStorage() {
+  var raw;
+  try { raw = localStorage.getItem(STORAGE_KEY); } catch(e) { return; }
+  if (!raw) return;
+  var stored;
+  try { stored = JSON.parse(raw); } catch(e) { return; }
+  if (!stored || !stored.length) return;
+  stored.forEach(function(r) {
+    appendRef(r.au, r.yr, r.ti, r.journal || '', r.doi || '', r.rtype || 'acad', r.tags || [], true);
+  });
+  updateRefCount();
+  updateExportBtn();
+}
+
+function updateExportBtn() {
+  var btn = document.getElementById('btn-export-ris');
+  if (btn) btn.textContent = 'Télécharger le fichier .ris (' + document.querySelectorAll('.ref-item').length + ' références)';
+}
+
+function appendRef(authors, year, title, journal, doi, type, tags, silent) {
+  var all = document.querySelectorAll('.ref-item');
+  var n = all.length + 1;
+  var badgeClass = { acad:'rb-acad', ind:'rb-ind', grey:'rb-grey', gouv:'rb-gouv' }[type] || 'rb-acad';
+  var badgeLabel = { acad:'Acad.', ind:'Ind.', grey:'Gris', gouv:'Gouv.' }[type] || 'Acad.';
+  var tagHTML = tags.map(function(t) { return '<span class="ref-tag">' + t + '</span>'; }).join('');
+  var linkHTML = doi
+    ? '<a class="ref-link" href="' + (doi.indexOf('http') === 0 ? doi : 'https://doi.org/' + doi) + '" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Lien</a>'
+    : '<span class="ref-nolink">Pas de lien</span>';
+  var apaJournal = journal ? '. <em>' + journal + '</em>' : '';
+  var apaDoi     = doi ? '. ' + doi : '';
+  var div = document.createElement('div');
   div.className = 'ref-item';
   div.dataset.rtype = type;
   div.innerHTML = '<div class="ref-n">' + n + '</div><div class="ref-body"><div class="ref-apa"><span class="au">' + authors + '</span> <span class="yr">(' + year + ').</span> <span class="ti">' + title + '</span>' + apaJournal + apaDoi + '</div><div class="ref-meta"><span class="ref-badge ' + badgeClass + '">' + badgeLabel + '</span>' + tagHTML + linkHTML + '</div></div>';
-  let dynGroup = document.getElementById('dynamic-ref-group');
+  var dynGroup = document.getElementById('dynamic-ref-group');
   if (!dynGroup) {
     dynGroup = document.createElement('div');
     dynGroup.id = 'dynamic-ref-group';
     dynGroup.className = 'ref-group';
-    dynGroup.innerHTML = '<div class="ref-group-header"><span class="ref-group-title">Références ajoutées — session en cours</span><span class="ref-group-line"></span></div>';
+    dynGroup.innerHTML = '<div class="ref-group-header"><span class="ref-group-title">Références ajoutées</span><span class="ref-group-line"></span></div>';
     document.getElementById('dynamic-refs').appendChild(dynGroup);
   }
   dynGroup.appendChild(div);
+  if (!silent) {
+    saveRefsToStorage();
+    updateExportBtn();
+  }
 }
 
 function clearForm() {
@@ -2831,14 +3051,133 @@ function filterAcro(cat, btn) {
   });
 }
 
+// ── MOT DE PASSE DE SESSION ──
+// Changez "admin2026" par le mot de passe de votre choix
+var SESSION_PWD = 'admin2026';
+var sessionUnlocked = false;
+var pendingDeleteItem = null;
+
+function requestDelete(btn) {
+  pendingDeleteItem = btn.closest('.ref-item');
+  if (sessionUnlocked) {
+    doDelete();
+  } else {
+    document.getElementById('pwd-overlay').classList.add('show');
+    document.getElementById('pwd-input').value = '';
+    document.getElementById('pwd-err').classList.remove('show');
+    setTimeout(function() { document.getElementById('pwd-input').focus(); }, 50);
+  }
+}
+
+function confirmDelete() {
+  var val = document.getElementById('pwd-input').value;
+  if (val === SESSION_PWD) {
+    sessionUnlocked = true;
+    closePwd();
+    doDelete();
+  } else {
+    document.getElementById('pwd-err').classList.add('show');
+    document.getElementById('pwd-input').value = '';
+    document.getElementById('pwd-input').focus();
+  }
+}
+
+function closePwd() {
+  document.getElementById('pwd-overlay').classList.remove('show');
+  pendingDeleteItem = null;
+}
+
+function doDelete() {
+  if (!pendingDeleteItem) return;
+  pendingDeleteItem.remove();
+  pendingDeleteItem = null;
+  renumberRefs();
+  updateRefCount();
+  saveRefsToStorage();
+  updateExportBtn();
+  runDedup();
+}
+
+// ── DÉTECTION DE DOUBLONS ──
+function normalizeTitle(str) {
+  return str.toLowerCase()
+    .replace(/[^a-z0-9\u00c0-\u024f]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function runDedup() {
+  var items = document.querySelectorAll('.ref-item');
+  var seen = {};
+  var dupCount = 0;
+
+  // Retirer les marqueurs précédents
+  items.forEach(function(item) {
+    item.classList.remove('is-dup');
+    var badge = item.querySelector('.ref-dup-badge');
+    if (badge) badge.remove();
+  });
+
+  // Construire l'index des titres
+  items.forEach(function(item) {
+    var tiEl = item.querySelector('.ti');
+    if (!tiEl) return;
+    var key = normalizeTitle(tiEl.textContent);
+    if (!seen[key]) {
+      seen[key] = [];
+    }
+    seen[key].push(item);
+  });
+
+  // Marquer les doublons (toutes les occurrences sauf la première)
+  Object.keys(seen).forEach(function(key) {
+    var group = seen[key];
+    if (group.length > 1) {
+      // Marquer à partir de la 2e occurrence
+      for (var i = 1; i < group.length; i++) {
+        var item = group[i];
+        item.classList.add('is-dup');
+        dupCount++;
+        // Ajouter badge + bouton supprimer dans .ref-meta
+        var meta = item.querySelector('.ref-meta');
+        if (meta) {
+          var badge = document.createElement('span');
+          badge.className = 'ref-dup-badge';
+          badge.innerHTML = 'Doublon <button class="ref-del-dup" onclick="requestDelete(this)">Supprimer</button>';
+          meta.appendChild(badge);
+        }
+      }
+    }
+  });
+
+  // Message résultat
+  var countEl = document.getElementById('ref-count');
+  if (dupCount > 0) {
+    countEl.innerHTML = document.querySelectorAll('.ref-item').length + ' références &mdash; <span style="color:var(--coral)">' + dupCount + ' doublon' + (dupCount > 1 ? 's' : '') + ' détecté' + (dupCount > 1 ? 's' : '') + '</span>';
+  } else {
+    var total = document.querySelectorAll('.ref-item').length;
+    countEl.textContent = total + ' référence' + (total > 1 ? 's' : '') + ' — aucun doublon';
+    setTimeout(function() {
+      countEl.textContent = total + ' référence' + (total > 1 ? 's' : '');
+    }, 3000);
+  }
+}
+
+function renumberRefs() {
+  var items = document.querySelectorAll('.ref-item');
+  items.forEach(function(item, i) {
+    var nEl = item.querySelector('.ref-n');
+    if (nEl) nEl.textContent = i + 1;
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
 
-  // Mettre à jour le compteur du bouton export
-  var btnExport = document.getElementById('btn-export-ris');
-  if (btnExport) {
-    var n = document.querySelectorAll('.ref-item').length;
-    btnExport.textContent = 'Télécharger le fichier .ris (' + n + ' références)';
-  }
+  // Charger les références (JSONBin si configuré, sinon localStorage)
+  loadRefsFromStorage();
+
+  // Mettre à jour le compteur du bouton export après chargement asynchrone éventuel
+  setTimeout(function() { updateExportBtn(); }, 100);
 
   // Active nav link on scroll
   var sections = document.querySelectorAll('section');
