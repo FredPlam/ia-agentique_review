@@ -2159,20 +2159,44 @@ footer {
   <!-- Panneau Zotero / ajout -->
   <div class="zotero-panel">
     <div class="zotero-tabs">
-      <button class="ztab active" onclick="showZTab('import',this)">Importer depuis Zotero (RIS)</button>
+      <button class="ztab active" onclick="showZTab('export',this)">Exporter vers Zotero (.ris)</button>
+      <button class="ztab" onclick="showZTab('import',this)">Ajouter depuis Zotero (coller RIS)</button>
       <button class="ztab" onclick="showZTab('manual',this)">Ajout manuel</button>
     </div>
 
-    <!-- TAB 1 : Import RIS -->
-    <div id="ztab-import" class="ztab-panel active">
+    <!-- TAB 0 : Export RIS -->
+    <div id="ztab-export" class="ztab-panel active">
       <div class="form-hint">
-        <strong style="color:var(--text)">Comment exporter depuis Zotero :</strong><br>
-        1. Dans Zotero, sélectionnez une ou plusieurs références (Ctrl+clic pour plusieurs)<br>
-        2. Clic droit → <strong>Exporter les éléments…</strong> → choisir le format <code>RIS</code><br>
-        3. Copiez le contenu du fichier <code>.ris</code> exporté et collez-le ci-dessous<br>
-        4. Cliquez <strong>Analyser et prévisualiser</strong>, puis <strong>Ajouter à la liste</strong>
+        <strong style="color:var(--text)">Pour importer cette bibliographie dans Zotero :</strong><br>
+        1. Cliquez <strong>Télécharger le fichier .ris</strong> ci-dessous — un fichier <code>references_ia_agentique.ris</code> sera enregistré sur votre ordinateur<br>
+        2. Dans Zotero : menu <strong>Fichier → Importer…</strong><br>
+        3. Choisissez le fichier <code>.ris</code> téléchargé → cliquez <strong>Suivant</strong><br>
+        4. Zotero importe automatiquement toutes les références dans une nouvelle collection
       </div>
-      <textarea class="ris-textarea" id="ris-input" placeholder="Collez ici le contenu RIS exporté depuis Zotero…&#10;&#10;Exemple :&#10;TY  - JOUR&#10;AU  - Nom, Prénom&#10;TI  - Titre de l'article&#10;JO  - Nom de la revue&#10;PY  - 2024&#10;DO  - 10.xxxx/xxxxx&#10;ER  -"></textarea>
+      <div class="form-actions">
+        <button class="btn-primary" onclick="exportRIS()" id="btn-export-ris">Télécharger le fichier .ris</button>
+        <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text3)">Compatible Zotero, Mendeley, EndNote</span>
+      </div>
+    </div>
+
+    <!-- TAB 1 : Import RIS (fichier) -->
+    <div id="ztab-import" class="ztab-panel">
+      <div class="form-hint">
+        <strong style="color:var(--text)">Pour ajouter des références depuis Zotero vers ce site :</strong><br>
+        1. Dans Zotero, sélectionnez une ou plusieurs références (Ctrl+clic)<br>
+        2. Clic droit → <strong>Exporter les éléments…</strong> → format <code>RIS</code> → enregistrez le fichier<br>
+        3. Cliquez <strong>Choisir le fichier .ris</strong> ci-dessous et sélectionnez le fichier exporté<br>
+        4. Le contenu s'affiche automatiquement — cliquez <strong>Analyser et prévisualiser</strong>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+        <label class="btn-primary" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Choisir le fichier .ris
+          <input type="file" accept=".ris,.txt" id="ris-file-input" style="display:none" onchange="loadRISFile(this)">
+        </label>
+        <span id="ris-file-name" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text3)">Aucun fichier sélectionné</span>
+      </div>
+      <textarea class="ris-textarea" id="ris-input" placeholder="Le contenu du fichier .ris apparaîtra ici automatiquement après sélection.&#10;&#10;Vous pouvez aussi coller du texte RIS directement.&#10;&#10;Exemple :&#10;TY  - JOUR&#10;AU  - Nom, Prénom&#10;TI  - Titre de l'article&#10;JO  - Nom de la revue&#10;PY  - 2024&#10;DO  - 10.xxxx/xxxxx&#10;ER  -"></textarea>
       <div class="form-actions">
         <button class="btn-primary" onclick="parseRIS()">Analyser et prévisualiser</button>
         <button class="btn-secondary" onclick="clearRIS()">Effacer</button>
@@ -2541,6 +2565,89 @@ footer {
 </footer>
 
 <script>
+// ── LECTURE FICHIER RIS (File API) ──
+function loadRISFile(input) {
+  var file = input.files[0];
+  if (!file) return;
+  document.getElementById('ris-file-name').textContent = file.name;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    document.getElementById('ris-input').value = e.target.result;
+    showMsg(document.getElementById('ris-msg'), 'Fichier chargé : ' + file.name + '. Cliquez Analyser pour continuer.', 'ok');
+  };
+  reader.onerror = function() {
+    showMsg(document.getElementById('ris-msg'), 'Erreur de lecture du fichier.', 'err');
+  };
+  reader.readAsText(file, 'UTF-8');
+}
+
+// ── EXPORT RIS vers Zotero ──
+function exportRIS() {
+  var ris = '';
+
+  var refs = [
+    { ty:'BOOK', au:['Bratman, M. E.'], py:'1987', ti:'Intention, plans, and practical reason', pb:'Harvard University Press', kw:['BDI','Philosophie de l\'action'] },
+    { ty:'CHAP', au:['Franklin, S.','Graesser, A.'], py:'1997', ti:'Is it an agent, or just a program? A taxonomy for autonomous agents', t2:'Intelligent Agents III (LNCS 1193)', sp:'21', ep:'35', pb:'Springer', do:'10.1007/BFb0013570', kw:['Taxonomie agents','BDI'] },
+    { ty:'BOOK', au:['Russell, S.','Norvig, P.'], py:'2020', ti:'Artificial intelligence: A modern approach', pb:'Pearson', et:'4', ur:'https://aima.cs.berkeley.edu/', kw:['PEAS','Agent rationnel'] },
+    { ty:'JOUR', au:['Wooldridge, M.','Jennings, N. R.'], py:'1995', ti:'Intelligent agents: Theory and practice', jo:'The Knowledge Engineering Review', vl:'10', is:'2', sp:'115', ep:'152', do:'10.1017/S0269888900008122', kw:['BDI','KQML','FIPA'] },
+    { ty:'JOUR', au:['Christiano, P.','Leike, J.','Brown, T. B.','Martic, M.','Legg, S.','Amodei, D.'], py:'2017', ti:'Deep reinforcement learning from human preferences', jo:'Advances in Neural Information Processing Systems', vl:'30', sp:'4299', ep:'4307', ur:'https://arxiv.org/abs/1706.03741', kw:['RLHF','Alignement'] },
+    { ty:'JOUR', au:['Leike, J.','Martic, M.','Krakovna, V.','Ortega, P. A.','Everitt, T.','Lefrancq, A.','Uesato, J.','Legg, S.'], py:'2018', ti:'AI safety gridworlds', jo:'arXiv', ur:'https://arxiv.org/abs/1711.09883', kw:['Sécurité IA','Interruptibilité','Alignement'] },
+    { ty:'JOUR', au:['Silver, D.','Huang, A.','Maddison, C. J.','Guez, A.'], py:'2016', ti:'Mastering the game of Go with deep neural networks and tree search', jo:'Nature', vl:'529', is:'7587', sp:'484', ep:'489', do:'10.1038/nature16961', kw:['DQN','RL','Performance empirique'] },
+    { ty:'RPRT', au:['Bommasani, R.','Hudson, D. A.','Adeli, E.'], py:'2021', ti:'On the opportunities and risks of foundation models', t2:'Stanford CRFM', ur:'https://arxiv.org/abs/2108.07258', kw:['Foundation Models','Centralisation','Risques systémiques'] },
+    { ty:'JOUR', au:['Chollet, F.'], py:'2019', ti:'On the measure of intelligence', jo:'arXiv', ur:'https://arxiv.org/abs/1911.01547', kw:['ARC-AGI','Généralisation','Intelligence'] },
+    { ty:'RPRT', au:['Chollet, F.','Knoop, M.','Kamradt, G.','Landers, B.'], py:'2025', ti:'ARC-AGI-2: A new challenge for frontier AI', t2:'arXiv', ur:'https://arxiv.org/abs/2505.07091', kw:['ARC-AGI-2','Nouveauté','Benchmark'] },
+    { ty:'JOUR', au:['Hendrycks, D.','Burns, C.','Basart, S.','Zou, A.','Mazeika, M.','Song, D.','Steinhardt, J.'], py:'2021', ti:'Measuring massive multitask language understanding', jo:'ICLR 2021', ur:'https://arxiv.org/abs/2009.03300', kw:['MMLU','Benchmark','Saturation'] },
+    { ty:'JOUR', au:['Lewis, P.','Perez, E.','Piktus, A.'], py:'2020', ti:'Retrieval-augmented generation for knowledge-intensive NLP tasks', jo:'Advances in Neural Information Processing Systems', vl:'33', sp:'9459', ep:'9474', ur:'https://arxiv.org/abs/2005.11401', kw:['RAG','Mémoire','Retrieval'] },
+    { ty:'JOUR', au:['Jimenez, C. E.','Yang, J.','Wettig, A.','Yao, S.','Pei, K.','Press, O.','Narasimhan, K.'], py:'2024', ti:'SWE-bench: Can language models resolve real-world GitHub issues?', jo:'ICLR 2024', ur:'https://arxiv.org/abs/2310.06770', kw:['SWE-bench','Benchmark agentique'] },
+    { ty:'JOUR', au:['Kapoor, S.','Stroebl, B.','Siegel, Z. S.','Nadgir, N.','Narayanan, A.'], py:'2024', ti:'AI agents that matter', jo:'arXiv', ur:'https://arxiv.org/abs/2407.01502', kw:['Critique benchmarks','Ratio perf/coût'] },
+    { ty:'JOUR', au:['Wang, L.','Ma, C.','Feng, X.','Zhang, Z.'], py:'2024', ti:'A survey on large language model based autonomous agents', jo:'Frontiers of Computer Science', vl:'18', is:'6', sp:'186345', do:'10.1007/s11704-024-40231-1', ur:'https://arxiv.org/abs/2308.11432', kw:['Taxonomie agents LLM','Mémoire'] },
+    { ty:'JOUR', au:['Wei, J.','Wang, X.','Schuurmans, D.','Bosma, M.'], py:'2022', ti:'Chain-of-thought prompting elicits reasoning in large language models', jo:'NeurIPS 2022', vl:'35', sp:'24824', ep:'24837', ur:'https://arxiv.org/abs/2201.11903', kw:['CoT','Raisonnement','Prompting'] },
+    { ty:'JOUR', au:['Yao, S.','Zhao, J.','Yu, D.','Du, N.','Shafran, I.','Narasimhan, K.','Cao, Y.'], py:'2023', ti:'ReAct: Synergizing reasoning and acting in language models', jo:'ICLR 2023', ur:'https://arxiv.org/abs/2210.03629', kw:['ReAct','Boucle agentique','Outils'] },
+    { ty:'ELEC', au:['Anthropic'], py:'2024', ti:"Claude's model specification", ur:'https://www.anthropic.com/claude/model-spec', kw:['Model Spec','HITL','Sécurité'] },
+    { ty:'ELEC', au:['Anthropic'], py:'2024', ti:'Building effective agents', t2:'Anthropic Engineering Blog', ur:'https://www.anthropic.com/research/building-effective-agents', kw:['Orchestrateur','MCP','Pipelines'] },
+    { ty:'RPRT', au:['OpenAI'], py:'2023', ti:'GPT-4 technical report', t2:'arXiv', ur:'https://arxiv.org/abs/2303.08774', kw:['GPT-4','Foundation Model'] },
+    { ty:'ELEC', au:['OpenAI'], py:'2023', ti:'Function calling and other API updates', t2:'OpenAI Blog', ur:'https://openai.com/index/function-calling-and-other-api-updates/', kw:['Function calling','Agentivité instrumentale'] },
+    { ty:'ELEC', au:['Weng, L.'], py:'2023', ti:'LLM powered autonomous agents', t2:"Lil'Log", da:'2023/06/23', ur:'https://lilianweng.github.io/posts/2023-06-23-agent/', kw:['Mémoire persistante','Agentic spectrum'] },
+    { ty:'ELEC', au:['Willison, S.'], py:'2025', ti:'I think "agent" may finally have a widely enough agreed upon definition to be useful jargon now', t2:"Simon Willison's Weblog", da:'2025/09/18', ur:'https://simonwillison.net/2025/Sep/18/agents/', kw:['Définition pragmatique','Gradient agentivité'] },
+    { ty:'BILL', au:['Commission européenne'], py:'2024', ti:'Regulation (EU) 2024/1689 — Artificial Intelligence Act', t2:'Official Journal of the European Union', ur:'https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32024R1689', kw:['AI Act','GPAI','Régulation'] },
+    { ty:'RPRT', au:['National Institute of Standards and Technology (NIST)'], py:'2023', ti:'Artificial intelligence risk management framework (AI RMF 1.0)', t2:'NIST AI 100-1', pb:'U.S. Department of Commerce', do:'10.6028/NIST.AI.100-1', kw:['RMF','Gestion des risques','Audit'] },
+    { ty:'RPRT', au:['Organisation de coopération et de développement économiques (OCDE)'], py:'2023', ti:"Recommandation du Conseil sur l'intelligence artificielle (OECD/LEGAL/0449)", pb:'OCDE', ur:'https://legalinstruments.oecd.org/fr/instruments/OECD-LEGAL-0449', kw:['OCDE','Définition IA','Politique publique'] },
+    { ty:'RPRT', au:['Secrétariat du Conseil du Trésor du Canada'], py:'2022', ti:'Directive sur la prise de décisions automatisée', pb:'Gouvernement du Canada', ur:'https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32592', kw:['Canada','Niveaux I-IV','Imputabilité'] },
+    { ty:'RPRT', au:['UNESCO'], py:'2021', ti:"Recommandation sur l'éthique de l'intelligence artificielle", pb:'UNESCO', ur:'https://unesdoc.unesco.org/ark:/48223/pf0000381137_fre', kw:['UNESCO','RAM','Éthique IA'] }
+  ];
+
+  refs.forEach(function(r) {
+    ris += 'TY  - ' + r.ty + '\r\n';
+    r.au.forEach(function(a) { ris += 'AU  - ' + a + '\r\n'; });
+    ris += 'PY  - ' + r.py + '\r\n';
+    ris += 'TI  - ' + r.ti + '\r\n';
+    if (r.jo)  ris += 'JO  - ' + r.jo + '\r\n';
+    if (r.t2)  ris += 'T2  - ' + r.t2 + '\r\n';
+    if (r.pb)  ris += 'PB  - ' + r.pb + '\r\n';
+    if (r.vl)  ris += 'VL  - ' + r.vl + '\r\n';
+    if (r.is)  ris += 'IS  - ' + r.is + '\r\n';
+    if (r.sp)  ris += 'SP  - ' + r.sp + '\r\n';
+    if (r.ep)  ris += 'EP  - ' + r.ep + '\r\n';
+    if (r.et)  ris += 'ET  - ' + r.et + '\r\n';
+    if (r.da)  ris += 'DA  - ' + r.da + '\r\n';
+    if (r.do)  ris += 'DO  - ' + r.do + '\r\n';
+    if (r.ur)  ris += 'UR  - ' + r.ur + '\r\n';
+    if (r.kw)  r.kw.forEach(function(k) { ris += 'KW  - ' + k + '\r\n'; });
+    ris += 'LA  - fr\r\n';
+    ris += 'ER  - \r\n\r\n';
+  });
+
+  var blob = new Blob([ris], { type: 'application/x-research-info-systems' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'references_ia_agentique.ris';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 function showMsg(el, text, type) {
   el.textContent = text;
   el.className = 'form-msg show ' + type;
@@ -2620,6 +2727,10 @@ function clearRIS() {
   document.getElementById('ris-input').value = '';
   document.getElementById('ris-preview').classList.remove('show');
   document.getElementById('ris-msg').classList.remove('show');
+  var fname = document.getElementById('ris-file-name');
+  if (fname) fname.textContent = 'Aucun fichier sélectionné';
+  var fi = document.getElementById('ris-file-input');
+  if (fi) fi.value = '';
   parsedRefs = [];
 }
 
@@ -2689,6 +2800,13 @@ function filterAcro(cat, btn) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+
+  // Mettre à jour le compteur du bouton export
+  var btnExport = document.getElementById('btn-export-ris');
+  if (btnExport) {
+    var n = document.querySelectorAll('.ref-item').length;
+    btnExport.textContent = 'Télécharger le fichier .ris (' + n + ' références)';
+  }
 
   // Active nav link on scroll
   var sections = document.querySelectorAll('section');
