@@ -1121,6 +1121,9 @@ footer {
   .form-grid { grid-template-columns: 1fr; }
 }
 </style>
+<!-- config.js contient les valeurs sensibles (Bin ID, clé API, mot de passe) -->
+<!-- Téléverser une seule fois sur GitHub, ne jamais remplacer lors des mises à jour -->
+<script src="config.js"></script>
 </head>
 <body>
 
@@ -2327,8 +2330,8 @@ footer {
   <!-- Modal mot de passe -->
   <div class="pwd-overlay" id="pwd-overlay">
     <div class="pwd-box">
-      <div class="pwd-title">Supprimer une référence</div>
-      <div class="pwd-hint">La suppression est protégée. Entrez le mot de passe pour confirmer l'action.</div>
+      <div class="pwd-title">Action protégée</div>
+      <div class="pwd-hint">L'ajout et la suppression de références sont protégés. Entrez le mot de passe pour continuer. La session reste déverrouillée jusqu'à la fermeture de la page.</div>
       <input class="pwd-input" type="password" id="pwd-input" placeholder="Mot de passe…" onkeydown="if(event.key==='Enter')confirmDelete()">
       <div class="pwd-err" id="pwd-err">Mot de passe incorrect.</div>
       <div class="pwd-actions">
@@ -2836,29 +2839,45 @@ function clearRIS() {
 
 // ── AJOUT MANUEL ──
 function addManualRef() {
-  const authors = document.getElementById('f-authors').value.trim();
-  const year    = document.getElementById('f-year').value.trim();
-  const title   = document.getElementById('f-title').value.trim();
-  const journal = document.getElementById('f-journal').value.trim();
-  const doi     = document.getElementById('f-doi').value.trim();
-  const type    = document.getElementById('f-type').value;
-  const tagStr  = document.getElementById('f-tags').value.trim();
-  const tags    = tagStr ? tagStr.split(',').map(t => t.trim()).filter(Boolean) : [];
-  const msg     = document.getElementById('manual-msg');
+  var authors = document.getElementById('f-authors').value.trim();
+  var year    = document.getElementById('f-year').value.trim();
+  var title   = document.getElementById('f-title').value.trim();
+  var journal = document.getElementById('f-journal').value.trim();
+  var doi     = document.getElementById('f-doi').value.trim();
+  var type    = document.getElementById('f-type').value;
+  var tagStr  = document.getElementById('f-tags').value.trim();
+  var tags    = tagStr ? tagStr.split(',').map(function(t) { return t.trim(); }).filter(Boolean) : [];
+  var msg     = document.getElementById('manual-msg');
   if (!authors || !year || !title) { showMsg(msg, 'Auteur, Année et Titre sont obligatoires.', 'err'); return; }
-  appendRef(authors, year, title, journal, doi, type, tags);
-  showMsg(msg, 'Référence ajoutée à la liste.', 'ok');
-  clearForm();
-  updateRefCount();
+  requirePassword(function() {
+    appendRef(authors, year, title, journal, doi, type, tags);
+    showMsg(msg, 'Référence ajoutée à la liste.', 'ok');
+    clearForm();
+    updateRefCount();
+  });
 }
 
-// ── CONFIGURATION JSONBIN ──
-// Remplir après création du compte sur jsonbin.io
-var JSONBIN_ID  = 'V69bc98bdb7ec241ddc84d19d';       // ex: 6642f3c0acd3cb34a843f705
-var JSONBIN_KEY = '$2a$10$QS1QRq3I/.3/F9fTHmkhEundPbXbUJ.jV.1aaxEvaqtql0.UtwLZS';   // ex: $2b$10$abcdef...
-var JSONBIN_URL = 'https://api.jsonbin.io/v3/b/' + JSONBIN_ID;
+function addRISRefs() {
+  if (!parsedRefs.length) return;
+  var snapshot = parsedRefs.slice();
+  requirePassword(function() {
+    snapshot.forEach(function(r) {
+      appendRef(r.authors, r.year, r.title, r.journal, r.doi, 'acad', []);
+    });
+    showMsg(document.getElementById('ris-msg'), snapshot.length + ' référence(s) ajoutée(s).', 'ok');
+    parsedRefs = [];
+    document.getElementById('ris-preview').classList.remove('show');
+    document.getElementById('ris-input').value = '';
+    updateRefCount();
+  });
+}
 
-var STORAGE_KEY = 'ia_agentique_refs_v1';   // cache local
+// ── CONFIGURATION — lue depuis config.js ──
+// Les valeurs sensibles sont dans config.js (jamais remplacé lors des mises à jour)
+var JSONBIN_ID  = (typeof APP_CONFIG !== 'undefined') ? APP_CONFIG.jsonbinId  : '';
+var JSONBIN_KEY = (typeof APP_CONFIG !== 'undefined') ? APP_CONFIG.jsonbinKey : '';
+var JSONBIN_URL = 'https://api.jsonbin.io/v3/b/' + JSONBIN_ID;
+var STORAGE_KEY = 'ia_agentique_refs_v1';
 var isSyncing   = false;
 
 // ── UTILITAIRE : extraire les données d'une ref-item ──
@@ -3048,16 +3067,17 @@ function filterAcro(cat, btn) {
 }
 
 // ── MOT DE PASSE DE SESSION ──
-// Changez "admin2026" par le mot de passe de votre choix
-var SESSION_PWD = 'admin2026';
+// Défini dans config.js → APP_CONFIG.adminPassword
+var SESSION_PWD = (typeof APP_CONFIG !== 'undefined') ? APP_CONFIG.adminPassword : 'admin2026';
 var sessionUnlocked = false;
-var pendingDeleteItem = null;
+var pendingAction   = null;   // { type: 'delete'|'write', fn: function }
 
-function requestDelete(btn) {
-  pendingDeleteItem = btn.closest('.ref-item');
+// ── DEMANDE DE MOT DE PASSE (pour suppressions ET ajouts) ──
+function requirePassword(actionFn) {
   if (sessionUnlocked) {
-    doDelete();
+    actionFn();
   } else {
+    pendingAction = actionFn;
     document.getElementById('pwd-overlay').classList.add('show');
     document.getElementById('pwd-input').value = '';
     document.getElementById('pwd-err').classList.remove('show');
@@ -3065,12 +3085,20 @@ function requestDelete(btn) {
   }
 }
 
+function requestDelete(btn) {
+  var item = btn.closest('.ref-item');
+  requirePassword(function() {
+    pendingDeleteItem = item;
+    doDelete();
+  });
+}
+
 function confirmDelete() {
   var val = document.getElementById('pwd-input').value;
   if (val === SESSION_PWD) {
     sessionUnlocked = true;
     closePwd();
-    doDelete();
+    if (pendingAction) { pendingAction(); pendingAction = null; }
   } else {
     document.getElementById('pwd-err').classList.add('show');
     document.getElementById('pwd-input').value = '';
@@ -3080,7 +3108,7 @@ function confirmDelete() {
 
 function closePwd() {
   document.getElementById('pwd-overlay').classList.remove('show');
-  pendingDeleteItem = null;
+  pendingAction = null;
 }
 
 function doDelete() {
