@@ -2330,8 +2330,8 @@ footer {
   <!-- Modal mot de passe -->
   <div class="pwd-overlay" id="pwd-overlay">
     <div class="pwd-box">
-      <div class="pwd-title">Action protégée</div>
-      <div class="pwd-hint">L'ajout et la suppression de références sont protégés. Entrez le mot de passe pour continuer. La session reste déverrouillée jusqu'à la fermeture de la page.</div>
+      <div class="pwd-title" id="pwd-title">Action protégée</div>
+      <div class="pwd-hint" id="pwd-hint">Entrez votre mot de passe pour continuer. La session reste déverrouillée jusqu'à la fermeture de la page.</div>
       <input class="pwd-input" type="password" id="pwd-input" placeholder="Mot de passe…" onkeydown="if(event.key==='Enter')confirmDelete()">
       <div class="pwd-err" id="pwd-err">Mot de passe incorrect.</div>
       <div class="pwd-actions">
@@ -2854,7 +2854,7 @@ function addManualRef() {
     showMsg(msg, 'Référence ajoutée à la liste.', 'ok');
     clearForm();
     updateRefCount();
-  });
+  }, false);
 }
 
 function addRISRefs() {
@@ -2869,7 +2869,7 @@ function addRISRefs() {
     document.getElementById('ris-preview').classList.remove('show');
     document.getElementById('ris-input').value = '';
     updateRefCount();
-  });
+  }, false);
 }
 
 // ── CONFIGURATION — lue depuis config.js ──
@@ -3066,23 +3066,51 @@ function filterAcro(cat, btn) {
   });
 }
 
-// ── MOT DE PASSE DE SESSION ──
-// Défini dans config.js → APP_CONFIG.adminPassword
-var SESSION_PWD = (typeof APP_CONFIG !== 'undefined') ? APP_CONFIG.adminPassword : 'admin2026';
-var sessionUnlocked = false;
-var pendingAction   = null;   // { type: 'delete'|'write', fn: function }
+// ── MOTS DE PASSE DE SESSION ──
+// admin  : ajout + suppression (APP_CONFIG.adminPassword)
+// collab : ajout seulement    (APP_CONFIG.collabPassword)
+var PWD_ADMIN  = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.adminPassword)  ? APP_CONFIG.adminPassword  : 'admin2026';
+var PWD_COLLAB = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.collabPassword) ? APP_CONFIG.collabPassword : '';
 
-// ── DEMANDE DE MOT DE PASSE (pour suppressions ET ajouts) ──
-function requirePassword(actionFn) {
-  if (sessionUnlocked) {
+// Niveaux : null = verrouillé, 'collab' = ajout seul, 'admin' = tous droits
+var sessionLevel  = null;
+var pendingAction = null;  // { needsAdmin: bool, fn: function }
+var pendingDeleteItem = null;
+
+function getLevel(pwd) {
+  if (pwd === PWD_ADMIN)  return 'admin';
+  if (PWD_COLLAB && pwd === PWD_COLLAB) return 'collab';
+  return null;
+}
+
+// ── DEMANDE DE MOT DE PASSE ──
+// needsAdmin=true  → réservé admin (suppression)
+// needsAdmin=false → collab ou admin (ajout)
+function requirePassword(actionFn, needsAdmin) {
+  var sufficient = needsAdmin
+    ? sessionLevel === 'admin'
+    : sessionLevel === 'admin' || sessionLevel === 'collab';
+
+  if (sufficient) {
     actionFn();
-  } else {
-    pendingAction = actionFn;
-    document.getElementById('pwd-overlay').classList.add('show');
-    document.getElementById('pwd-input').value = '';
-    document.getElementById('pwd-err').classList.remove('show');
-    setTimeout(function() { document.getElementById('pwd-input').focus(); }, 50);
+    return;
   }
+
+  pendingAction = { fn: actionFn, needsAdmin: needsAdmin };
+
+  var title = needsAdmin
+    ? 'Action réservée à l\'administrateur'
+    : 'Ajout d\'une référence';
+  var hint = needsAdmin
+    ? 'Cette action requiert le mot de passe administrateur.'
+    : 'Entrez le mot de passe administrateur ou collaborateur pour ajouter une référence.';
+
+  document.getElementById('pwd-title').textContent = title;
+  document.getElementById('pwd-hint').textContent  = hint;
+  document.getElementById('pwd-overlay').classList.add('show');
+  document.getElementById('pwd-input').value = '';
+  document.getElementById('pwd-err').classList.remove('show');
+  setTimeout(function() { document.getElementById('pwd-input').focus(); }, 50);
 }
 
 function requestDelete(btn) {
@@ -3090,20 +3118,33 @@ function requestDelete(btn) {
   requirePassword(function() {
     pendingDeleteItem = item;
     doDelete();
-  });
+  }, true);
 }
 
 function confirmDelete() {
-  var val = document.getElementById('pwd-input').value;
-  if (val === SESSION_PWD) {
-    sessionUnlocked = true;
-    closePwd();
-    if (pendingAction) { pendingAction(); pendingAction = null; }
-  } else {
+  var val   = document.getElementById('pwd-input').value;
+  var level = getLevel(val);
+  if (!level) {
     document.getElementById('pwd-err').classList.add('show');
     document.getElementById('pwd-input').value = '';
     document.getElementById('pwd-input').focus();
+    return;
   }
+  // Vérifier que le niveau est suffisant
+  var needsAdmin = pendingAction ? pendingAction.needsAdmin : false;
+  if (needsAdmin && level !== 'admin') {
+    document.getElementById('pwd-err').textContent = 'Mot de passe administrateur requis.';
+    document.getElementById('pwd-err').classList.add('show');
+    document.getElementById('pwd-input').value = '';
+    document.getElementById('pwd-input').focus();
+    return;
+  }
+  // Déverrouiller au niveau approprié (ne pas rétrograder)
+  if (level === 'admin') sessionLevel = 'admin';
+  else if (sessionLevel === null) sessionLevel = 'collab';
+  document.getElementById('pwd-err').textContent = 'Mot de passe incorrect.';
+  closePwd();
+  if (pendingAction) { pendingAction.fn(); pendingAction = null; }
 }
 
 function closePwd() {
