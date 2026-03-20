@@ -8,7 +8,7 @@ var APP_CONFIG = {
   // Créer un compte gratuit sur https://jsonbin.io  
   jsonbinId:  '69bc98bdb7ec241ddc84d19d',  
   // Votre Bin ID  
-  jsonbinKey: '$2a$10$QS1QRq3I/.3/F9fTHmkhEundPbXbUJ.jV.1aaxEvaqtql0.UtwLZS',   
+  jsonbinKey: '$2a$10$xzcIHISo5CXaC/U5zYljtuIZuTsRcnPNnlYqatqHiLFqhlkR/F0xi',   
   // Votre Secret Key ($2b$10$...)  
   
   // ── Mot de passe de gestion ──  
