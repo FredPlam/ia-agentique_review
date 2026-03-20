@@ -625,7 +625,25 @@ footer {
   .acronym-grid { grid-template-columns: 1fr; }
 }
 
-/* ── LIGNE DE TEMPS ── */
+/* ── LIENS OBSIDIAN ── */
+.obs-link {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-family: 'DM Mono', monospace; font-size: 9.5px;
+  color: var(--purple); text-decoration: none;
+  padding: 2px 8px; border: 1px solid rgba(155,143,245,.25);
+  border-radius: 4px; transition: all .15s;
+  margin-top: 6px;
+}
+.obs-link:hover { background: var(--purple-dim); border-color: var(--purple); }
+.obs-link svg { width: 10px; height: 10px; fill: currentColor; flex-shrink: 0; }
+
+.layer-obs { margin-top: 8px; }
+
+.ldt-box .obs-link {
+  font-size: 9px; padding: 1px 6px; margin-top: 4px;
+  display: inline-flex;
+}
+
 .ldt-wrap {
   position: relative;
   padding-bottom: 24px;
@@ -1634,8 +1652,9 @@ footer {
             <div class="ldt-box-year">1987</div>
             <div class="ldt-box-title para-bdi">Bratman</div>
             <div class="ldt-box-desc">Intentions, plans, practical reason — fondation philosophique BDI</div>
+            <a class="obs-link" href="https://publish.obsidian.md/fredplamondon/bratman-1987" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note</a>
           </div>
-          <div class="ldt-connector" style="top:118px; height:50px;"></div>
+          <div class="ldt-connector" style="top:136px; height:32px;"></div>
           <div class="ldt-dot para-bdi" style="top:168px;"></div>
         </div>
 
@@ -1646,8 +1665,9 @@ footer {
             <div class="ldt-box-year">1995</div>
             <div class="ldt-box-title para-bdi">Wooldridge &amp; Jennings</div>
             <div class="ldt-box-desc">BDI formalisé — protocoles inter-agents KQML/FIPA</div>
+            <a class="obs-link" href="https://publish.obsidian.md/fredplamondon/wooldridge-jennings-1995" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note</a>
           </div>
-          <div class="ldt-connector" style="top:118px; height:50px;"></div>
+          <div class="ldt-connector" style="top:136px; height:32px;"></div>
           <div class="ldt-dot para-bdi" style="top:168px;"></div>
         </div>
 
@@ -1660,6 +1680,7 @@ footer {
             <div class="ldt-box-year">1995</div>
             <div class="ldt-box-title para-bdi">Russell &amp; Norvig</div>
             <div class="ldt-box-desc">Cadre PEAS — agent rationnel, boucle perception/action</div>
+            <a class="obs-link" href="https://publish.obsidian.md/fredplamondon/russell-norvig-1995" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note</a>
           </div>
         </div>
 
@@ -1670,8 +1691,9 @@ footer {
             <div class="ldt-box-year">2015</div>
             <div class="ldt-box-title para-rl">Silver et al. / DeepMind</div>
             <div class="ldt-box-desc">DQN — RL profond, performance comme critère agentique</div>
+            <a class="obs-link" href="https://publish.obsidian.md/fredplamondon/silver-2015" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note</a>
           </div>
-          <div class="ldt-connector" style="top:108px; height:60px;"></div>
+          <div class="ldt-connector" style="top:126px; height:42px;"></div>
           <div class="ldt-dot para-rl" style="top:168px;"></div>
         </div>
 
@@ -1684,6 +1706,7 @@ footer {
             <div class="ldt-box-year">2018</div>
             <div class="ldt-box-title para-rl">Leike et al.</div>
             <div class="ldt-box-desc">Sécurité comme critère — interruptibilité, alignement</div>
+            <a class="obs-link" href="https://publish.obsidian.md/fredplamondon/leike-2018" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note</a>
           </div>
         </div>
 
@@ -1694,8 +1717,9 @@ footer {
             <div class="ldt-box-year">2020</div>
             <div class="ldt-box-title para-fm">Lewis et al.</div>
             <div class="ldt-box-desc">RAG — mémoire paramétrique vs non-paramétrique</div>
+            <a class="obs-link" href="https://publish.obsidian.md/fredplamondon/lewis-rag-2020" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note</a>
           </div>
-          <div class="ldt-connector" style="top:108px; height:60px;"></div>
+          <div class="ldt-connector" style="top:126px; height:42px;"></div>
           <div class="ldt-dot para-fm" style="top:168px;"></div>
         </div>
 
@@ -1708,6 +1732,7 @@ footer {
             <div class="ldt-box-year">2021</div>
             <div class="ldt-box-title para-fm">Bommasani et al.</div>
             <div class="ldt-box-desc">Foundation Models — agentivité émergente, risques cloud</div>
+            <a class="obs-link" href="https://publish.obsidian.md/fredplamondon/bommasani-2021" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note</a>
           </div>
         </div>
 
@@ -1718,8 +1743,9 @@ footer {
             <div class="ldt-box-year">2022</div>
             <div class="ldt-box-title para-react">Yao et al.</div>
             <div class="ldt-box-desc">ReAct — Reason → Act → Observe, remplace BDI pour les LLM</div>
+            <a class="obs-link" href="https://publish.obsidian.md/fredplamondon/yao-react-2022" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note</a>
           </div>
-          <div class="ldt-connector" style="top:118px; height:50px;"></div>
+          <div class="ldt-connector" style="top:136px; height:32px;"></div>
           <div class="ldt-dot para-react" style="top:168px;"></div>
         </div>
 
@@ -1732,6 +1758,7 @@ footer {
             <div class="ldt-box-year">2023</div>
             <div class="ldt-box-title para-react">Wang et al.</div>
             <div class="ldt-box-desc">Taxonomie LLM-agent : profil, mémoire ×4, planification</div>
+            <a class="obs-link" href="https://publish.obsidian.md/fredplamondon/wang-survey-2023" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note</a>
           </div>
         </div>
 
@@ -1742,8 +1769,9 @@ footer {
             <div class="ldt-box-year">2024</div>
             <div class="ldt-box-title para-react">Anthropic</div>
             <div class="ldt-box-desc">Orchestrateur/sous-agents, HITL, MCP — sécurité architecturale</div>
+            <a class="obs-link" href="https://publish.obsidian.md/fredplamondon/anthropic-2024" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note</a>
           </div>
-          <div class="ldt-connector" style="top:108px; height:60px;"></div>
+          <div class="ldt-connector" style="top:126px; height:42px;"></div>
           <div class="ldt-dot para-react" style="top:168px;"></div>
         </div>
 
@@ -1756,6 +1784,7 @@ footer {
             <div class="ldt-box-year">2024</div>
             <div class="ldt-box-title para-fm">Kapoor et al.</div>
             <div class="ldt-box-desc">Critique benchmarks agentiques — ratio perf/coût</div>
+            <a class="obs-link" href="https://publish.obsidian.md/fredplamondon/kapoor-2024" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note</a>
           </div>
         </div>
 
@@ -1766,8 +1795,9 @@ footer {
             <div class="ldt-box-year">2024</div>
             <div class="ldt-box-title para-gov">AI Act + NIST</div>
             <div class="ldt-box-desc">Définition réglementaire — autonomie d'inférence, 10²⁵ FLOP, audit</div>
+            <a class="obs-link" href="https://publish.obsidian.md/fredplamondon/ai-act-nist-2024" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note</a>
           </div>
-          <div class="ldt-connector" style="top:108px; height:60px;"></div>
+          <div class="ldt-connector" style="top:126px; height:42px;"></div>
           <div class="ldt-dot para-gov" style="top:168px;"></div>
         </div>
 
@@ -1780,6 +1810,7 @@ footer {
             <div class="ldt-box-year">2025–26</div>
             <div class="ldt-box-title para-blog">Blogosphère ML</div>
             <div class="ldt-box-desc">«Agentic spectrum» — LangChain, AutoGPT, mémoire vectorielle</div>
+            <a class="obs-link" href="https://publish.obsidian.md/fredplamondon/willison-2025" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note</a>
           </div>
         </div>
 
@@ -1832,6 +1863,7 @@ footer {
           <span>Anthropic Model Spec (2024)</span>
           <span>Wooldridge &amp; Jennings (1995) — intention comme composante architecturale</span>
         </div>
+        <div class="layer-obs"><a class="obs-link" href="https://publish.obsidian.md/fredplamondon/infra-intention-humaine" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note Obsidian</a></div>
       </div>
 
       <div class="connector"></div>
@@ -1848,6 +1880,7 @@ footer {
           <span>Anthropic — Building Effective Agents (2024)</span>
           <span>Russell &amp; Norvig — PEAS (1995)</span>
         </div>
+        <div class="layer-obs"><a class="obs-link" href="https://publish.obsidian.md/fredplamondon/infra-orchestrateur-llm" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note Obsidian</a></div>
       </div>
 
       <div class="connector"></div>
@@ -1863,6 +1896,7 @@ footer {
           <span>Anthropic (2024) — orchestrateur/sous-agents</span>
           <span>Wooldridge &amp; Jennings (1995) — socialité inter-agents</span>
         </div>
+        <div class="layer-obs"><a class="obs-link" href="https://publish.obsidian.md/fredplamondon/infra-sous-agents" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note Obsidian</a></div>
       </div>
 
       <div class="connector"></div>
@@ -1896,6 +1930,7 @@ footer {
           <span>Lewis et al. — RAG (2020)</span>
           <span>Bommasani et al. — mémoire paramétrique (2021)</span>
         </div>
+        <div class="layer-obs"><a class="obs-link" href="https://publish.obsidian.md/fredplamondon/infra-memoire" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note Obsidian</a></div>
       </div>
 
       <div class="connector"></div>
@@ -1907,26 +1942,11 @@ footer {
         </div>
         <div class="layer-desc">Actionneurs du système agentique — équivalent des actionneurs PEAS à l'ère LLM</div>
         <div class="tools-grid">
-          <div class="tool-chip">
-            <div class="tool-chip-name">APIs web</div>
-            <div class="tool-chip-ex">REST · GraphQL</div>
-          </div>
-          <div class="tool-chip">
-            <div class="tool-chip-name">Exécution code</div>
-            <div class="tool-chip-ex">Sandbox Python</div>
-          </div>
-          <div class="tool-chip">
-            <div class="tool-chip-name">Navigation web</div>
-            <div class="tool-chip-ex">Browser · scraping</div>
-          </div>
-          <div class="tool-chip">
-            <div class="tool-chip-name">Function calling</div>
-            <div class="tool-chip-ex">JSON schema</div>
-          </div>
-          <div class="tool-chip">
-            <div class="tool-chip-name">Fichiers / BDs</div>
-            <div class="tool-chip-ex">Lecture/écriture</div>
-          </div>
+          <div class="tool-chip"><div class="tool-chip-name">APIs web</div><div class="tool-chip-ex">REST · GraphQL</div></div>
+          <div class="tool-chip"><div class="tool-chip-name">Exécution code</div><div class="tool-chip-ex">Sandbox Python</div></div>
+          <div class="tool-chip"><div class="tool-chip-name">Navigation web</div><div class="tool-chip-ex">Browser · scraping</div></div>
+          <div class="tool-chip"><div class="tool-chip-name">Function calling</div><div class="tool-chip-ex">JSON schema</div></div>
+          <div class="tool-chip"><div class="tool-chip-name">Fichiers / BDs</div><div class="tool-chip-ex">Lecture/écriture</div></div>
         </div>
         <div class="layer-refs" style="margin-top:12px">
           <span>Yao et al. — outils comme actionneurs (2022)</span>
@@ -1934,6 +1954,7 @@ footer {
           <span>Kapoor et al. — coût d'appels (2024)</span>
           <span>Karpathy / Willison (2025)</span>
         </div>
+        <div class="layer-obs"><a class="obs-link" href="https://publish.obsidian.md/fredplamondon/infra-outils" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note Obsidian</a></div>
       </div>
 
       <div class="connector"></div>
@@ -1950,6 +1971,7 @@ footer {
           <span>NIST RMF — logs d'audit (2024)</span>
           <span>Canada — journalisation (2024)</span>
         </div>
+        <div class="layer-obs"><a class="obs-link" href="https://publish.obsidian.md/fredplamondon/infra-calcul" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note Obsidian</a></div>
       </div>
 
       <div class="connector"></div>
@@ -1967,6 +1989,7 @@ footer {
           <span>Canada — Dir. décisions automatisées niv. IV (2024)</span>
           <span>UNESCO RAM (2024)</span>
         </div>
+        <div class="layer-obs"><a class="obs-link" href="https://publish.obsidian.md/fredplamondon/infra-gouvernance" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note Obsidian</a></div>
       </div>
 
     </div>
