@@ -806,7 +806,7 @@ footer {
   z-index: 1;
 }
 
-/* couleurs par paradigme */
+/* couleurs par paradigme — dots et connecteurs uniquement */
 .para-bdi   { background: #2e5fad; }
 .para-rl    { background: #b84020; }
 .para-fm    { background: #9a6010; }
@@ -814,19 +814,32 @@ footer {
 .para-gov   { background: #3a7a28; }
 .para-blog  { background: #1a6eb5; }
 
-.ldt-box.para-bdi   { border-top: 2px solid var(--purple); }
-.ldt-box.para-rl    { border-top: 2px solid var(--coral); }
-.ldt-box.para-fm    { border-top: 2px solid var(--amber); }
-.ldt-box.para-react { border-top: 2px solid var(--teal); }
-.ldt-box.para-gov   { border-top: 2px solid var(--green); }
-.ldt-box.para-blog  { border-top: 2px solid var(--blue); }
+/* boîtes : fond pâle + bordure colorée + texte lisible */
+.ldt-box.para-bdi   { background: #eef2fa; border: 1px solid rgba(46,95,173,.25);  border-top: 3px solid #2e5fad; }
+.ldt-box.para-rl    { background: #faf0ec; border: 1px solid rgba(184,64,32,.25);  border-top: 3px solid #b84020; }
+.ldt-box.para-fm    { background: #faf5ec; border: 1px solid rgba(154,96,16,.25);  border-top: 3px solid #9a6010; }
+.ldt-box.para-react { background: #eef6f2; border: 1px solid rgba(42,122,86,.25);  border-top: 3px solid #2a7a56; }
+.ldt-box.para-gov   { background: #eef6ea; border: 1px solid rgba(58,122,40,.25);  border-top: 3px solid #3a7a28; }
+.ldt-box.para-blog  { background: #eef4fb; border: 1px solid rgba(26,110,181,.25); border-top: 3px solid #1a6eb5; }
 
-.ldt-box-title.para-bdi   { color: #2e5fad; }
-.ldt-box-title.para-rl    { color: #b84020; }
-.ldt-box-title.para-fm    { color: #9a6010; }
-.ldt-box-title.para-react { color: #2a7a56; }
-.ldt-box-title.para-gov   { color: #3a7a28; }
-.ldt-box-title.para-blog  { color: #1a6eb5; }
+/* année : couleur du paradigme */
+.ldt-box.para-bdi   .ldt-box-year { color: #2e5fad; }
+.ldt-box.para-rl    .ldt-box-year { color: #b84020; }
+.ldt-box.para-fm    .ldt-box-year { color: #9a6010; }
+.ldt-box.para-react .ldt-box-year { color: #2a7a56; }
+.ldt-box.para-gov   .ldt-box-year { color: #3a7a28; }
+.ldt-box.para-blog  .ldt-box-year { color: #1a6eb5; }
+
+/* titre : couleur du paradigme, foncée */
+.ldt-box-title.para-bdi   { color: #1e3f7a; }
+.ldt-box-title.para-rl    { color: #8c2c14; }
+.ldt-box-title.para-fm    { color: #7a4a0a; }
+.ldt-box-title.para-react { color: #1a5c38; }
+.ldt-box-title.para-gov   { color: #245218; }
+.ldt-box-title.para-blog  { color: #124e8a; }
+
+/* description : anthracite standard pour lisibilité maximale */
+.ldt-box .ldt-box-desc { color: #1e2433; }
 
 /* légende paradigmes */
 .ldt-legend {
