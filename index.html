@@ -9,27 +9,27 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0c0d0f;
-  --bg2: #13151a;
-  --bg3: #1a1d24;
-  --border: rgba(255,255,255,0.08);
-  --border2: rgba(255,255,255,0.14);
-  --text: #e8e6df;
-  --text2: #8a8880;
-  --text3: #5a5855;
-  --purple: #9b8ff5;
-  --purple-dim: rgba(155,143,245,0.12);
-  --teal: #4ecda4;
-  --teal-dim: rgba(78,205,164,0.12);
-  --amber: #e8a43a;
-  --amber-dim: rgba(232,164,58,0.12);
-  --coral: #e86b5f;
-  --coral-dim: rgba(232,107,95,0.12);
-  --blue: #5ba3e8;
-  --blue-dim: rgba(91,163,232,0.12);
-  --green: #6dbf67;
-  --green-dim: rgba(109,191,103,0.12);
-  --gray-dim: rgba(255,255,255,0.05);
+  --bg:    #f5f6f8;
+  --bg2:   #ffffff;
+  --bg3:   #eef0f4;
+  --border:  rgba(30,36,51,0.10);
+  --border2: rgba(30,36,51,0.18);
+  --text:  #1e2433;
+  --text2: #4a5168;
+  --text3: #8490a8;
+  --purple:     #2e5fad;
+  --purple-dim: rgba(46,95,173,0.09);
+  --teal:     #2a7a56;
+  --teal-dim: rgba(42,122,86,0.09);
+  --amber:     #9a6010;
+  --amber-dim: rgba(154,96,16,0.09);
+  --coral:     #b84020;
+  --coral-dim: rgba(184,64,32,0.09);
+  --blue:     #1a6eb5;
+  --blue-dim: rgba(26,110,181,0.09);
+  --green:     #3a7a28;
+  --green-dim: rgba(58,122,40,0.09);
+  --gray-dim:  rgba(30,36,51,0.04);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -58,7 +58,7 @@ header::before {
   position: absolute;
   top: -120px; right: -80px;
   width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(155,143,245,0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(46,95,173,0.06) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -104,7 +104,7 @@ nav {
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
-  background: rgba(12,13,15,0.96);
+  background: rgba(245,246,248,0.97);
   backdrop-filter: blur(12px);
   z-index: 100;
 }
@@ -246,10 +246,10 @@ section {
   border-radius: 4px;
 }
 
-.badge.acad { background: rgba(155,143,245,.15); color: var(--purple); }
-.badge.ind  { background: rgba(78,205,164,.15);  color: var(--teal); }
-.badge.grey { background: rgba(232,164,58,.15);  color: var(--amber); }
-.badge.gouv { background: rgba(232,107,95,.15);  color: var(--coral); }
+.badge.acad { background: #dde6f5; color: #1e4080; }
+.badge.ind  { background: #d6eee6; color: #1a5c38; }
+.badge.grey { background: #f5e8cc; color: #7a4a0a; }
+.badge.gouv { background: #f5ddd8; color: #8c2c14; }
 
 .card-source {
   font-family: 'Syne', sans-serif;
@@ -366,13 +366,13 @@ section {
   margin-right: 10px;
 }
 
-.layer.l0 { background: var(--gray-dim); border-color: rgba(255,255,255,0.1); }
-.layer.l1 { background: var(--purple-dim); border-color: rgba(155,143,245,.2); }
-.layer.l2 { background: var(--teal-dim); border-color: rgba(78,205,164,.2); }
-.layer.l3 { background: var(--blue-dim); border-color: rgba(91,163,232,.2); }
-.layer.l4 { background: var(--amber-dim); border-color: rgba(232,164,58,.2); }
-.layer.l5 { background: var(--coral-dim); border-color: rgba(232,107,95,.2); }
-.layer.l6 { background: var(--green-dim); border-color: rgba(109,191,103,.2); }
+.layer.l0 { background: #f0f2f6; border-color: rgba(30,36,51,0.12); }
+.layer.l1 { background: #edf1f9; border-color: rgba(46,95,173,.22); }
+.layer.l2 { background: #edf6f2; border-color: rgba(42,122,86,.22); }
+.layer.l3 { background: #edf3fa; border-color: rgba(26,110,181,.22); }
+.layer.l4 { background: #faf4ea; border-color: rgba(154,96,16,.22); }
+.layer.l5 { background: #faeee9; border-color: rgba(184,64,32,.22); }
+.layer.l6 { background: #eef6ea; border-color: rgba(58,122,40,.22); }
 
 .layer.l0 .layer-name { color: var(--text); }
 .layer.l1 .layer-name { color: var(--purple); }
@@ -498,7 +498,7 @@ section {
 }
 
 .acro-card {
-  background: var(--bg2);
+  background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 18px 20px;
@@ -540,10 +540,10 @@ section {
   border-radius: 4px;
 }
 
-.acro-cat-badge.arch  { background: var(--purple-dim); color: var(--purple); }
-.acro-cat-badge.mem   { background: var(--blue-dim);   color: var(--blue); }
-.acro-cat-badge.bench { background: var(--amber-dim);  color: var(--amber); }
-.acro-cat-badge.calc  { background: var(--coral-dim);  color: var(--coral); }
+.acro-cat-badge.arch  { background: #dde6f5; color: #1e4080; }
+.acro-cat-badge.mem   { background: #ddeaf7; color: #1a5a96; }
+.acro-cat-badge.bench { background: #f5e8cc; color: #7a4a0a; }
+.acro-cat-badge.calc  { background: #f5ddd8; color: #8c2c14; }
 
 .acro-full {
   font-family: 'DM Mono', monospace;
@@ -651,7 +651,7 @@ footer {
 }
 
 .ldt-scroll {
-  min-width: 900px;
+  min-width: 1500px;
   position: relative;
   padding: 0 0 48px;
 }
@@ -660,7 +660,7 @@ footer {
 .ldt-axis {
   position: absolute;
   left: 0; right: 0;
-  top: 180px;
+  top: 220px;
   height: 2px;
   background: var(--border2);
 }
@@ -677,7 +677,7 @@ footer {
 .ldt-ticks {
   position: absolute;
   left: 0; right: 0;
-  top: 180px;
+  top: 220px;
   display: flex;
   justify-content: space-between;
   padding: 0 20px;
@@ -707,7 +707,7 @@ footer {
 /* noeuds */
 .ldt-nodes {
   position: relative;
-  height: 380px;
+  height: 460px;
 }
 
 .ldt-node {
@@ -749,7 +749,7 @@ footer {
 .ldt-box {
   position: absolute;
   left: 0; right: 0;
-  background: var(--bg2);
+  background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 12px 14px;
@@ -807,12 +807,12 @@ footer {
 }
 
 /* couleurs par paradigme */
-.para-bdi   { background: var(--purple); }
-.para-rl    { background: var(--coral); }
-.para-fm    { background: var(--amber); }
-.para-react { background: var(--teal); }
-.para-gov   { background: var(--green); }
-.para-blog  { background: var(--blue); }
+.para-bdi   { background: #2e5fad; }
+.para-rl    { background: #b84020; }
+.para-fm    { background: #9a6010; }
+.para-react { background: #2a7a56; }
+.para-gov   { background: #3a7a28; }
+.para-blog  { background: #1a6eb5; }
 
 .ldt-box.para-bdi   { border-top: 2px solid var(--purple); }
 .ldt-box.para-rl    { border-top: 2px solid var(--coral); }
@@ -821,12 +821,12 @@ footer {
 .ldt-box.para-gov   { border-top: 2px solid var(--green); }
 .ldt-box.para-blog  { border-top: 2px solid var(--blue); }
 
-.ldt-box-title.para-bdi   { color: var(--purple); }
-.ldt-box-title.para-rl    { color: var(--coral); }
-.ldt-box-title.para-fm    { color: var(--amber); }
-.ldt-box-title.para-react { color: var(--teal); }
-.ldt-box-title.para-gov   { color: var(--green); }
-.ldt-box-title.para-blog  { color: var(--blue); }
+.ldt-box-title.para-bdi   { color: #2e5fad; }
+.ldt-box-title.para-rl    { color: #b84020; }
+.ldt-box-title.para-fm    { color: #9a6010; }
+.ldt-box-title.para-react { color: #2a7a56; }
+.ldt-box-title.para-gov   { color: #3a7a28; }
+.ldt-box-title.para-blog  { color: #1a6eb5; }
 
 /* légende paradigmes */
 .ldt-legend {
@@ -856,7 +856,7 @@ footer {
 /* tooltip */
 .ldt-tooltip {
   position: absolute;
-  background: var(--bg3);
+  background: #ffffff;
   border: 1px solid var(--border2);
   border-radius: 8px;
   padding: 10px 14px;
@@ -911,9 +911,9 @@ footer {
 .ref-filter-btn:hover { color: var(--text2); border-color: rgba(255,255,255,0.2); }
 .ref-filter-btn.active { background: var(--purple-dim); border-color: var(--purple); color: var(--purple); }
 .ref-filter-btn.fi  { }
-.ref-filter-btn.fi.active  { background: var(--teal-dim);  border-color: var(--teal);  color: var(--teal); }
-.ref-filter-btn.fg.active  { background: var(--amber-dim); border-color: var(--amber); color: var(--amber); }
-.ref-filter-btn.fgo.active { background: var(--coral-dim); border-color: var(--coral); color: var(--coral); }
+.ref-filter-btn.fi.active  { background: #d6eee6; border-color: #2a7a56; color: #1a5c38; }
+.ref-filter-btn.fg.active  { background: #f5e8cc; border-color: #9a6010; color: #7a4a0a; }
+.ref-filter-btn.fgo.active { background: #f5ddd8; border-color: #b84020; color: #8c2c14; }
 
 .ref-count { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text3); margin-left: auto; }
 
@@ -935,7 +935,7 @@ footer {
 }
 .ref-item:last-child { border-bottom: none; }
 .ref-item.ref-hidden { display: none; }
-.ref-item.is-dup { background: rgba(232,107,95,.05); }
+.ref-item.is-dup { background: rgba(184,64,32,.05); }
 
 .ref-dup-badge {
   font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500;
@@ -959,12 +959,12 @@ footer {
 /* Modal mot de passe */
 .pwd-overlay {
   display: none; position: fixed; inset: 0;
-  background: rgba(0,0,0,.6); z-index: 200;
+  background: rgba(30,36,51,.5); z-index: 200;
   align-items: center; justify-content: center;
 }
 .pwd-overlay.show { display: flex; }
 .pwd-box {
-  background: var(--bg2); border: 1px solid var(--border2);
+  background: #ffffff; border: 1px solid var(--border2);
   border-radius: 14px; padding: 32px 28px; width: 340px;
   font-family: 'DM Mono', monospace;
 }
@@ -1004,10 +1004,10 @@ footer {
   font-family: 'DM Mono', monospace; font-size: 9.5px; font-weight: 500;
   padding: 2px 7px; border-radius: 4px; letter-spacing: .04em;
 }
-.rb-acad { background: rgba(155,143,245,.15); color: var(--purple); }
-.rb-ind  { background: rgba(78,205,164,.15);  color: var(--teal); }
-.rb-grey { background: rgba(232,164,58,.15);  color: var(--amber); }
-.rb-gouv { background: rgba(232,107,95,.15);  color: var(--coral); }
+.rb-acad { background: #dde6f5; color: #1e4080; }
+.rb-ind  { background: #d6eee6; color: #1a5c38; }
+.rb-grey { background: #f5e8cc; color: #7a4a0a; }
+.rb-gouv { background: #f5ddd8; color: #8c2c14; }
 
 .ref-tag {
   font-family: 'DM Mono', monospace; font-size: 9.5px;
@@ -1029,7 +1029,7 @@ footer {
 
 /* ── FORMULAIRE ZOTERO / AJOUT MANUEL ── */
 .zotero-panel {
-  background: var(--bg2);
+  background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 28px 28px 24px;
@@ -1062,7 +1062,7 @@ footer {
   letter-spacing: .08em; text-transform: uppercase; color: var(--text3);
 }
 .form-input, .form-select, .form-textarea {
-  background: var(--bg3); border: 1px solid var(--border2);
+  background: #f5f6f8; border: 1px solid var(--border2);
   border-radius: 6px; padding: 8px 12px;
   font-family: 'DM Mono', monospace; font-size: 12px;
   color: var(--text); outline: none; transition: border-color .15s;
@@ -1110,7 +1110,7 @@ footer {
 .form-msg.show { display: block; }
 
 .ris-textarea {
-  width: 100%; background: var(--bg3); border: 1px solid var(--border2);
+  width: 100%; background: #f5f6f8; border: 1px solid var(--border2);
   border-radius: 6px; padding: 12px; font-family: 'DM Mono', monospace;
   font-size: 11px; color: var(--text2); outline: none; resize: vertical;
   min-height: 160px; line-height: 1.6; transition: border-color .15s;
@@ -1676,11 +1676,11 @@ footer {
             <a class="obs-link" href="https://publish.obsidian.md/fredplamondon/Revue+de+port%C3%A9e+IA+agentique+et+benchmarks/Ligne+de+temps/bratman-1987" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note</a>
           </div>
           <div class="ldt-connector" style="top:136px; height:32px;"></div>
-          <div class="ldt-dot para-bdi" style="top:168px;"></div>
+          <div class="ldt-dot para-bdi" style="top:220px;"></div>
         </div>
 
         <!-- Wooldridge & Jennings 1995 — au-dessus -->
-        <div class="ldt-node" style="left:120px; top:0px;"
+        <div class="ldt-node" style="left:130px; top:0px;"
              data-tip="Formalisation BDI : weak sense (autonomie, réactivité, proactivité, socialité) vs strong sense (intentionnalité). Protocoles KQML/FIPA.">
           <div class="ldt-box para-bdi" style="top:0; bottom:auto;">
             <div class="ldt-box-year">1995</div>
@@ -1689,11 +1689,11 @@ footer {
             <a class="obs-link" href="https://publish.obsidian.md/fredplamondon/Revue+de+port%C3%A9e+IA+agentique+et+benchmarks/Ligne+de+temps/wooldridge-jennings-1995" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note</a>
           </div>
           <div class="ldt-connector" style="top:136px; height:32px;"></div>
-          <div class="ldt-dot para-bdi" style="top:168px;"></div>
+          <div class="ldt-dot para-bdi" style="top:220px;"></div>
         </div>
 
         <!-- Russell & Norvig 1995 — en-dessous -->
-        <div class="ldt-node" style="left:240px; top:192px;"
+        <div class="ldt-node" style="left:250px; top:232px;"
              data-tip="Cadre PEAS : Performance, Environment, Actuators, Sensors. Définit l'agent rationnel comme maximiseur de performance.">
           <div class="ldt-dot para-bdi" style="top:-12px;"></div>
           <div class="ldt-connector" style="top:0px; height:40px;"></div>
@@ -1706,7 +1706,7 @@ footer {
         </div>
 
         <!-- Silver et al. 2015 — au-dessus -->
-        <div class="ldt-node" style="left:380px; top:20px;"
+        <div class="ldt-node" style="left:420px; top:10px;"
              data-tip="DQN : premier agent deep RL à niveau humain sur Atari. Déplacement du critère de l'intentionnalité vers la performance empirique.">
           <div class="ldt-box para-rl" style="top:0; bottom:auto;">
             <div class="ldt-box-year">2015</div>
@@ -1715,11 +1715,11 @@ footer {
             <a class="obs-link" href="https://publish.obsidian.md/fredplamondon/Revue+de+port%C3%A9e+IA+agentique+et+benchmarks/Ligne+de+temps/silver-2015" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note</a>
           </div>
           <div class="ldt-connector" style="top:126px; height:42px;"></div>
-          <div class="ldt-dot para-rl" style="top:168px;"></div>
+          <div class="ldt-dot para-rl" style="top:220px;"></div>
         </div>
 
         <!-- Leike 2018 — en-dessous -->
-        <div class="ldt-node" style="left:470px; top:192px;"
+        <div class="ldt-node" style="left:530px; top:232px;"
              data-tip="AI Safety Gridworlds : introduction de la sécurité comme dimension de l'agentivité — interruptibilité, effets secondaires, alignement.">
           <div class="ldt-dot para-rl" style="top:-12px;"></div>
           <div class="ldt-connector" style="top:0px; height:40px;"></div>
@@ -1732,7 +1732,7 @@ footer {
         </div>
 
         <!-- Lewis RAG 2020 — au-dessus -->
-        <div class="ldt-node" style="left:540px; top:0px;"
+        <div class="ldt-node" style="left:620px; top:0px;"
              data-tip="RAG : Retrieval-Augmented Generation. Combine mémoire paramétrique (poids du modèle) et mémoire non-paramétrique (base vectorielle externe).">
           <div class="ldt-box para-fm" style="top:0; bottom:auto;">
             <div class="ldt-box-year">2020</div>
@@ -1741,11 +1741,11 @@ footer {
             <a class="obs-link" href="https://publish.obsidian.md/fredplamondon/Revue+de+port%C3%A9e+IA+agentique+et+benchmarks/Ligne+de+temps/lewis-rag-2020" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note</a>
           </div>
           <div class="ldt-connector" style="top:126px; height:42px;"></div>
-          <div class="ldt-dot para-fm" style="top:168px;"></div>
+          <div class="ldt-dot para-fm" style="top:220px;"></div>
         </div>
 
         <!-- Bommasani 2021 — en-dessous -->
-        <div class="ldt-node" style="left:620px; top:192px;"
+        <div class="ldt-node" style="left:720px; top:232px;"
              data-tip="Foundation Models : l'agentivité comme propriété émergente du déploiement, non plus architecturale. Risques systémiques de centralisation cloud identifiés.">
           <div class="ldt-dot para-fm" style="top:-12px;"></div>
           <div class="ldt-connector" style="top:0px; height:40px;"></div>
@@ -1758,7 +1758,7 @@ footer {
         </div>
 
         <!-- Yao ReAct 2022 — au-dessus -->
-        <div class="ldt-node" style="left:700px; top:10px;"
+        <div class="ldt-node" style="left:830px; top:10px;"
              data-tip="ReAct : Reasoning + Acting. La boucle agentique sans BDI — alternance Thought / Action / Observation en langage naturel avec appels d'outils.">
           <div class="ldt-box para-react" style="top:0; bottom:auto;">
             <div class="ldt-box-year">2022</div>
@@ -1767,11 +1767,11 @@ footer {
             <a class="obs-link" href="https://publish.obsidian.md/fredplamondon/Revue+de+port%C3%A9e+IA+agentique+et+benchmarks/Ligne+de+temps/yao-react-2022" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note</a>
           </div>
           <div class="ldt-connector" style="top:136px; height:32px;"></div>
-          <div class="ldt-dot para-react" style="top:168px;"></div>
+          <div class="ldt-dot para-react" style="top:220px;"></div>
         </div>
 
         <!-- Wang Survey 2023 — en-dessous -->
-        <div class="ldt-node" style="left:760px; top:192px;"
+        <div class="ldt-node" style="left:920px; top:232px;"
              data-tip="Taxonomie des agents LLM : profil, mémoire (×4 types), planification, action. Premier cadre systématique post-ReAct.">
           <div class="ldt-dot para-react" style="top:-12px;"></div>
           <div class="ldt-connector" style="top:0px; height:40px;"></div>
@@ -1784,7 +1784,7 @@ footer {
         </div>
 
         <!-- Anthropic 2024 — au-dessus -->
-        <div class="ldt-node" style="left:850px; top:0px;"
+        <div class="ldt-node" style="left:1010px; top:0px;"
              data-tip="Model Spec + Building Effective Agents : orchestrateur/sous-agents, HITL comme critère de sécurité intégré à la définition. MCP standardise les connexions aux outils.">
           <div class="ldt-box para-react" style="top:0; bottom:auto;">
             <div class="ldt-box-year">2024</div>
@@ -1793,11 +1793,11 @@ footer {
             <a class="obs-link" href="https://publish.obsidian.md/fredplamondon/Revue+de+port%C3%A9e+IA+agentique+et+benchmarks/Ligne+de+temps/anthropic-2024" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note</a>
           </div>
           <div class="ldt-connector" style="top:126px; height:42px;"></div>
-          <div class="ldt-dot para-react" style="top:168px;"></div>
+          <div class="ldt-dot para-react" style="top:220px;"></div>
         </div>
 
         <!-- Kapoor 2024 — en-dessous -->
-        <div class="ldt-node" style="left:940px; top:192px;"
+        <div class="ldt-node" style="left:1110px; top:232px;"
              data-tip="Critique des benchmarks agentiques : le taux de succès sans contrôle du coût est une mesure trompeuse. Propose le ratio performance/coût comme critère principal.">
           <div class="ldt-dot para-fm" style="top:-12px;"></div>
           <div class="ldt-connector" style="top:0px; height:40px;"></div>
@@ -1810,7 +1810,7 @@ footer {
         </div>
 
         <!-- NIST/AI Act 2024 — au-dessus -->
-        <div class="ldt-node" style="left:1030px; top:20px;"
+        <div class="ldt-node" style="left:1210px; top:10px;"
              data-tip="AI Act UE + NIST RMF Agentic Profile : première définition réglementaire formelle. Agentique = autonomie d'inférence + effets monde réel sans contrôle continu.">
           <div class="ldt-box para-gov" style="top:0; bottom:auto;">
             <div class="ldt-box-year">2024</div>
@@ -1819,11 +1819,11 @@ footer {
             <a class="obs-link" href="https://publish.obsidian.md/fredplamondon/Revue+de+port%C3%A9e+IA+agentique+et+benchmarks/Ligne+de+temps/ai-act-nist-2024" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note</a>
           </div>
           <div class="ldt-connector" style="top:126px; height:42px;"></div>
-          <div class="ldt-dot para-gov" style="top:168px;"></div>
+          <div class="ldt-dot para-gov" style="top:220px;"></div>
         </div>
 
         <!-- Blogosphère 2025-26 — en-dessous -->
-        <div class="ldt-node" style="left:1130px; top:192px;"
+        <div class="ldt-node" style="left:1340px; top:232px;"
              data-tip="Karpathy, Weng, Willison : convergence vers 'LLM en boucle + outils + mémoire persistante'. L'agentivité comme spectre continu, pas propriété binaire.">
           <div class="ldt-dot para-blog" style="top:-12px;"></div>
           <div class="ldt-connector" style="top:0px; height:40px;"></div>
@@ -1839,13 +1839,13 @@ footer {
 
       <!-- Flèches de transition paradigmatique -->
       <!-- BDI → RL -->
-      <div class="ldt-transition" style="left:380px;">rupture<br>empirique</div>
+      <div class="ldt-transition" style="left:430px;">rupture<br>empirique</div>
       <!-- RL → Foundation Models -->
-      <div class="ldt-transition" style="left:560px;">fondation<br>models</div>
+      <div class="ldt-transition" style="left:640px;">fondation<br>models</div>
       <!-- FM → ReAct -->
-      <div class="ldt-transition" style="left:700px;">boucle<br>outil</div>
+      <div class="ldt-transition" style="left:840px;">boucle<br>outil</div>
       <!-- ReAct → Gouvernance -->
-      <div class="ldt-transition" style="left:1030px;">régulation</div>
+      <div class="ldt-transition" style="left:1220px;">régulation</div>
 
     </div><!-- /ldt-scroll -->
 
@@ -2335,6 +2335,19 @@ footer {
             <option value="gouv">Gouvernementale / Institutionnelle</option>
           </select>
         </div>
+        <div class="form-group">
+          <label class="form-label">Groupe de destination</label>
+          <select class="form-select" id="f-group">
+            <option value="">— Nouveau groupe (non classé) —</option>
+            <option value="grp-fondements">Fondements philosophiques et IA symbolique</option>
+            <option value="grp-rl">Apprentissage par renforcement et alignement</option>
+            <option value="grp-fm">Foundation models, mémoire et benchmarks</option>
+            <option value="grp-llm">Paradigme LLM agentique — ReAct, CoT, Survey</option>
+            <option value="grp-ind">Sources industrielles</option>
+            <option value="grp-grey">Littérature grise — blogs et prépublications</option>
+            <option value="grp-gouv">Sources gouvernementales et institutionnelles</option>
+          </select>
+        </div>
         <div class="form-group form-full">
           <label class="form-label">Titre *</label>
           <input class="form-input" id="f-title" placeholder="Titre de l'article ou de l'ouvrage">
@@ -2369,6 +2382,7 @@ footer {
     <button class="ref-filter-btn fgo" onclick="filterRefs('gouv',this)">Gouvernementales</button>
     <span class="ref-count" id="ref-count">28 références</span>
     <button class="btn-secondary" style="margin-left:8px;font-size:10.5px;padding:5px 13px" onclick="runDedup()">Détecter les doublons</button>
+    <button class="btn-secondary" style="font-size:10.5px;padding:5px 13px;color:#b84020;border-color:rgba(184,64,32,.3)" onclick="deleteAllDups()">Supprimer tous les doublons</button>
   </div>
 
   <!-- Modal mot de passe -->
@@ -2388,7 +2402,7 @@ footer {
   <!-- GROUPE 1 : Fondements -->
   <div class="ref-group">
     <div class="ref-group-header">
-      <span class="ref-group-title">Fondements philosophiques et IA symbolique</span>
+      <span class="ref-group-title" id="grp-fondements">Fondements philosophiques et IA symbolique</span>
       <span class="ref-group-line"></span><span class="ref-group-count">4</span>
     </div>
 
@@ -2428,7 +2442,7 @@ footer {
   <!-- GROUPE 2 : RL -->
   <div class="ref-group">
     <div class="ref-group-header">
-      <span class="ref-group-title">Apprentissage par renforcement et alignement</span>
+      <span class="ref-group-title" id="grp-rl">Apprentissage par renforcement et alignement</span>
       <span class="ref-group-line"></span><span class="ref-group-count">3</span>
     </div>
 
@@ -2460,7 +2474,7 @@ footer {
   <!-- GROUPE 3 : Foundation Models -->
   <div class="ref-group">
     <div class="ref-group-header">
-      <span class="ref-group-title">Foundation models, mémoire et benchmarks</span>
+      <span class="ref-group-title" id="grp-fm">Foundation models, mémoire et benchmarks</span>
       <span class="ref-group-line"></span><span class="ref-group-count">5</span>
     </div>
 
@@ -2508,7 +2522,7 @@ footer {
   <!-- GROUPE 4 : LLM agentique -->
   <div class="ref-group">
     <div class="ref-group-header">
-      <span class="ref-group-title">Paradigme LLM agentique — ReAct, CoT, Survey</span>
+      <span class="ref-group-title" id="grp-llm">Paradigme LLM agentique — ReAct, CoT, Survey</span>
       <span class="ref-group-line"></span><span class="ref-group-count">6</span>
     </div>
 
@@ -2556,7 +2570,7 @@ footer {
   <!-- GROUPE 5 : Industrielles -->
   <div class="ref-group">
     <div class="ref-group-header">
-      <span class="ref-group-title">Sources industrielles</span>
+      <span class="ref-group-title" id="grp-ind">Sources industrielles</span>
       <span class="ref-group-line"></span><span class="ref-group-count">4</span>
     </div>
 
@@ -2596,7 +2610,7 @@ footer {
   <!-- GROUPE 6 : Grises -->
   <div class="ref-group">
     <div class="ref-group-header">
-      <span class="ref-group-title">Littérature grise — blogs et prépublications</span>
+      <span class="ref-group-title" id="grp-grey">Littérature grise — blogs et prépublications</span>
       <span class="ref-group-line"></span><span class="ref-group-count">2</span>
     </div>
 
@@ -2620,7 +2634,7 @@ footer {
   <!-- GROUPE 7 : Gouvernementales -->
   <div class="ref-group">
     <div class="ref-group-header">
-      <span class="ref-group-title">Sources gouvernementales et institutionnelles</span>
+      <span class="ref-group-title" id="grp-gouv">Sources gouvernementales et institutionnelles</span>
       <span class="ref-group-line"></span><span class="ref-group-count">5</span>
     </div>
 
@@ -2893,8 +2907,9 @@ function addManualRef() {
   var tags    = tagStr ? tagStr.split(',').map(function(t) { return t.trim(); }).filter(Boolean) : [];
   var msg     = document.getElementById('manual-msg');
   if (!authors || !year || !title) { showMsg(msg, 'Auteur, Année et Titre sont obligatoires.', 'err'); return; }
+  var groupId = document.getElementById('f-group') ? document.getElementById('f-group').value : '';
   requirePassword(function() {
-    appendRef(authors, year, title, journal, doi, type, tags);
+    appendRef(authors, year, title, journal, doi, type, tags, false, groupId);
     showMsg(msg, 'Référence ajoutée à la liste.', 'ok');
     clearForm();
     updateRefCount();
@@ -2914,6 +2929,48 @@ function addRISRefs() {
     document.getElementById('ris-input').value = '';
     updateRefCount();
   }, false);
+}
+
+// ── INJECTION BOUTONS SUPPRESSION ──
+function injectDelBtns() {
+  document.querySelectorAll('.ref-item').forEach(function(item) {
+    if (!item.querySelector('.ref-del-btn')) {
+      var btn = document.createElement('button');
+      btn.className = 'ref-del-btn';
+      btn.title = 'Supprimer (admin requis)';
+      btn.innerHTML = '&#10005;';
+      btn.onclick = function() { requestDelete(btn); };
+      item.appendChild(btn);
+    }
+  });
+}
+
+// ── SUPPRIMER TOUS LES DOUBLONS ──
+function deleteAllDups() {
+  var dups = document.querySelectorAll('.ref-item.is-dup');
+  if (!dups.length) {
+    runDedup();
+    dups = document.querySelectorAll('.ref-item.is-dup');
+    if (!dups.length) { alert('Aucun doublon détecté.'); return; }
+  }
+  requirePassword(function() {
+    document.querySelectorAll('.ref-item.is-dup').forEach(function(item) {
+      item.remove();
+    });
+    renumberRefs();
+    updateRefCount();
+    saveRefsToStorage();
+    updateExportBtn();
+    runDedup();
+  }, true);
+}
+
+// ── GROUPE CIBLE ──
+function getTargetGroup(groupId) {
+  if (!groupId) return null;
+  var titleEl = document.getElementById(groupId);
+  if (!titleEl) return null;
+  return titleEl.closest('.ref-group');
 }
 
 // ── CONFIGURATION — lue depuis config.js ──
@@ -3057,7 +3114,7 @@ function updateExportBtn() {
   if (btn) btn.textContent = 'Télécharger le fichier .ris (' + document.querySelectorAll('.ref-item').length + ' références)';
 }
 
-function appendRef(authors, year, title, journal, doi, type, tags, silent) {
+function appendRef(authors, year, title, journal, doi, type, tags, silent, groupId) {
   var all = document.querySelectorAll('.ref-item');
   var n = all.length + 1;
   var badgeClass = { acad:'rb-acad', ind:'rb-ind', grey:'rb-grey', gouv:'rb-gouv' }[type] || 'rb-acad';
@@ -3072,15 +3129,22 @@ function appendRef(authors, year, title, journal, doi, type, tags, silent) {
   div.className = 'ref-item';
   div.dataset.rtype = type;
   div.innerHTML = '<div class="ref-n">' + n + '</div><div class="ref-body"><div class="ref-apa"><span class="au">' + authors + '</span> <span class="yr">(' + year + ').</span> <span class="ti">' + title + '</span>' + apaJournal + apaDoi + '</div><div class="ref-meta"><span class="ref-badge ' + badgeClass + '">' + badgeLabel + '</span>' + tagHTML + linkHTML + '</div></div>';
-  var dynGroup = document.getElementById('dynamic-ref-group');
-  if (!dynGroup) {
-    dynGroup = document.createElement('div');
-    dynGroup.id = 'dynamic-ref-group';
-    dynGroup.className = 'ref-group';
-    dynGroup.innerHTML = '<div class="ref-group-header"><span class="ref-group-title">Références ajoutées</span><span class="ref-group-line"></span></div>';
-    document.getElementById('dynamic-refs').appendChild(dynGroup);
+  var targetGroup = groupId ? getTargetGroup(groupId) : null;
+  if (targetGroup) {
+    targetGroup.appendChild(div);
+  } else {
+    var dynGroup = document.getElementById('dynamic-ref-group');
+    if (!dynGroup) {
+      dynGroup = document.createElement('div');
+      dynGroup.id = 'dynamic-ref-group';
+      dynGroup.className = 'ref-group';
+      dynGroup.innerHTML = '<div class="ref-group-header"><span class="ref-group-title">Références ajoutées</span><span class="ref-group-line"></span></div>';
+      document.getElementById('dynamic-refs').appendChild(dynGroup);
+    }
+    dynGroup.appendChild(div);
   }
-  dynGroup.appendChild(div);
+  // Injecter bouton suppression sur la nouvelle carte
+  injectDelBtns();
   if (!silent) {
     saveRefsToStorage();
     updateExportBtn();
@@ -3091,6 +3155,8 @@ function clearForm() {
   var fields = ['f-authors','f-year','f-title','f-journal','f-doi','f-tags'];
   fields.forEach(function(id) { document.getElementById(id).value = ''; });
   document.getElementById('f-type').value = 'acad';
+  var fg = document.getElementById('f-group');
+  if (fg) fg.value = '';
 }
 
 function updateRefCount() {
@@ -3284,6 +3350,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Charger les références (JSONBin si configuré, sinon localStorage)
   loadRefsFromStorage();
+  // Injecter boutons suppression (admin seulement, visibles au survol)
+  setTimeout(injectDelBtns, 300);
 
   // Mettre à jour le compteur du bouton export après chargement asynchrone éventuel
   setTimeout(function() { updateExportBtn(); }, 100);
