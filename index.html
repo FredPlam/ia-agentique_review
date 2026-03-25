@@ -2320,6 +2320,16 @@ footer {
         <div id="ris-entries"></div>
         <div class="form-actions" style="margin-top:14px">
           <button class="btn-primary" onclick="addRISRefs()">Ajouter à la liste</button>
+          <select class="form-select" id="ris-group" style="font-size:11px;padding:5px 10px;max-width:280px">
+            <option value="">— Nouveau groupe (non classé) —</option>
+            <option value="grp-fondements">Fondements philosophiques et IA symbolique</option>
+            <option value="grp-rl">Apprentissage par renforcement et alignement</option>
+            <option value="grp-fm">Foundation models, mémoire et benchmarks</option>
+            <option value="grp-llm">Paradigme LLM agentique — ReAct, CoT, Survey</option>
+            <option value="grp-ind">Sources industrielles</option>
+            <option value="grp-grey">Littérature grise — blogs et prépublications</option>
+            <option value="grp-gouv">Sources gouvernementales et institutionnelles</option>
+          </select>
           <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text3)" id="ris-count-label"></span>
         </div>
       </div>
@@ -2887,16 +2897,6 @@ function parseRIS() {
   showMsg(msg, parsedRefs.length + ' référence(s) prête(s) à ajouter.', 'ok');
 }
 
-function addRISRefs() {
-  if (!parsedRefs.length) return;
-  parsedRefs.forEach(r => appendRef(r.authors, r.year, r.title, r.journal, r.doi, 'acad', []));
-  showMsg(document.getElementById('ris-msg'), parsedRefs.length + ' référence(s) ajoutée(s).', 'ok');
-  parsedRefs = [];
-  document.getElementById('ris-preview').classList.remove('show');
-  document.getElementById('ris-input').value = '';
-  updateRefCount();
-}
-
 function clearRIS() {
   document.getElementById('ris-input').value = '';
   document.getElementById('ris-preview').classList.remove('show');
@@ -2932,14 +2932,17 @@ function addManualRef() {
 function addRISRefs() {
   if (!parsedRefs.length) return;
   var snapshot = parsedRefs.slice();
+  var groupId = document.getElementById('ris-group') ? document.getElementById('ris-group').value : '';
   requirePassword(function() {
     snapshot.forEach(function(r) {
-      appendRef(r.authors, r.year, r.title, r.journal, r.doi, 'acad', []);
+      appendRef(r.authors, r.year, r.title, r.journal, r.doi, 'acad', [], false, groupId);
     });
     showMsg(document.getElementById('ris-msg'), snapshot.length + ' référence(s) ajoutée(s).', 'ok');
     parsedRefs = [];
     document.getElementById('ris-preview').classList.remove('show');
     document.getElementById('ris-input').value = '';
+    var rg = document.getElementById('ris-group');
+    if (rg) rg.value = '';
     updateRefCount();
   }, false);
 }
