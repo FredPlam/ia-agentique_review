@@ -570,6 +570,185 @@ section {
   margin-top: 4px;
 }
 
+/* ── GESTION ACRONYMES — BARRE ADMIN ── */
+.acro-admin-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.acro-admin-bar button {
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--text3);
+  cursor: pointer;
+  transition: all .15s;
+}
+.acro-admin-bar button:hover {
+  background: var(--purple-dim);
+  border-color: var(--purple);
+  color: var(--purple);
+}
+
+/* ── MODAL GESTION CATÉGORIES ── */
+.cat-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(30,36,51,.45);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+}
+.cat-modal-overlay.show { display: flex; }
+.cat-modal {
+  background: #fff;
+  border-radius: 14px;
+  padding: 28px 32px;
+  width: min(640px, 92vw);
+  max-height: 82vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 40px rgba(0,0,0,.18);
+}
+.cat-modal-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+  color: var(--text);
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cat-list { list-style: none; padding: 0; margin: 0 0 24px 0; }
+.cat-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+}
+.cat-list li:last-child { border-bottom: none; }
+.cat-slug {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  color: var(--text3);
+  min-width: 70px;
+  background: #f0f1f4;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.cat-label-input {
+  flex: 1;
+  font-size: 12.5px;
+  padding: 5px 9px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: inherit;
+}
+.cat-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  min-width: 55px;
+  text-align: right;
+}
+.btn-icon {
+  font-size: 12px;
+  padding: 5px 9px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  color: var(--text3);
+  transition: all .15s;
+  line-height: 1;
+}
+.btn-icon:hover { color: var(--coral); border-color: var(--coral); background: var(--coral-dim); }
+.btn-icon.btn-save:hover { color: var(--green); border-color: var(--green); background: var(--green-dim); }
+
+/* ── ACTIONS SUR CARTES ACRONYMES (ADMIN) ── */
+.acro-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity .15s;
+}
+.acro-card:hover .acro-card-actions { opacity: 1; }
+.acro-card-edit-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  padding: 3px 9px;
+  border-radius: 4px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--text3);
+  cursor: pointer;
+  transition: all .15s;
+}
+.acro-card-edit-btn:hover { background: var(--amber-dim); border-color: var(--amber); color: var(--amber); }
+.acro-card-edit-btn.btn-del:hover { background: var(--coral-dim); border-color: var(--coral); color: var(--coral); }
+
+/* ── MODAL AJOUT / ÉDITION ACRONYME ── */
+.acro-edit-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(30,36,51,.45);
+  z-index: 201;
+  align-items: center;
+  justify-content: center;
+}
+.acro-edit-overlay.show { display: flex; }
+.acro-edit-modal {
+  background: #fff;
+  border-radius: 14px;
+  padding: 28px 32px;
+  width: min(580px, 92vw);
+  max-height: 86vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 40px rgba(0,0,0,.18);
+}
+
+/* ── PANEL AJOUT CHRONOLOGIE ── */
+.chron-admin-trigger {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--border);
+}
+.chron-add-panel {
+  margin-top: 20px;
+  background: #f9f9fb;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px 28px;
+}
+.chron-add-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 17px;
+  color: var(--text);
+  margin-bottom: 18px;
+}
+.chron-add-panel .form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 18px;
+}
+.chron-add-panel .form-full { grid-column: 1 / -1; }
+.chron-add-msg {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--green);
+  margin-left: 12px;
+}
+
 /* ── FOOTER ── */
 footer {
   padding: 40px 48px;
@@ -1170,6 +1349,7 @@ footer {
   <a href="#infrastructure">Infrastructure</a>
   <a href="#acronymes">Acronymes</a>
   <a href="#references">Références APA</a>
+  <button id="admin-unlock-btn" onclick="triggerAdminUnlock()" title="Activer le mode administrateur" style="font-family:'DM Mono',monospace;font-size:10px;padding:4px 11px;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--text3);cursor:pointer;margin-left:8px;transition:all .15s">🔒 Admin</button>
 </nav>
 
 <main>
@@ -1185,7 +1365,7 @@ footer {
       <span class="period-year">1990–2010</span>
       <span class="period-title">IA symbolique et agents BDI</span>
     </div>
-    <div class="cards-grid">
+    <div class="cards-grid" id="chron-grid-p1">
 
       <div class="card acad fade-in">
         <div class="card-meta">
@@ -1277,7 +1457,7 @@ footer {
       <span class="period-year">2010–2022</span>
       <span class="period-title">Apprentissage, RL et émergence des LLM</span>
     </div>
-    <div class="cards-grid">
+    <div class="cards-grid" id="chron-grid-p2">
 
       <div class="card acad fade-in">
         <div class="card-meta">
@@ -1367,7 +1547,7 @@ footer {
       <span class="period-year">2023–2026</span>
       <span class="period-title">Ère LLM agentique — sources académiques &amp; industrielles</span>
     </div>
-    <div class="cards-grid">
+    <div class="cards-grid" id="chron-grid-p3a">
 
       <div class="card acad fade-in">
         <div class="card-meta">
@@ -1498,7 +1678,7 @@ footer {
       <span class="period-year">2023–2026</span>
       <span class="period-title">Sources institutionnelles et gouvernementales</span>
     </div>
-    <div class="cards-grid">
+    <div class="cards-grid" id="chron-grid-p3b">
 
       <div class="card gouv fade-in">
         <div class="card-meta">
@@ -1647,6 +1827,77 @@ footer {
 
     </div>
   </div>
+
+  <!-- ── AJOUT FICHE SOURCE (admin) ── -->
+  <div class="chron-admin-trigger" id="chron-admin-trigger" style="display:none">
+    <button class="btn-secondary" onclick="requirePassword(toggleChronPanel, true)">＋ Ajouter une fiche source</button>
+  </div>
+
+  <div class="chron-add-panel" id="chron-add-panel" style="display:none">
+    <div class="chron-add-title">Nouvelle fiche — chronologie des définitions</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label class="form-label">Année *</label>
+        <input class="form-input" id="chron-year" placeholder="2024" maxlength="8">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Période de rattachement *</label>
+        <select class="form-select" id="chron-period">
+          <option value="p1">1990–2010 — IA symbolique et agents BDI</option>
+          <option value="p2">2010–2022 — Apprentissage, RL et LLM</option>
+          <option value="p3a" selected>2023–2026 — Acad. &amp; industrielles</option>
+          <option value="p3b">2023–2026 — Institutionnelles / gouvernementales</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Type de source *</label>
+        <select class="form-select" id="chron-type">
+          <option value="acad">Académique</option>
+          <option value="ind">Industrielle</option>
+          <option value="grey">Littérature grise / Blog</option>
+          <option value="gouv">Gouvernementale / Institutionnelle</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Indicateur infrastructure</label>
+        <select class="form-select" id="chron-infra-status">
+          <option value="non">Non</option>
+          <option value="partielle">Partielle</option>
+          <option value="oui">Oui</option>
+        </select>
+      </div>
+      <div class="form-group form-full">
+        <label class="form-label">Auteur(s) / Source *</label>
+        <input class="form-input" id="chron-source" placeholder="Nom, A. &amp; Nom, B.">
+      </div>
+      <div class="form-group form-full">
+        <label class="form-label">Titre de la référence</label>
+        <input class="form-input" id="chron-ref" placeholder="Titre de l'article ou du rapport">
+      </div>
+      <div class="form-group form-full">
+        <label class="form-label">Définition / contenu *</label>
+        <textarea class="form-input" id="chron-def" rows="3" style="resize:vertical" placeholder="Résumé de la définition ou contribution de la source…"></textarea>
+      </div>
+      <div class="form-group form-full">
+        <label class="form-label">Critères clés <span style="font-weight:300">(séparés par des virgules)</span></label>
+        <input class="form-input" id="chron-crits" placeholder="Autonomie, Réactivité, Planification">
+      </div>
+      <div class="form-group form-full">
+        <label class="form-label">Précision infrastructure</label>
+        <input class="form-input" id="chron-infra-text" placeholder="Détails sur l'infrastructure mentionnée…">
+      </div>
+      <div class="form-group form-full">
+        <label class="form-label">Clé Obsidian <span style="font-weight:300">(suffixe de l'URL, ex : source-nom-2024)</span></label>
+        <input class="form-input" id="chron-obs-key" placeholder="source-auteur-2024">
+      </div>
+    </div>
+    <div class="form-actions" style="margin-top:16px">
+      <button class="btn-primary" onclick="submitChronCard()">Ajouter la fiche</button>
+      <button class="btn-secondary" onclick="toggleChronPanel()">Annuler</button>
+      <span class="chron-add-msg" id="chron-add-msg"></span>
+    </div>
+  </div>
+
 </section>
 
 <!-- ══════════════ LIGNE DE TEMPS ══════════════ -->
@@ -2034,231 +2285,18 @@ footer {
 <section id="acronymes">
   <div class="section-label">04 — Lexique des acronymes</div>
 
-  <div class="filter-bar">
-    <button class="filter-btn active" onclick="filterAcro('all', this)">Tous</button>
-    <button class="filter-btn cat-arch" onclick="filterAcro('arch', this)">Architecture &amp; systèmes</button>
-    <button class="filter-btn cat-mem" onclick="filterAcro('mem', this)">Mémoire</button>
-    <button class="filter-btn cat-bench" onclick="filterAcro('bench', this)">Évaluation &amp; benchmarks</button>
-    <button class="filter-btn cat-calc" onclick="filterAcro('calc', this)">Apprentissage &amp; compute</button>
+  <!-- Barre de filtres (générée dynamiquement) -->
+  <div class="filter-bar" id="acro-filter-bar"></div>
+
+  <!-- Barre admin (visible admin uniquement, affichée par JS) -->
+  <div class="acro-admin-bar" id="acro-admin-bar" style="display:none">
+    <button onclick="requirePassword(openCatModal, true)">⚙ Gérer les catégories</button>
+    <button onclick="requirePassword(openAddAcroModal, true)">＋ Ajouter un acronyme</button>
   </div>
 
-  <div class="acronym-grid">
+  <!-- Grille des acronymes (générée dynamiquement) -->
+  <div class="acronym-grid" id="acro-grid"></div>
 
-    <!-- ARCH -->
-    <div class="acro-card" data-cat="arch">
-      <div class="acro-top">
-        <div class="acro-abbr">LLM</div>
-        <span class="acro-cat-badge arch">Architecture</span>
-      </div>
-      <div class="acro-full">Large Language Model</div>
-      <div class="acro-def">Modèle de langage entraîné sur de larges corpus textuels par apprentissage auto-supervisé. Dans un système agentique, joue le rôle d'orchestrateur (routeur d'intentions).</div>
-      <div class="acro-refs">Bommasani et al. (2021) · Anthropic Model Spec (2024)</div>
-    </div>
-
-    <div class="acro-card" data-cat="arch">
-      <div class="acro-top">
-        <div class="acro-abbr">BDI</div>
-        <span class="acro-cat-badge arch">Architecture</span>
-      </div>
-      <div class="acro-full">Beliefs – Desires – Intentions</div>
-      <div class="acro-def">Architecture d'agent rationnel issue de la philosophie de l'action. Les croyances représentent l'état du monde perçu, les désirs les objectifs, les intentions les plans engagés. Modèle fondateur de l'IA agentique symbolique.</div>
-      <div class="acro-refs">Bratman (1987/2003) · Wooldridge &amp; Jennings (1995)</div>
-    </div>
-
-    <div class="acro-card" data-cat="arch">
-      <div class="acro-top">
-        <div class="acro-abbr">ReAct</div>
-        <span class="acro-cat-badge arch">Architecture</span>
-      </div>
-      <div class="acro-full">Reasoning + Acting</div>
-      <div class="acro-def">Paradigme de prompt structurant la boucle agentique en alternance entre raisonnement en langage naturel (Thought) et action sur outils externes (Act), suivie d'une observation (Obs). Remplace l'architecture BDI pour les LLM.</div>
-      <div class="acro-refs">Yao et al. (2022 / ICLR 2023)</div>
-    </div>
-
-    <div class="acro-card" data-cat="arch">
-      <div class="acro-top">
-        <div class="acro-abbr">CoT</div>
-        <span class="acro-cat-badge arch">Architecture</span>
-      </div>
-      <div class="acro-full">Chain of Thought</div>
-      <div class="acro-def">Technique de prompting incitant le modèle à expliciter son raisonnement étape par étape avant de produire une réponse. Composante du raisonnement dans la boucle ReAct.</div>
-      <div class="acro-refs">Wei et al. (2022) · Yao et al. (2022)</div>
-    </div>
-
-    <div class="acro-card" data-cat="arch">
-      <div class="acro-top">
-        <div class="acro-abbr">PEAS</div>
-        <span class="acro-cat-badge arch">Architecture</span>
-      </div>
-      <div class="acro-full">Performance – Environment – Actuators – Sensors</div>
-      <div class="acro-def">Cadre de description d'un agent rationnel : mesure de performance, nature de l'environnement, actionneurs disponibles, capteurs. Sert à délimiter la spécification d'un agent avant sa conception.</div>
-      <div class="acro-refs">Russell &amp; Norvig (1995, 4e éd. 2020)</div>
-    </div>
-
-    <div class="acro-card" data-cat="arch">
-      <div class="acro-top">
-        <div class="acro-abbr">HITL</div>
-        <span class="acro-cat-badge arch">Architecture</span>
-      </div>
-      <div class="acro-full">Human-in-the-Loop</div>
-      <div class="acro-def">Mode de supervision où un humain intervient à des points de décision critiques dans la boucle d'exécution. Critère de sécurité architectural chez Anthropic ; exigence procédurale pour les décisions de niveau IV au Canada.</div>
-      <div class="acro-refs">Leike et al. (2018) · Anthropic (2024) · Canada — Dir. décisions automatisées (2024)</div>
-    </div>
-
-    <div class="acro-card" data-cat="arch">
-      <div class="acro-top">
-        <div class="acro-abbr">MCP</div>
-        <span class="acro-cat-badge arch">Architecture</span>
-      </div>
-      <div class="acro-full">Model Context Protocol</div>
-      <div class="acro-def">Protocole ouvert standardisant la connexion entre LLM et outils ou sources de données externes. Équivalent d'une interface USB pour agents : permet à un orchestrateur d'appeler des serveurs MCP sans intégration ad hoc.</div>
-      <div class="acro-refs">Anthropic (2024) — source uniquement industrielle, aucune référence académique à ce jour</div>
-    </div>
-
-    <!-- MEM -->
-    <div class="acro-card" data-cat="mem">
-      <div class="acro-top">
-        <div class="acro-abbr">RAG</div>
-        <span class="acro-cat-badge mem">Mémoire</span>
-      </div>
-      <div class="acro-full">Retrieval-Augmented Generation</div>
-      <div class="acro-def">Architecture combinant un LLM (mémoire paramétrique) avec une base de données vectorielle externe (mémoire non-paramétrique). Les passages les plus similaires sémantiquement sont récupérés et injectés dans le contexte à chaque requête.</div>
-      <div class="acro-refs">Lewis et al. (2020) · Wang et al. (2023)</div>
-    </div>
-
-    <div class="acro-card" data-cat="mem">
-      <div class="acro-top">
-        <div class="acro-abbr">Mém. param.</div>
-        <span class="acro-cat-badge mem">Mémoire</span>
-      </div>
-      <div class="acro-full">Mémoire paramétrique</div>
-      <div class="acro-def">Connaissances encodées dans les poids du modèle lors de l'entraînement. Non modifiable à l'inférence sans fine-tuning. Distinguée de la mémoire externe (RAG) par Lewis et al. (2020).</div>
-      <div class="acro-refs">Lewis et al. (2020) · Bommasani et al. (2021)</div>
-    </div>
-
-    <div class="acro-card" data-cat="mem">
-      <div class="acro-top">
-        <div class="acro-abbr">Mém. inter-sess.</div>
-        <span class="acro-cat-badge mem">Mémoire</span>
-      </div>
-      <div class="acro-full">Mémoire inter-sessionnelle (persistante)</div>
-      <div class="acro-def">Capacité d'un agent à maintenir des informations entre des sessions distinctes. Quatrième type identifié comme catégorie émergente ; absent des taxonomies classiques BDI et RL.</div>
-      <div class="acro-refs">Wang et al. (2023) — implicite · Weng / Karpathy (2024–25)</div>
-    </div>
-
-    <!-- BENCH -->
-    <div class="acro-card" data-cat="bench">
-      <div class="acro-top">
-        <div class="acro-abbr">ARC-AGI</div>
-        <span class="acro-cat-badge bench">Évaluation</span>
-      </div>
-      <div class="acro-full">Abstraction and Reasoning Corpus – AGI</div>
-      <div class="acro-def">Benchmark de Chollet mesurant la capacité de généralisation à des tâches visuelles inédites, conçu pour distinguer compétence mémorisée et intelligence adaptative. ARC-AGI-2 (2025) renforce le critère de nouveauté.</div>
-      <div class="acro-refs">Chollet (2019) · Chollet et al. — ARC-AGI-2 (2025)</div>
-    </div>
-
-    <div class="acro-card" data-cat="bench">
-      <div class="acro-top">
-        <div class="acro-abbr">MMLU</div>
-        <span class="acro-cat-badge bench">Évaluation</span>
-      </div>
-      <div class="acro-full">Massive Multitask Language Understanding</div>
-      <div class="acro-def">Benchmark évaluant les connaissances factuelles sur 57 domaines académiques. Exemple typique de benchmark saturé-C (contamination) et saturé-P (plafonnement) dans la taxonomie de la revue de portée.</div>
-      <div class="acro-refs">Hendrycks et al. (2020) · Kapoor et al. (2024)</div>
-    </div>
-
-    <div class="acro-card" data-cat="bench">
-      <div class="acro-top">
-        <div class="acro-abbr">SWE-bench</div>
-        <span class="acro-cat-badge bench">Évaluation</span>
-      </div>
-      <div class="acro-full">Software Engineering Benchmark</div>
-      <div class="acro-def">Benchmark agentique évaluant la capacité des LLM à résoudre des issues GitHub réelles. Cas d'étude du problème de l'optimisation coût/performance dans les benchmarks agentiques chez Kapoor et al.</div>
-      <div class="acro-refs">Jimenez et al. (2023) · Kapoor et al. (2024)</div>
-    </div>
-
-    <div class="acro-card" data-cat="bench">
-      <div class="acro-top">
-        <div class="acro-abbr">RMF</div>
-        <span class="acro-cat-badge bench">Évaluation</span>
-      </div>
-      <div class="acro-full">Risk Management Framework</div>
-      <div class="acro-def">Cadre du NIST structurant la gestion des risques IA selon les fonctions : Gouverner, Cartographier, Mesurer, Gérer. Le profil agentique (draft 2024) étend le RMF aux systèmes à supervision minimale.</div>
-      <div class="acro-refs">NIST (2023–2024)</div>
-    </div>
-
-    <div class="acro-card" data-cat="bench">
-      <div class="acro-top">
-        <div class="acro-abbr">RAM</div>
-        <span class="acro-cat-badge bench">Évaluation</span>
-      </div>
-      <div class="acro-full">Readiness Assessment Methodology</div>
-      <div class="acro-def">Méthodologie d'évaluation de la maturité des États en matière de gouvernance de l'IA (UNESCO). Cinq dimensions : réglementation, éthique, infrastructure, éducation, R&amp;D. L'agentivité traitée via la dimension infrastructure.</div>
-      <div class="acro-refs">UNESCO (2023–2024)</div>
-    </div>
-
-    <div class="acro-card" data-cat="bench">
-      <div class="acro-top">
-        <div class="acro-abbr">GPAI</div>
-        <span class="acro-cat-badge bench">Évaluation</span>
-      </div>
-      <div class="acro-full">General Purpose AI</div>
-      <div class="acro-def">Catégorie réglementaire de l'AI Act européen désignant les modèles fondamentaux déployables dans des contextes multiples. Les GPAI dépassant 10²⁵ FLOP d'entraînement font l'objet d'obligations renforcées.</div>
-      <div class="acro-refs">Commission européenne — AI Act (2024)</div>
-    </div>
-
-    <!-- CALC -->
-    <div class="acro-card" data-cat="calc">
-      <div class="acro-top">
-        <div class="acro-abbr">RL</div>
-        <span class="acro-cat-badge calc">Compute</span>
-      </div>
-      <div class="acro-full">Reinforcement Learning</div>
-      <div class="acro-def">Apprentissage par renforcement : un agent apprend une politique optimale en recevant des récompenses ou pénalités. Paradigme dominant pour les agents pré-LLM ; réintroduit via RLHF pour aligner les LLM.</div>
-      <div class="acro-refs">Silver et al. (2015) · Leike et al. (2018)</div>
-    </div>
-
-    <div class="acro-card" data-cat="calc">
-      <div class="acro-top">
-        <div class="acro-abbr">RLHF</div>
-        <span class="acro-cat-badge calc">Compute</span>
-      </div>
-      <div class="acro-full">Reinforcement Learning from Human Feedback</div>
-      <div class="acro-def">Variante du RL où les récompenses proviennent de préférences humaines. Méthode centrale d'alignement des LLM (ChatGPT, Claude). Relie le paradigme RL classique à la gouvernance HITL.</div>
-      <div class="acro-refs">Christiano et al. (2017) · Anthropic (2022–2024)</div>
-    </div>
-
-    <div class="acro-card" data-cat="calc">
-      <div class="acro-top">
-        <div class="acro-abbr">DQN</div>
-        <span class="acro-cat-badge calc">Compute</span>
-      </div>
-      <div class="acro-full">Deep Q-Network</div>
-      <div class="acro-def">Architecture neuronale combinant Q-learning et réseaux profonds. Premier agent DRL à atteindre des performances humaines sur des tâches variées (Atari). Marque le déplacement du critère agentique vers la performance empirique.</div>
-      <div class="acro-refs">Silver et al. (2015)</div>
-    </div>
-
-    <div class="acro-card" data-cat="calc">
-      <div class="acro-top">
-        <div class="acro-abbr">GPU / TPU</div>
-        <span class="acro-cat-badge calc">Compute</span>
-      </div>
-      <div class="acro-full">Graphics / Tensor Processing Unit</div>
-      <div class="acro-def">Unités de calcul massivement parallèles constituant l'infrastructure physique de l'entraînement et de l'inférence des LLM. La concentration de l'accès GPU est identifiée comme risque systémique par Bommasani et al.</div>
-      <div class="acro-refs">Silver et al. (2015) — implicite · Bommasani et al. (2021)</div>
-    </div>
-
-    <div class="acro-card" data-cat="calc">
-      <div class="acro-top">
-        <div class="acro-abbr">FLOP</div>
-        <span class="acro-cat-badge calc">Compute</span>
-      </div>
-      <div class="acro-full">Floating Point Operations</div>
-      <div class="acro-def">Unité de mesure de la puissance de calcul utilisée pour quantifier le coût d'entraînement. Seuil de 10²⁵ FLOP retenu par l'AI Act comme critère de désignation des GPAI à impact systémique.</div>
-      <div class="acro-refs">Commission européenne — AI Act (2024)</div>
-    </div>
-
-  </div>
 </section>
 
 <!-- ══════════════ RÉFÉRENCES APA ══════════════ -->
@@ -3180,17 +3218,480 @@ function updateRefCount() {
   document.getElementById('ref-count').textContent = visible + ' référence' + (visible > 1 ? 's' : '');
 }
 
-function filterAcro(cat, btn) {
-  document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
-  btn.classList.add('active');
-  document.querySelectorAll('.acro-card').forEach(function(card) {
-    if (cat === 'all' || card.dataset.cat === cat) {
-      card.classList.remove('hidden');
-    } else {
-      card.classList.add('hidden');
+// ═══════════════════════════════════════════════════════
+// ── MODULE ACRONYMES — DONNÉES ET GESTION DYNAMIQUE ──
+// ═══════════════════════════════════════════════════════
+
+// ── PALETTE DE COULEURS DISPONIBLES ──
+var ACRO_COLORS = [
+  { id:'purple', badge:'#dde6f5', badgeText:'#1e4080', border:'rgba(46,95,173,.4)',  faBg:'var(--purple-dim)', faBorder:'var(--purple)', faText:'var(--purple)' },
+  { id:'blue',   badge:'#ddeaf7', badgeText:'#1a5a96', border:'rgba(26,110,181,.4)', faBg:'var(--blue-dim)',   faBorder:'var(--blue)',   faText:'var(--blue)' },
+  { id:'amber',  badge:'#f5e8cc', badgeText:'#7a4a0a', border:'rgba(232,164,58,.4)', faBg:'var(--amber-dim)',  faBorder:'var(--amber)',  faText:'var(--amber)' },
+  { id:'coral',  badge:'#f5ddd8', badgeText:'#8c2c14', border:'rgba(232,107,95,.4)', faBg:'var(--coral-dim)',  faBorder:'var(--coral)',  faText:'var(--coral)' },
+  { id:'green',  badge:'#dff0dd', badgeText:'#1e5e14', border:'rgba(58,122,40,.4)',  faBg:'var(--green-dim)',  faBorder:'var(--green)',  faText:'var(--green)' }
+];
+
+// ── CATÉGORIES PAR DÉFAUT ──
+var ACRO_CATS_DEFAULT = [
+  { slug:'arch',  label:'Architecture \u0026 syst\u00e8mes', color:'purple' },
+  { slug:'mem',   label:'M\u00e9moire',                       color:'blue'   },
+  { slug:'bench', label:'\u00c9valuation \u0026 benchmarks',  color:'amber'  },
+  { slug:'calc',  label:'Apprentissage \u0026 compute',        color:'coral'  }
+];
+
+// ── ENTRÉES PAR DÉFAUT (21 acronymes) ──
+var ACRO_ENTRIES_DEFAULT = [
+  { id:'acr-1',  abbr:'LLM',             full:'Large Language Model',                            cat:'arch',  def:"Mod\u00e8le de langage entra\u00een\u00e9 sur de larges corpus textuels par apprentissage auto-supervis\u00e9. Dans un syst\u00e8me agentique, joue le r\u00f4le d'orchestrateur (routeur d'intentions).", refs:'Bommasani et al. (2021) \u00b7 Anthropic Model Spec (2024)' },
+  { id:'acr-2',  abbr:'BDI',             full:'Beliefs \u2013 Desires \u2013 Intentions',       cat:'arch',  def:"Architecture d'agent rationnel issue de la philosophie de l'action. Les croyances repr\u00e9sentent l'\u00e9tat du monde per\u00e7u, les d\u00e9sirs les objectifs, les intentions les plans engag\u00e9s. Mod\u00e8le fondateur de l'IA agentique symbolique.", refs:'Bratman (1987/2003) \u00b7 Wooldridge & Jennings (1995)' },
+  { id:'acr-3',  abbr:'ReAct',           full:'Reasoning + Acting',                              cat:'arch',  def:"Paradigme de prompt structurant la boucle agentique en alternance entre raisonnement en langage naturel (Thought) et action sur outils externes (Act), suivie d'une observation (Obs). Remplace l'architecture BDI pour les LLM.", refs:'Yao et al. (2022 / ICLR 2023)' },
+  { id:'acr-4',  abbr:'CoT',             full:'Chain of Thought',                                cat:'arch',  def:"Technique de prompting incitant le mod\u00e8le \u00e0 expliciter son raisonnement \u00e9tape par \u00e9tape avant de produire une r\u00e9ponse. Composante du raisonnement dans la boucle ReAct.", refs:'Wei et al. (2022) \u00b7 Yao et al. (2022)' },
+  { id:'acr-5',  abbr:'PEAS',            full:'Performance \u2013 Environment \u2013 Actuators \u2013 Sensors', cat:'arch', def:"Cadre de description d'un agent rationnel\u00a0: mesure de performance, nature de l'environnement, actionneurs disponibles, capteurs. Sert \u00e0 d\u00e9limiter la sp\u00e9cification d'un agent avant sa conception.", refs:'Russell & Norvig (1995, 4e \u00e9d. 2020)' },
+  { id:'acr-6',  abbr:'HITL',            full:'Human-in-the-Loop',                               cat:'arch',  def:"Mode de supervision o\u00f9 un humain intervient \u00e0 des points de d\u00e9cision critiques dans la boucle d'ex\u00e9cution. Crit\u00e8re de s\u00e9curit\u00e9 architectural chez Anthropic\u00a0; exigence proc\u00e9durale pour les d\u00e9cisions de niveau IV au Canada.", refs:'Leike et al. (2018) \u00b7 Anthropic (2024) \u00b7 Canada \u2014 Dir. d\u00e9cisions automatis\u00e9es (2024)' },
+  { id:'acr-7',  abbr:'MCP',             full:'Model Context Protocol',                          cat:'arch',  def:"Protocole ouvert standardisant la connexion entre LLM et outils ou sources de donn\u00e9es externes. \u00c9quivalent d'une interface USB pour agents\u00a0: permet \u00e0 un orchestrateur d'appeler des serveurs MCP sans int\u00e9gration ad hoc.", refs:'Anthropic (2024) \u2014 source uniquement industrielle, aucune r\u00e9f\u00e9rence acad\u00e9mique \u00e0 ce jour' },
+  { id:'acr-8',  abbr:'RAG',             full:'Retrieval-Augmented Generation',                  cat:'mem',   def:"Architecture combinant un LLM (m\u00e9moire param\u00e9trique) avec une base de donn\u00e9es vectorielle externe (m\u00e9moire non-param\u00e9trique). Les passages les plus similaires s\u00e9mantiquement sont r\u00e9cup\u00e9r\u00e9s et inject\u00e9s dans le contexte \u00e0 chaque requ\u00eate.", refs:'Lewis et al. (2020) \u00b7 Wang et al. (2023)' },
+  { id:'acr-9',  abbr:'M\u00e9m. param.', full:'M\u00e9moire param\u00e9trique',                cat:'mem',   def:"Connaissances encod\u00e9es dans les poids du mod\u00e8le lors de l'entra\u00eenement. Non modifiable \u00e0 l'inf\u00e9rence sans fine-tuning. Distingu\u00e9e de la m\u00e9moire externe (RAG) par Lewis et al. (2020).", refs:'Lewis et al. (2020) \u00b7 Bommasani et al. (2021)' },
+  { id:'acr-10', abbr:'M\u00e9m. inter-sess.', full:'M\u00e9moire inter-sessionnelle (persistante)', cat:'mem', def:"Capacit\u00e9 d'un agent \u00e0 maintenir des informations entre des sessions distinctes. Quatri\u00e8me type identifi\u00e9 comme cat\u00e9gorie \u00e9mergente\u00a0; absent des taxonomies classiques BDI et RL.", refs:'Wang et al. (2023) \u2014 implicite \u00b7 Weng / Karpathy (2024\u201325)' },
+  { id:'acr-11', abbr:'ARC-AGI',         full:'Abstraction and Reasoning Corpus \u2013 AGI',     cat:'bench', def:"Benchmark de Chollet mesurant la capacit\u00e9 de g\u00e9n\u00e9ralisation \u00e0 des t\u00e2ches visuelles in\u00e9dites, con\u00e7u pour distinguer comp\u00e9tence m\u00e9moris\u00e9e et intelligence adaptative. ARC-AGI-2 (2025) renforce le crit\u00e8re de nouveaut\u00e9.", refs:'Chollet (2019) \u00b7 Chollet et al. \u2014 ARC-AGI-2 (2025)' },
+  { id:'acr-12', abbr:'MMLU',            full:'Massive Multitask Language Understanding',        cat:'bench', def:"Benchmark \u00e9valuant les connaissances factuelles sur 57 domaines acad\u00e9miques. Exemple typique de benchmark satur\u00e9-C (contamination) et satur\u00e9-P (plafonnement) dans la taxonomie de la revue de port\u00e9e.", refs:'Hendrycks et al. (2020) \u00b7 Kapoor et al. (2024)' },
+  { id:'acr-13', abbr:'SWE-bench',       full:'Software Engineering Benchmark',                  cat:'bench', def:"Benchmark agentique \u00e9valuant la capacit\u00e9 des LLM \u00e0 r\u00e9soudre des issues GitHub r\u00e9elles. Cas d'\u00e9tude du probl\u00e8me de l'optimisation co\u00fbt/performance dans les benchmarks agentiques chez Kapoor et al.", refs:'Jimenez et al. (2023) \u00b7 Kapoor et al. (2024)' },
+  { id:'acr-14', abbr:'RMF',             full:'Risk Management Framework',                       cat:'bench', def:"Cadre du NIST structurant la gestion des risques IA selon les fonctions\u00a0: Gouverner, Cartographier, Mesurer, G\u00e9rer. Le profil agentique (draft 2024) \u00e9tend le RMF aux syst\u00e8mes \u00e0 supervision minimale.", refs:'NIST (2023\u20132024)' },
+  { id:'acr-15', abbr:'RAM',             full:'Readiness Assessment Methodology',                cat:'bench', def:"M\u00e9thodologie d'\u00e9valuation de la maturit\u00e9 des \u00c9tats en mati\u00e8re de gouvernance de l'IA (UNESCO). Cinq dimensions\u00a0: r\u00e9glementation, \u00e9thique, infrastructure, \u00e9ducation, R&D. L'agentivit\u00e9 trait\u00e9e via la dimension infrastructure.", refs:'UNESCO (2023\u20132024)' },
+  { id:'acr-16', abbr:'GPAI',            full:'General Purpose AI',                              cat:'bench', def:"Cat\u00e9gorie r\u00e9glementaire de l'AI Act europ\u00e9en d\u00e9signant les mod\u00e8les fondamentaux d\u00e9ployables dans des contextes multiples. Les GPAI d\u00e9passant 10\u00b2\u2075 FLOP d'entra\u00eenement font l'objet d'obligations renforc\u00e9es.", refs:'Commission europ\u00e9enne \u2014 AI Act (2024)' },
+  { id:'acr-17', abbr:'RL',              full:'Reinforcement Learning',                          cat:'calc',  def:"Apprentissage par renforcement\u00a0: un agent apprend une politique optimale en recevant des r\u00e9compenses ou p\u00e9nalit\u00e9s. Paradigme dominant pour les agents pr\u00e9-LLM\u00a0; r\u00e9introduit via RLHF pour aligner les LLM.", refs:'Silver et al. (2015) \u00b7 Leike et al. (2018)' },
+  { id:'acr-18', abbr:'RLHF',            full:'Reinforcement Learning from Human Feedback',      cat:'calc',  def:"Variante du RL o\u00f9 les r\u00e9compenses proviennent de pr\u00e9f\u00e9rences humaines. M\u00e9thode centrale d'alignement des LLM (ChatGPT, Claude). Relie le paradigme RL classique \u00e0 la gouvernance HITL.", refs:'Christiano et al. (2017) \u00b7 Anthropic (2022\u20132024)' },
+  { id:'acr-19', abbr:'DQN',             full:'Deep Q-Network',                                  cat:'calc',  def:"Architecture neuronale combinant Q-learning et r\u00e9seaux profonds. Premier agent DRL \u00e0 atteindre des performances humaines sur des t\u00e2ches vari\u00e9es (Atari). Marque le d\u00e9placement du crit\u00e8re agentique vers la performance empirique.", refs:'Silver et al. (2015)' },
+  { id:'acr-20', abbr:'GPU / TPU',       full:'Graphics / Tensor Processing Unit',               cat:'calc',  def:"Unit\u00e9s de calcul massivement parall\u00e8les constituant l'infrastructure physique de l'entra\u00eenement et de l'inf\u00e9rence des LLM. La concentration de l'acc\u00e8s GPU est identifi\u00e9e comme risque syst\u00e9mique par Bommasani et al.", refs:'Silver et al. (2015) \u2014 implicite \u00b7 Bommasani et al. (2021)' },
+  { id:'acr-21', abbr:'FLOP',            full:'Floating Point Operations',                       cat:'calc',  def:"Unit\u00e9 de mesure de la puissance de calcul utilis\u00e9e pour quantifier le co\u00fbt d'entra\u00eenement. Seuil de 10\u00b2\u2075 FLOP retenu par l'AI Act comme crit\u00e8re de d\u00e9signation des GPAI \u00e0 impact syst\u00e9mique.", refs:'Commission europ\u00e9enne \u2014 AI Act (2024)' }
+];
+
+// ── ÉTAT EN MÉMOIRE ──
+var acroCats    = [];
+var acroEntries = [];
+var acroCurrentFilter = 'all';
+var acroEditingId     = null;
+
+// ── UTILITAIRES ──
+function escHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function getAcroColor(colorId) {
+  for (var i = 0; i < ACRO_COLORS.length; i++) { if (ACRO_COLORS[i].id === colorId) return ACRO_COLORS[i]; }
+  return ACRO_COLORS[0];
+}
+
+function getCatBySlug(slug) {
+  for (var i = 0; i < acroCats.length; i++) { if (acroCats[i].slug === slug) return acroCats[i]; }
+  return null;
+}
+
+// ── INITIALISATION ──
+function initAcroModule() {
+  try { acroCats = JSON.parse(localStorage.getItem('acro_cats') || 'null') || JSON.parse(JSON.stringify(ACRO_CATS_DEFAULT)); }
+  catch(e) { acroCats = JSON.parse(JSON.stringify(ACRO_CATS_DEFAULT)); }
+
+  try { acroEntries = JSON.parse(localStorage.getItem('acro_entries') || 'null') || JSON.parse(JSON.stringify(ACRO_ENTRIES_DEFAULT)); }
+  catch(e) { acroEntries = JSON.parse(JSON.stringify(ACRO_ENTRIES_DEFAULT)); }
+
+  renderAcro('all');
+  syncAcroAdminUI();
+  loadChronCustom();
+}
+
+// ── RENDU COMPLET ──
+function renderAcro(filterCat) {
+  acroCurrentFilter = filterCat || 'all';
+  renderAcroFilters();
+  renderAcroCards();
+}
+
+function renderAcroFilters() {
+  var bar = document.getElementById('acro-filter-bar');
+  if (!bar) return;
+  var isAll = acroCurrentFilter === 'all';
+  var html = '<button class="filter-btn' + (isAll ? ' active' : '') + '" onclick="filterAcro(\'all\')" style="' + (isAll ? 'background:var(--purple-dim);border-color:var(--purple);color:var(--purple)' : '') + '">Tous</button>';
+
+  acroCats.forEach(function(cat) {
+    var c = getAcroColor(cat.color);
+    var active = acroCurrentFilter === cat.slug;
+    var style = active ? 'background:' + c.faBg + ';border-color:' + c.faBorder + ';color:' + c.faText + ';' : '';
+    html += '<button class="filter-btn' + (active ? ' active' : '') + '" style="' + style + '" onclick="filterAcro(\'' + cat.slug + '\')">' + escHtml(cat.label) + '</button>';
+  });
+  bar.innerHTML = html;
+}
+
+function renderAcroCards() {
+  var grid = document.getElementById('acro-grid');
+  if (!grid) return;
+  var isAdmin = sessionLevel === 'admin';
+  var html = '';
+
+  acroEntries.forEach(function(e) {
+    var cat    = getCatBySlug(e.cat);
+    var c      = getAcroColor(cat ? cat.color : 'purple');
+    var label  = cat ? cat.label : e.cat;
+    var hidden = (acroCurrentFilter !== 'all' && e.cat !== acroCurrentFilter) ? ' hidden' : '';
+
+    html += '<div class="acro-card' + hidden + '" data-id="' + escHtml(e.id) + '" data-cat="' + escHtml(e.cat) + '" style="border-left:3px solid ' + c.border + '">'
+          + '<div class="acro-top">'
+          +   '<div class="acro-abbr">' + escHtml(e.abbr) + '</div>'
+          +   '<span class="acro-cat-badge" style="background:' + c.badge + ';color:' + c.badgeText + '">' + escHtml(label) + '</span>'
+          + '</div>'
+          + '<div class="acro-full">' + escHtml(e.full) + '</div>'
+          + '<div class="acro-def">' + escHtml(e.def) + '</div>'
+          + '<div class="acro-refs">' + escHtml(e.refs) + '</div>';
+
+    if (isAdmin) {
+      html += '<div class="acro-card-actions">'
+            +   '<button class="acro-card-edit-btn" onclick="openEditAcroModal(\'' + escHtml(e.id) + '\')">✎ Modifier</button>'
+            +   '<button class="acro-card-edit-btn btn-del" onclick="deleteAcroEntry(\'' + escHtml(e.id) + '\')">✕ Supprimer</button>'
+            + '</div>';
     }
+    html += '</div>';
+  });
+
+  grid.innerHTML = html;
+}
+
+// ── FILTRE ──
+function filterAcro(cat) {
+  acroCurrentFilter = cat;
+  renderAcroFilters();
+  document.querySelectorAll('#acro-grid .acro-card').forEach(function(card) {
+    if (cat === 'all' || card.dataset.cat === cat) card.classList.remove('hidden');
+    else card.classList.add('hidden');
   });
 }
+
+// ── DÉVERROUILLAGE ADMIN ──
+function triggerAdminUnlock() {
+  if (sessionLevel === 'admin') {
+    // Déjà admin : demander confirmation pour verrouiller
+    if (confirm('Désactiver le mode administrateur ?')) {
+      sessionLevel = null;
+      syncAdminUI();
+    }
+    return;
+  }
+  requirePassword(syncAdminUI, true);
+}
+
+// ── SYNC INTERFACE ADMIN ──
+function syncAdminUI() {
+  syncAcroAdminUI();
+  syncChronAdminUI();
+  // Bouton nav
+  var btn = document.getElementById('admin-unlock-btn');
+  if (btn) {
+    if (sessionLevel === 'admin') {
+      btn.textContent = '🔓 Admin actif';
+      btn.style.color = 'var(--green)';
+      btn.style.borderColor = 'var(--green)';
+      btn.style.background = 'var(--green-dim)';
+    } else {
+      btn.textContent = '🔒 Admin';
+      btn.style.color = 'var(--text3)';
+      btn.style.borderColor = 'var(--border2)';
+      btn.style.background = 'transparent';
+    }
+  }
+}
+
+function syncAcroAdminUI() {
+  var bar = document.getElementById('acro-admin-bar');
+  if (bar) bar.style.display = (sessionLevel === 'admin') ? 'flex' : 'none';
+  if (sessionLevel === 'admin') renderAcroCards(); // re-render pour afficher les boutons admin
+}
+
+function syncChronAdminUI() {
+  var t = document.getElementById('chron-admin-trigger');
+  if (t) t.style.display = (sessionLevel === 'admin') ? 'flex' : 'none';
+}
+
+// ── SAUVEGARDE ──
+function saveAcroCats()    { try { localStorage.setItem('acro_cats',    JSON.stringify(acroCats));    } catch(e) {} }
+function saveAcroEntries() { try { localStorage.setItem('acro_entries', JSON.stringify(acroEntries)); } catch(e) {} }
+
+// ── MODAL GESTION CATÉGORIES ──
+function openCatModal() {
+  renderCatList();
+  document.getElementById('cat-modal-overlay').classList.add('show');
+}
+function closeCatModal() {
+  document.getElementById('cat-modal-overlay').classList.remove('show');
+  renderAcro(acroCurrentFilter);
+}
+
+function renderCatList() {
+  var list = document.getElementById('cat-list');
+  if (!list) return;
+  var html = '';
+  acroCats.forEach(function(cat, idx) {
+    var count = acroEntries.filter(function(e) { return e.cat === cat.slug; }).length;
+    var colorOpts = '';
+    ACRO_COLORS.forEach(function(c) {
+      colorOpts += '<option value="' + c.id + '"' + (c.id === cat.color ? ' selected' : '') + '>' + c.id + '</option>';
+    });
+    html += '<li data-idx="' + idx + '">'
+          +   '<span class="cat-slug">' + escHtml(cat.slug) + '</span>'
+          +   '<input class="cat-label-input" type="text" value="' + escHtml(cat.label) + '" id="cat-lbl-' + idx + '">'
+          +   '<select class="form-select" style="font-size:11px;padding:4px 8px;max-width:90px" id="cat-col-' + idx + '">' + colorOpts + '</select>'
+          +   '<span class="cat-count">' + count + ' entr.</span>'
+          +   '<button class="btn-icon btn-save" title="Enregistrer" onclick="saveCatRename(' + idx + ')">&#10003;</button>'
+          +   '<button class="btn-icon" title="Supprimer" onclick="deleteCat(\'' + escHtml(cat.slug) + '\')">&#10005;</button>'
+          + '</li>';
+  });
+  list.innerHTML = html;
+}
+
+function saveCatRename(idx) {
+  var lbl = document.getElementById('cat-lbl-' + idx);
+  var col = document.getElementById('cat-col-' + idx);
+  if (!lbl) return;
+  var newLabel = lbl.value.trim();
+  if (!newLabel) return;
+  acroCats[idx].label = newLabel;
+  if (col) acroCats[idx].color = col.value;
+  saveAcroCats();
+  lbl.style.borderColor = 'var(--green)';
+  setTimeout(function() { lbl.style.borderColor = ''; }, 900);
+}
+
+function deleteCat(slug) {
+  var cat = getCatBySlug(slug);
+  if (!cat) return;
+  var count = acroEntries.filter(function(e) { return e.cat === slug; }).length;
+  var firstOther = null;
+  for (var i = 0; i < acroCats.length; i++) { if (acroCats[i].slug !== slug) { firstOther = acroCats[i]; break; } }
+
+  if (count > 0) {
+    if (!firstOther) { alert('Impossible de supprimer la seule catégorie.'); return; }
+    if (!confirm('La catégorie "' + cat.label + '" contient ' + count + ' entrée(s). Elles seront déplacées vers "' + firstOther.label + '". Continuer ?')) return;
+    acroEntries.forEach(function(e) { if (e.cat === slug) e.cat = firstOther.slug; });
+    saveAcroEntries();
+  } else {
+    if (!confirm('Supprimer la catégorie "' + cat.label + '" ?')) return;
+  }
+
+  acroCats = acroCats.filter(function(c) { return c.slug !== slug; });
+  saveAcroCats();
+  renderCatList();
+}
+
+function addNewCat() {
+  var slugIn  = document.getElementById('new-cat-slug');
+  var labelIn = document.getElementById('new-cat-label');
+  var colorSel = document.getElementById('new-cat-color');
+  if (!slugIn || !labelIn) return;
+  var slug  = slugIn.value.trim().toLowerCase().replace(/[^a-z0-9\-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+  var label = labelIn.value.trim();
+  if (!slug || !label) { alert('Le code et le libellé sont obligatoires.'); return; }
+  if (getCatBySlug(slug)) { alert('Ce code existe déjà : ' + slug); return; }
+  acroCats.push({ slug: slug, label: label, color: colorSel ? colorSel.value : 'green' });
+  saveAcroCats();
+  slugIn.value = '';
+  labelIn.value = '';
+  renderCatList();
+}
+
+// ── MODAL AJOUT / ÉDITION ACRONYME ──
+function openAddAcroModal() {
+  acroEditingId = null;
+  document.getElementById('acro-edit-title').textContent = 'Ajouter un acronyme';
+  document.getElementById('acro-edit-abbr').value = '';
+  document.getElementById('acro-edit-full').value = '';
+  document.getElementById('acro-edit-def').value  = '';
+  document.getElementById('acro-edit-refs').value = '';
+  populateAcroEditCatSelect(acroCats.length ? acroCats[0].slug : '');
+  document.getElementById('acro-edit-overlay').classList.add('show');
+  setTimeout(function() { document.getElementById('acro-edit-abbr').focus(); }, 50);
+}
+
+function openEditAcroModal(id) {
+  var entry = null;
+  for (var i = 0; i < acroEntries.length; i++) { if (acroEntries[i].id === id) { entry = acroEntries[i]; break; } }
+  if (!entry) return;
+  acroEditingId = id;
+  document.getElementById('acro-edit-title').textContent = 'Modifier — ' + entry.abbr;
+  document.getElementById('acro-edit-abbr').value = entry.abbr;
+  document.getElementById('acro-edit-full').value = entry.full;
+  document.getElementById('acro-edit-def').value  = entry.def;
+  document.getElementById('acro-edit-refs').value = entry.refs;
+  populateAcroEditCatSelect(entry.cat);
+  document.getElementById('acro-edit-overlay').classList.add('show');
+}
+
+function populateAcroEditCatSelect(selectedCat) {
+  var sel = document.getElementById('acro-edit-cat');
+  if (!sel) return;
+  var html = '';
+  acroCats.forEach(function(c) {
+    html += '<option value="' + escHtml(c.slug) + '"' + (c.slug === selectedCat ? ' selected' : '') + '>' + escHtml(c.label) + '</option>';
+  });
+  sel.innerHTML = html;
+}
+
+function closeAcroEditModal() {
+  document.getElementById('acro-edit-overlay').classList.remove('show');
+  acroEditingId = null;
+}
+
+function saveAcroEdit() {
+  var abbr = document.getElementById('acro-edit-abbr').value.trim();
+  var full = document.getElementById('acro-edit-full').value.trim();
+  var def  = document.getElementById('acro-edit-def').value.trim();
+  var refs = document.getElementById('acro-edit-refs').value.trim();
+  var cat  = document.getElementById('acro-edit-cat').value;
+  if (!abbr || !def) { alert('L\'abréviation et la définition sont obligatoires.'); return; }
+
+  if (acroEditingId) {
+    for (var i = 0; i < acroEntries.length; i++) {
+      if (acroEntries[i].id === acroEditingId) {
+        acroEntries[i].abbr = abbr; acroEntries[i].full = full;
+        acroEntries[i].def  = def;  acroEntries[i].refs = refs;
+        acroEntries[i].cat  = cat;
+        break;
+      }
+    }
+  } else {
+    acroEntries.push({ id: 'acr-' + Date.now(), abbr: abbr, full: full, def: def, refs: refs, cat: cat });
+  }
+
+  saveAcroEntries();
+  closeAcroEditModal();
+  renderAcro(acroCurrentFilter);
+}
+
+function deleteAcroEntry(id) {
+  if (!confirm('Supprimer cet acronyme définitivement ?')) return;
+  acroEntries = acroEntries.filter(function(e) { return e.id !== id; });
+  saveAcroEntries();
+  renderAcro(acroCurrentFilter);
+}
+
+// ═══════════════════════════════════════════════════════
+// ── MODULE CHRONOLOGIE — AJOUT DE FICHES SOURCES ──
+// ═══════════════════════════════════════════════════════
+
+var PERIOD_GRIDS = {
+  p1:  'chron-grid-p1',
+  p2:  'chron-grid-p2',
+  p3a: 'chron-grid-p3a',
+  p3b: 'chron-grid-p3b'
+};
+
+function toggleChronPanel() {
+  var panel = document.getElementById('chron-add-panel');
+  if (!panel) return;
+  var show = panel.style.display === 'none' || panel.style.display === '';
+  panel.style.display = show ? 'block' : 'none';
+  if (show) setTimeout(function() { panel.scrollIntoView({ behavior:'smooth', block:'nearest' }); }, 50);
+}
+
+function submitChronCard() {
+  var year    = (document.getElementById('chron-year')         || {}).value || '';
+  var period  = (document.getElementById('chron-period')       || {}).value || 'p3a';
+  var type    = (document.getElementById('chron-type')         || {}).value || 'acad';
+  var source  = (document.getElementById('chron-source')       || {}).value || '';
+  var ref     = (document.getElementById('chron-ref')          || {}).value || '';
+  var def     = (document.getElementById('chron-def')          || {}).value || '';
+  var crits   = (document.getElementById('chron-crits')        || {}).value || '';
+  var infraSt = (document.getElementById('chron-infra-status') || {}).value || 'non';
+  var infraTx = (document.getElementById('chron-infra-text')   || {}).value || '';
+  var obsKey  = (document.getElementById('chron-obs-key')      || {}).value || '';
+
+  year   = year.trim(); source = source.trim(); def = def.trim();
+  if (!year || !source || !def) { alert('Année, auteur/source et définition sont obligatoires.'); return; }
+
+  var card = { id:'chron-' + Date.now(), year:year, period:period, type:type, source:source, ref:ref.trim(), def:def, crits:crits.trim(), infraStatus:infraSt, infraText:infraTx.trim(), obsKey:obsKey.trim() };
+  injectChronCard(card);
+  saveChronCustom(card);
+
+  // Réinitialiser
+  ['chron-year','chron-source','chron-ref','chron-def','chron-crits','chron-infra-text','chron-obs-key'].forEach(function(id) {
+    var el = document.getElementById(id); if (el) el.value = '';
+  });
+  var msg = document.getElementById('chron-add-msg');
+  if (msg) { msg.textContent = 'Fiche ajoutée \u2713'; setTimeout(function() { msg.textContent = ''; }, 2500); }
+}
+
+function buildChronCardHTML(card) {
+  var badgeLabels = { acad:'Acad.', ind:'Ind.', grey:'Blog', gouv:'Gouv.' };
+  var infraDotClass = { oui:'yes', partielle:'part', non:'no' };
+  var infraLabel = { oui:'Oui', partielle:'Partielle', non:'Non' };
+  var dotCls = infraDotClass[card.infraStatus] || 'no';
+  var lbl    = infraLabel[card.infraStatus]    || 'Non';
+  var badgeLbl = badgeLabels[card.type] || card.type;
+
+  var critsHtml = '';
+  if (card.crits) {
+    card.crits.split(',').forEach(function(c) {
+      c = c.trim(); if (c) critsHtml += '<span class="crit">' + escHtml(c) + '</span>';
+    });
+  }
+
+  var obsLink = '';
+  if (card.obsKey) {
+    var obsBase = 'https://publish.obsidian.md/fredplamondon/Revue+de+port%C3%A9e+IA+agentique+et+benchmarks/Chronologie/';
+    obsLink = '<a class="obs-link" href="' + obsBase + encodeURIComponent(card.obsKey) + '" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Note</a>';
+  }
+
+  var adminBtn = '';
+  if (sessionLevel === 'admin') {
+    adminBtn = '<button class="acro-card-edit-btn btn-del" style="margin-top:8px;display:block" onclick="deleteChronCard(\'' + escHtml(card.id) + '\',this)">✕ Supprimer cette fiche</button>';
+  }
+
+  return '<div class="card-meta">'
+    + '<span class="card-year">' + escHtml(card.year) + '</span>'
+    + '<span class="badge ' + escHtml(card.type) + '">' + escHtml(badgeLbl) + '</span>'
+    + '</div>'
+    + '<div class="card-source">' + escHtml(card.source) + '</div>'
+    + (card.ref ? '<div class="card-ref">' + escHtml(card.ref) + '</div>' : '')
+    + '<div class="card-def">' + escHtml(card.def) + '</div>'
+    + (critsHtml ? '<div class="crit-list">' + critsHtml + '</div>' : '')
+    + '<div class="infra-tag"><span class="infra-dot ' + dotCls + '"></span>'
+    + escHtml(lbl) + (card.infraText ? ' \u2014 ' + escHtml(card.infraText) : '')
+    + '</div>'
+    + obsLink
+    + adminBtn;
+}
+
+function injectChronCard(card) {
+  var gridId = PERIOD_GRIDS[card.period];
+  var grid   = gridId ? document.getElementById(gridId) : null;
+  if (!grid) return;
+
+  var div = document.createElement('div');
+  div.className = 'card ' + (card.type || 'acad') + ' fade-in';
+  div.dataset.chronId = card.id;
+  div.innerHTML = buildChronCardHTML(card);
+  grid.appendChild(div);
+}
+
+function saveChronCustom(card) {
+  var stored = [];
+  try { stored = JSON.parse(localStorage.getItem('chron_custom') || '[]'); } catch(e) {}
+  stored.push(card);
+  try { localStorage.setItem('chron_custom', JSON.stringify(stored)); } catch(e) {}
+}
+
+function loadChronCustom() {
+  var stored = [];
+  try { stored = JSON.parse(localStorage.getItem('chron_custom') || '[]'); } catch(e) {}
+  stored.forEach(function(c) { injectChronCard(c); });
+}
+
+function deleteChronCard(id, btn) {
+  if (!confirm('Supprimer cette fiche source ?')) return;
+  var card = btn ? btn.closest('.card') : document.querySelector('[data-chron-id="' + id + '"]');
+  if (card) card.remove();
+  var stored = [];
+  try { stored = JSON.parse(localStorage.getItem('chron_custom') || '[]'); } catch(e) {}
+  stored = stored.filter(function(c) { return c.id !== id; });
+  try { localStorage.setItem('chron_custom', JSON.stringify(stored)); } catch(e) {}
+}
+
 
 // ── MOTS DE PASSE DE SESSION ──
 // admin  : ajout + suppression (APP_CONFIG.adminPassword)
@@ -3270,6 +3771,7 @@ function confirmDelete() {
   else if (sessionLevel === null) sessionLevel = 'collab';
   document.getElementById('pwd-err').textContent = 'Mot de passe incorrect.';
   closePwd();
+  syncAdminUI(); // Afficher les barres admin acronymes + chronologie
   if (pendingAction) { pendingAction.fn(); pendingAction = null; }
 }
 
@@ -3364,6 +3866,9 @@ function renumberRefs() {
 
 document.addEventListener('DOMContentLoaded', function() {
 
+  // Initialiser le module acronymes (données dynamiques + chron. personnalisées)
+  initAcroModule();
+
   // Charger les références (JSONBin si configuré, sinon localStorage)
   loadRefsFromStorage();
   // Injecter boutons suppression (admin seulement, visibles au survol)
@@ -3415,6 +3920,85 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 </script>
+
+<!-- ══ MODAL GESTION DES CATÉGORIES ══ -->
+<div class="cat-modal-overlay" id="cat-modal-overlay" onclick="if(event.target===this)closeCatModal()">
+  <div class="cat-modal">
+    <div class="cat-modal-title">
+      Gérer les catégories
+      <button class="btn-secondary" onclick="closeCatModal()" style="font-size:12px;padding:5px 12px">Fermer</button>
+    </div>
+
+    <div style="font-family:'DM Mono',monospace;font-size:10.5px;color:var(--text3);margin-bottom:14px">
+      Catégories existantes — renommez ou supprimez, puis cliquez ✓ pour sauvegarder.
+    </div>
+
+    <ul class="cat-list" id="cat-list"></ul>
+
+    <div style="border-top:1px solid var(--border);padding-top:18px;margin-top:4px">
+      <div style="font-family:'DM Serif Display',serif;font-size:15px;color:var(--text);margin-bottom:12px">Ajouter une catégorie</div>
+      <div style="display:grid;grid-template-columns:1fr 1.6fr auto auto;gap:8px;align-items:end">
+        <div>
+          <label class="form-label">Code (slug) *</label>
+          <input class="form-input cat-label-input" id="new-cat-slug" placeholder="ex: proto" style="font-family:'DM Mono',monospace;font-size:11px">
+        </div>
+        <div>
+          <label class="form-label">Libellé *</label>
+          <input class="form-input cat-label-input" id="new-cat-label" placeholder="ex: Protocoles">
+        </div>
+        <div>
+          <label class="form-label">Couleur</label>
+          <select class="form-select" id="new-cat-color" style="font-size:11px;padding:5px 8px">
+            <option value="purple">Bleu-violet</option>
+            <option value="blue">Bleu</option>
+            <option value="amber">Ambre</option>
+            <option value="coral">Corail</option>
+            <option value="green" selected>Vert</option>
+          </select>
+        </div>
+        <div>
+          <button class="btn-primary" onclick="addNewCat()" style="font-size:12px;padding:7px 14px;margin-top:0">Créer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL AJOUT / ÉDITION ACRONYME ══ -->
+<div class="acro-edit-overlay" id="acro-edit-overlay" onclick="if(event.target===this)closeAcroEditModal()">
+  <div class="acro-edit-modal">
+    <div style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--text);margin-bottom:20px;display:flex;justify-content:space-between;align-items:center">
+      <span id="acro-edit-title">Ajouter un acronyme</span>
+      <button class="btn-secondary" onclick="closeAcroEditModal()" style="font-size:12px;padding:5px 12px">Fermer</button>
+    </div>
+    <div class="form-grid" style="display:grid;grid-template-columns:1fr 2fr;gap:12px 16px">
+      <div class="form-group">
+        <label class="form-label">Abréviation *</label>
+        <input class="form-input" id="acro-edit-abbr" placeholder="ex: RAG" style="font-family:'DM Mono',monospace">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Catégorie</label>
+        <select class="form-select" id="acro-edit-cat"></select>
+      </div>
+      <div class="form-group" style="grid-column:1/-1">
+        <label class="form-label">Forme développée</label>
+        <input class="form-input" id="acro-edit-full" placeholder="ex: Retrieval-Augmented Generation">
+      </div>
+      <div class="form-group" style="grid-column:1/-1">
+        <label class="form-label">Définition *</label>
+        <textarea class="form-input" id="acro-edit-def" rows="4" style="resize:vertical" placeholder="Définition et rôle dans le contexte de l'IA agentique…"></textarea>
+      </div>
+      <div class="form-group" style="grid-column:1/-1">
+        <label class="form-label">Références</label>
+        <input class="form-input" id="acro-edit-refs" placeholder="ex: Lewis et al. (2020) · Bommasani et al. (2021)">
+      </div>
+    </div>
+    <div class="form-actions" style="margin-top:18px">
+      <button class="btn-primary" onclick="saveAcroEdit()">Enregistrer</button>
+      <button class="btn-secondary" onclick="closeAcroEditModal()">Annuler</button>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
